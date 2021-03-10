@@ -1,0 +1,17 @@
+=begin
+
+DATA FETCHING
+get project
+get commit
+post project
+post commit --> put project
+put commit 
+delete proj
+delete commit
+
+=end
+
+class PagesController < ApplicationController
+  def home
+  end
+end
