@@ -1,5 +1,3 @@
-import React from 'react'
-
 /**
  * "SuperTonic" 
  * - one up from the first note, home, even better than home... next door is home... 
@@ -49,6 +47,8 @@ import React from 'react'
  * 4. violet/gray - #666699
  * 5. salmon - #ff9999
  */
+
+import React from 'react'
 
 export default function App() {
     return (
