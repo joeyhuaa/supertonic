@@ -13,5 +13,6 @@ delete commit
 
 class PagesController < ApplicationController
   def home
+    # get data thats needed when app first loads
   end
 end

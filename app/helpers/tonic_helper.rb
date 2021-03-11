@@ -1,0 +1,2 @@
+module TonicHelper
+end

@@ -16,6 +16,9 @@
  * 1. Directory = list of files 
  * 2. MusicPlayer - mp3 streamer on the bottom of page 
  * 3. Uploader - input plus file handling, rest api
+ * 4. Header
+ * 5. Footer? 
+ * 6. Sidebar - list projects (like spotify sidebar)
  */
 
 /** PROPS - pulled from db
@@ -49,11 +52,19 @@
  */
 
 import React from 'react'
+import Directory from './Directory'
+import Header from './Header'
+import ProjectMenu from './ProjectMenu'
+import MusicPlayer from './MusicPlayer'
 
 export default function App() {
     return (
         <div>
             <h1>SuperTonic</h1>
+            <Header />
+            <ProjectMenu />
+            <Directory />
+            <MusicPlayer />
         </div>
     )
 }
