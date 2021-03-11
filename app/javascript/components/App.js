@@ -51,19 +51,38 @@
  * 5. salmon - #ff9999
  */
 
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import ProjectView from './ProjectView'
 import Header from './Header'
 import MusicPlayer from './MusicPlayer'
 import Sidebar from './Sidebar'
+import NewProjectForm from './NewProjectForm'
 
 export default function App() {
+    let [state, setState] = useState({
+        showNewProjectForm: false,
+    })
+
+    let toggleNewProjForm = (val) => {
+        setState({...state, showNewProjectForm: val})
+    }
+
+    // use css grid on <main>?? maybe not necessary cuz flex is working...
+
     return (
         <div id='main'>
-            <Sidebar />
+            <Sidebar 
+                newProjClicked={() => toggleNewProjForm(true)}
+            />
             {/* <Header /> */}
             <ProjectView />
             <MusicPlayer />
+
+            {state.showNewProjectForm &&
+                <NewProjectForm 
+                    closeSelf={() => toggleNewProjForm(false)}
+                />
+            }
         </div>
     )
 }

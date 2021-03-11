@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react'
+import moment from 'moment'
 import styles from '../stylesheets/musicplayer.module.css'
 import play from '../../assets/images/play.png'
 import pause from '../../assets/images/pause.png'
@@ -26,11 +27,11 @@ export default function MusicPlayer({songs}) {
 
     let playPause = () => {
         if (music.current.paused) {
-        music.current.play()
-        setIsPlaying(true)
+            music.current.play()
+            setIsPlaying(true)
         } else {
-        music.current.pause()
-        setIsPlaying(false)
+            music.current.pause()
+            setIsPlaying(false)
         }
     }
 
