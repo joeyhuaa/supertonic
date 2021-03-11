@@ -52,18 +52,17 @@
  */
 
 import React from 'react'
-import Directory from './Directory'
+import ProjectView from './ProjectView'
 import Header from './Header'
-import ProjectMenu from './ProjectMenu'
 import MusicPlayer from './MusicPlayer'
+import Sidebar from './Sidebar'
 
 export default function App() {
     return (
-        <div>
-            <h1>SuperTonic</h1>
-            <Header />
-            <ProjectMenu />
-            <Directory />
+        <div id='main'>
+            <Sidebar />
+            {/* <Header /> */}
+            <ProjectView />
             <MusicPlayer />
         </div>
     )

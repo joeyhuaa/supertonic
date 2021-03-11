@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import styles from '../../assets/stylesheets/directory.module.css'
+import styles from '../stylesheets/directory.module.css'
 
 export default function Directory({
     files

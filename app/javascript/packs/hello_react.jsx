@@ -8,8 +8,10 @@ import PropTypes from 'prop-types'
 import App from '../components/App'
 
 document.addEventListener('DOMContentLoaded', () => {
+  let elem = document.createElement('div')
+  elem.setAttribute('id', 'app-container')
   ReactDOM.render(
     <App />,
-    document.body.appendChild(document.createElement('div')),
+    document.body.appendChild(elem),
   )
 })
