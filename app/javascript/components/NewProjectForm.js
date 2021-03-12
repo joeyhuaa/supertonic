@@ -39,12 +39,12 @@ export default function NewProjectForm({
 
     let postNewProj = () => {
         // post to project/new
-        let files = document.getElementById('upload').files
+        let files = Array.from(document.getElementById('upload').files)
         let formdata = new FormData()
 
         formdata.append('name', name)
         formdata.append('description', description)
-        formdata.append('files', files)
+        files.forEach(f => formdata.append('files[]', f))
 
         fetch('/project/new', {
             method: 'POST',
@@ -52,7 +52,7 @@ export default function NewProjectForm({
                 "X-CSRF-Token": csrf_token
             },
             body: formdata,
-        })
+        }).then(() => window.location.reload())
     }
 
     return (

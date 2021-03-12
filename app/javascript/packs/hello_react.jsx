@@ -4,14 +4,21 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
 import App from '../components/App'
 
 document.addEventListener('DOMContentLoaded', () => {
+  // get data from backend
+  let div = document.getElementById('projects')
+  let projects = JSON.parse(div.getAttribute('data'))
+
+  // attach root div to DOM
   let elem = document.createElement('div')
   elem.setAttribute('id', 'app-container')
+
   ReactDOM.render(
-    <App />,
+    <App 
+      projects={projects}
+    />,
     document.body.appendChild(elem),
   )
 })

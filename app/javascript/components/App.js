@@ -51,6 +51,16 @@
  * 5. salmon - #ff9999
  */
 
+/**
+ * THEMES
+ * nocturne - default
+ * con fuoco - burgundy/dark red 
+ * flambe - salmon/orange/pink
+ * adagio - light blue/chill
+ * mezzo forte - black/space gray
+ * ad Parnassum - white/quartz
+ */
+
 import React, {useState, useEffect} from 'react'
 import ProjectView from './ProjectView'
 import Header from './Header'
@@ -58,16 +68,21 @@ import MusicPlayer from './MusicPlayer'
 import Sidebar from './Sidebar'
 import NewProjectForm from './NewProjectForm'
 
-export default function App() {
+export default function App({
+    projects
+}) {
+    useEffect(() => {
+        // reconstruct File objects for all audio files in projects
+    }, [projects])
+
     let [state, setState] = useState({
         showNewProjectForm: false,
+        files: []
     })
 
     let toggleNewProjForm = (val) => {
         setState({...state, showNewProjectForm: val})
     }
-
-    // use css grid on <main>?? maybe not necessary cuz flex is working...
 
     return (
         <div id='main'>
