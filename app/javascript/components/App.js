@@ -72,8 +72,17 @@ export default function App({
     projects
 }) {
     useEffect(() => {
-        // reconstruct File objects for all audio files in projects
+        // base64 -> file
+        // if (projects.length > 0) {
+        //     projects[0].files.forEach(f => {
+        //         console.log(atob(f))
+        //     })
+        // }
     }, [projects])
+
+    useEffect(() => {
+        // console.log('render')
+    })
 
     let [state, setState] = useState({
         showNewProjectForm: false,
@@ -84,9 +93,12 @@ export default function App({
         setState({...state, showNewProjectForm: val})
     }
 
+    console.log(atob(''))
+
     return (
         <div id='main'>
             <Sidebar 
+                projects={projects}
                 newProjClicked={() => toggleNewProjForm(true)}
             />
             {/* <Header /> */}

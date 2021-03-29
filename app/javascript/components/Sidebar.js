@@ -5,14 +5,29 @@ export default function Sidebar({
     projects,
     newProjClicked
 }) {
+    useEffect(() => {
+        // console.log('sidebar')
+    })
     return (
         <section id={styles.sidebar}>
             <div style={{
+                borderBottom: 'solid gray 1px',
+                paddingBottom: '10px',
             }}>
                 <h1>SuperTonic</h1>
             </div>
-            <div>
-                list projects here
+            <div style={{
+                paddingTop: '10px',
+            }}>
+                {projects.map((proj, i) => {
+                    return (
+                        <div 
+                            key={`proj-${i}`}
+                        >
+                            <h3>{proj.name}</h3>
+                        </div>
+                    )
+                })}
             </div>
             <button
                 onClick={newProjClicked}

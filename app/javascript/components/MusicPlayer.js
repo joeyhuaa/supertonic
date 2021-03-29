@@ -14,6 +14,10 @@ export default function MusicPlayer({songs}) {
     //   console.log(music.current.src)
     // },[currentSong])
 
+    useEffect(() => {
+        // console.log(music.current)
+    })
+
     let music = useRef(null)
     let playHead = useRef(null)
     let timeline = useRef(null)
@@ -87,7 +91,7 @@ export default function MusicPlayer({songs}) {
             </span>
             {button}
             <span className={styles.timestamp}>
-                {music.current ? currentTime :  `-:--`}
+                {music.current ? currentTime :  `-:--`} {/* change to if currentSong, not if music.current */}
             </span>
             <div id={styles.timeline} ref={timeline} onClick={e => timeLineClicked(e)}>
                 <div id={styles.playHead} ref={playHead}></div>

@@ -37,22 +37,46 @@ export default function NewProjectForm({
     // can't a hacker just parse this code and get the token...
     // can't a hacker literally just paste line 36 and bypass csrf protection>??!?!???? 
 
-    let postNewProj = () => {
-        // post to project/new
-        let files = Array.from(document.getElementById('upload').files)
-        let formdata = new FormData()
+    let audioToBase64 = async (audioFile) => {
+        return new Promise((resolve, reject) => {
+          let reader = new FileReader();
+          reader.onerror = reject;
+          reader.onload = (e) => resolve(e.target.result);
+          reader.readAsDataURL(audioFile);
+        });
+    }
 
-        formdata.append('name', name)
-        formdata.append('description', description)
-        files.forEach(f => formdata.append('files[]', f))
-
+    let postNewProj = formdata => {
         fetch('/project/new', {
             method: 'POST',
             headers: {
                 "X-CSRF-Token": csrf_token
             },
             body: formdata,
-        }).then(() => window.location.reload())
+        })
+        .then(() => window.location.reload())
+    }
+
+    let handleNewProj = () => {
+        // set up formdata
+        let files = Array.from(document.getElementById('upload').files)
+        let formdata = new FormData()
+        formdata.append('name', name)
+        formdata.append('description', description)
+
+        // create array of proms for converting audio files -> b64
+        let promises = []
+        files.forEach((file) => {
+            promises.push(audioToBase64(file))
+        })
+
+        // resolve the array of proms
+        Promise.all(promises) // !this was the missing piece of the puzzle!
+        .then(result => {
+            formdata.append('files', JSON.stringify(result))
+            postNewProj(formdata) 
+        })
+        .catch(err => console.log(err))
     }
 
     return (
@@ -86,7 +110,7 @@ export default function NewProjectForm({
                 <button 
                     className='round-btn submit-btn'
                     onClick={() => {
-                        postNewProj()
+                        handleNewProj()
                         closeSelf()
                     }}
                 >CREATE</button>
