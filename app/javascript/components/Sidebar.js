@@ -3,7 +3,8 @@ import styles from '../stylesheets/sidebar.module.css'
 
 export default function Sidebar({
     projects,
-    newProjClicked
+    newProjClicked,
+    projectSelected
 }) {
     useEffect(() => {
         // console.log('sidebar')
@@ -24,7 +25,7 @@ export default function Sidebar({
                         <div 
                             key={`proj-${i}`}
                         >
-                            <h3>{proj.name}</h3>
+                            <h3 onClick={() => projectSelected(proj.id)}>{proj.name}</h3>
                         </div>
                     )
                 })}

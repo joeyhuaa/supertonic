@@ -9,7 +9,9 @@ import App from '../components/App'
 document.addEventListener('DOMContentLoaded', () => {
   // get data from backend
   let div = document.getElementById('projects')
+  // console.log(div.getAttribute('data'))
   let projects = JSON.parse(div.getAttribute('data'))
+  // console.log(projects)
 
   // attach root div to DOM
   let elem = document.createElement('div')

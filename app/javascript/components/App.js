@@ -71,14 +71,7 @@ import NewProjectForm from './NewProjectForm'
 export default function App({
     projects
 }) {
-    useEffect(() => {
-        // base64 -> file
-        // if (projects.length > 0) {
-        //     projects[0].files.forEach(f => {
-        //         console.log(atob(f))
-        //     })
-        // }
-    }, [projects])
+    const csrf_token = document.head.querySelector("[name=csrf-token]").content
 
     useEffect(() => {
         // console.log('render')
@@ -86,23 +79,38 @@ export default function App({
 
     let [state, setState] = useState({
         showNewProjectForm: false,
-        files: []
+        files: [],
+        currProj: null
     })
 
     let toggleNewProjForm = (val) => {
         setState({...state, showNewProjectForm: val})
     }
 
-    console.log(atob(''))
+    let projectSelected = (id) => {
+        console.log(id)
+        // get request to get the project
+        fetch(`/project/${id}`, {
+            method: 'GET',
+            headers: {
+                "X-CSRF-Token": csrf_token
+            },
+        })
+        .then(result => result.json())
+        .then(data => setState({...state, currProj: data}))
+    }
 
     return (
         <div id='main'>
             <Sidebar 
                 projects={projects}
                 newProjClicked={() => toggleNewProjForm(true)}
+                projectSelected={projectSelected}
             />
             {/* <Header /> */}
-            <ProjectView />
+            <ProjectView 
+                project={state.currProj}
+            />
             <MusicPlayer />
 
             {state.showNewProjectForm &&

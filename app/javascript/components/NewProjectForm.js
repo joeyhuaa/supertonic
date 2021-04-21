@@ -54,7 +54,7 @@ export default function NewProjectForm({
             },
             body: formdata,
         })
-        .then(() => window.location.reload())
+        .then(() => window.location.reload()) // reload app to get new data
     }
 
     let handleNewProj = () => {
@@ -73,7 +73,13 @@ export default function NewProjectForm({
         // resolve the array of proms
         Promise.all(promises) // !this was the missing piece of the puzzle!
         .then(result => {
-            formdata.append('files', JSON.stringify(result))
+            let songs = result.map((b64, i) => {
+                return {
+                    name: files[i].name,
+                    b64: b64
+                }
+            })
+            formdata.append('files', JSON.stringify(songs))
             postNewProj(formdata) 
         })
         .catch(err => console.log(err))
