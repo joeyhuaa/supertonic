@@ -14,6 +14,7 @@ let styles = {
         width:'500px',
         height:'400px',
         padding:'20px',
+        zIndex: 3
     },
     top: {
         textAlign:'center',
@@ -89,7 +90,7 @@ export default function NewProjectForm({
         <section style={styles.form_container}>
             <div style={styles.top}>
                 <span
-                    style={{float:'right'}}
+                    style={{float:'right', cursor:'pointer'}}
                     onClick={closeSelf}
                 >
                     <BsX size={30} color='whitesmoke' />

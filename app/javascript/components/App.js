@@ -7,7 +7,7 @@
 /**
  * ROADMAP
  * 1. set up the project view
- * 2. create user login
+ * 2. create user login https://www.honeybadger.io/blog/oauth2-ruby/
  * 3. other views??
  */
 
@@ -81,15 +81,37 @@ export default function App({
         showNewProjectForm: false,
         files: [],
         currProj: null,
-        currSong: null
+        currSong: null,
+        isPlaying: false,
     })
 
     let toggleNewProjForm = (val) => {
         setState({...state, showNewProjectForm: val})
     }
 
+    let playPause = async (id) => {
+        // if no song is in state, or we are changing songs, make a fetch request and update state
+        if (state.currSong === null) {
+            let {song} = await getSong(id)
+            setState({...state, currSong: song, isPlaying: true})
+        } else if (state.currSong.id !== id) {
+            let {song} = await getSong(id)
+            setState({...state, currSong: song, isPlaying: true})
+            // somehow make 2 successive state changes on isPlaying?
+        } else {
+            setState({...state, isPlaying: !state.isPlaying})
+        }
+    }
+
+    let getSong = async (id) => {
+        let data = await fetch(`/song/${id}`, {
+            method: 'GET',
+            headers: { "X-CSRF-Token": csrf_token },
+        })
+        return data.json()
+    }
+
     let projectSelected = (id) => {
-        console.log(id)
         // get request to get the project
         fetch(`/project/${id}`, {
             method: 'GET',
@@ -103,6 +125,18 @@ export default function App({
 
     return (
         <div id='main'>
+            <div 
+                id='overlay' 
+                style={{
+                    display: state.showNewProjectForm ? 'block' : 'none',
+                    position: 'absolute',
+                    width: '100%',
+                    height: '100%',
+                    zIndex: 2,
+                    backgroundColor: 'black',
+                    opacity: 0.6
+                }} 
+            />
             <Sidebar 
                 projects={projects}
                 newProjClicked={() => toggleNewProjForm(true)}
@@ -111,10 +145,14 @@ export default function App({
             {/* <Header /> */}
             <ProjectView 
                 project={state.currProj}
-                getCurrSong={song => setState({...state, currSong: song})}
+                isPlaying={state.isPlaying}
+                currSong={state.currSong}
+                playPause={playPause}
             />
             <MusicPlayer 
                 song={state.currSong}
+                isPlaying={state.isPlaying}
+                playPause={playPause}
             />
 
             {state.showNewProjectForm &&

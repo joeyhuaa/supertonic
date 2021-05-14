@@ -43,18 +43,27 @@
 
 #timeline {
     width: 400px;
-    height: 10px;
-    background: rgb(158, 157, 157);
+    height: 5px;
+    background: rgb(0, 0, 0);
     border-radius: 15px;
+    display: flex;
+    align-items: center;
+    position: relative;
 }
 #timeline:hover {
     cursor:pointer; 
 }
+#timeline_past {
+    border-radius: 15px;
+    background-color: white;
+    height: 100%;
+    position: absolute;
+}
 
 #playhead {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     margin-top: 1px;
-    background: black;
+    background-color: white;
 }

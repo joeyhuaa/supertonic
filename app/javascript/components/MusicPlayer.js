@@ -3,41 +3,32 @@ import moment from 'moment'
 import styles from '../stylesheets/musicplayer.module.css'
 import {FaPlay, FaPause} from 'react-icons/fa'
 
-export default function MusicPlayer({song}) {
-    let [isPlaying, setIsPlaying] = useState(false)
+export default function MusicPlayer({
+    song,
+    isPlaying,
+    playPause
+}) {
     let [currentTime, setCurrentTime] = useState(null)
 
-    // useEffect(() => {
-    //   console.log(music.current.currentSrc)
-    //   console.log(music.current.src)
-    // },[currentSong])
-
     useEffect(() => {
-        // console.log(music.current)
-        if (song) console.log(song)
-    })
+        if (isPlaying) {
+            music.current.play()
+        } else {
+            music.current.pause()
+        }
+    }, [isPlaying])
 
     let music = useRef(null)
-    let playHead = useRef(null)
+    let playhead = useRef(null)
     let timeline = useRef(null)
+    let timelinePast = useRef(null)
     let pButton = useRef(null)
 
     let getCurrentTime = () => { if (music.current) return music.current.currentTime }
 
     let getDuration = () => { if (music.current) return music.current.duration }
 
-    let getTimeLineWidth = () => timeline.current.offsetWidth - playHead.current.offsetWidth
-
-    let playPause = () => {
-        console.log(music.current)
-        if (music.current.paused) {
-            music.current.play()
-            setIsPlaying(true)
-        } else {
-            music.current.pause()
-            setIsPlaying(false)
-        }
-    }
+    let getTimeLineWidth = () => timeline.current.offsetWidth
 
     // let queueNextSong = () => {
     //     let nextSong = songs[Math.floor(Math.random() * songs.length)]
@@ -46,8 +37,12 @@ export default function MusicPlayer({song}) {
     // }
 
     let timeUpdate = () => {
+        // update the timeline UI
         let playPercent = (music.current.currentTime / getDuration()) * getTimeLineWidth()
-        playHead.current.style.marginLeft = playPercent + 'px'
+        playhead.current.style.marginLeft = playPercent + 'px'
+        timelinePast.current.style.width = playPercent + 5 + 'px'
+
+        // set state
         setCurrentTime(msString(getCurrentTime()))
         if (getCurrentTime() === getDuration()) {
             setIsPlaying(false)
@@ -71,14 +66,13 @@ export default function MusicPlayer({song}) {
     };
 
     let button = isPlaying ?  
-        <div id={styles.pButton} ref={pButton} onClick={playPause}><FaPause color='white' /></div> :
-        <div id={styles.pButton} ref={pButton} onClick={playPause}><FaPlay color='white' /></div>
+        <div id={styles.pButton} ref={pButton} onClick={() => playPause(song.id)}><FaPause color='white' /></div> :
+        <div id={styles.pButton} ref={pButton} onClick={() => playPause(song.id)}><FaPlay color='white' /></div>
 
     return (
         <section id={styles.player_container}>
             <audio 
                 id='music' 
-                // key={currentSong.file} 
                 ref={music} 
                 onTimeUpdate={timeUpdate}
                 src={song ? song.b64 : null}
@@ -95,7 +89,8 @@ export default function MusicPlayer({song}) {
             </span>
 
             <div id={styles.timeline} ref={timeline} onClick={e => timeLineClicked(e)}>
-                <div id={styles.playHead} ref={playHead}></div>
+                <div id={styles.timeline_past} ref={timelinePast} />
+                <div id={styles.playhead} ref={playhead} />
             </div>
 
             <span className={styles.timestamp}>

@@ -1,25 +1,31 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import styles from '../stylesheets/projectview.module.css'
-import {FaPlay} from 'react-icons/fa'
+import {FaPlay, FaPause} from 'react-icons/fa'
+import moment from 'moment'
 
 export default function ProjectView({
     project,
-    getCurrSong
+    isPlaying,
+    currSong,
+    playPause
 }) {
-    const csrf_token = document.head.querySelector("[name=csrf-token]").content
-    let getAudioB64 = id => {
-        // get the song
-        fetch(`/song/${id}`, {
-            method: 'GET',
-            headers: {
-                "X-CSRF-Token": csrf_token
-            },
-        })
-        .then(result => result.json())
-        .then(data => {
-            // send song to App
-            getCurrSong(data.song) 
-        })
+
+    useEffect(() => {
+        if (project) project.songs.map(song => console.log(dataURLtoFile(song.b64)))
+    },[])
+
+    let dataURLtoFile = (dataurl, filename) => {
+        let arr = dataurl.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), 
+            n = bstr.length, 
+            u8arr = new Uint8Array(n);
+            
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        
+        return new File([u8arr], filename, {type:mime});
     }
 
     return (
@@ -36,13 +42,15 @@ export default function ProjectView({
                         paddingTop: '10px',
                     }}>
                         {project.songs.map(song => (
-                            <div className={styles.song} key={song['id']}>
-                                <div className={styles.song_play} onClick={() => getAudioB64(song['id'])}>
-                                    <FaPlay color='white' />
+                            <div className={styles.song} key={song.id}>
+                                <div className={styles.song_play} onClick={() => playPause(song.id)}>
+                                    {isPlaying && currSong.id === song.id ? <FaPause color='white' /> : <FaPlay color='white' />}
                                 </div>
-                                <span className={styles.song_name}>{song['name']}</span>
+                                <span className={styles.song_name}>{song.name}</span>
                                 <span className={styles.song_time}>time</span>
-                                <span className={styles.song_date}>date added</span>
+                                <span className={styles.song_date}>
+                                    {moment( new Date(song.date_created) ).format('MMMM Do, YYYY')}
+                                </span>
                             </div>
                         ))}
                     </div>
