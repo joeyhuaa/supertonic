@@ -1,8 +1,10 @@
-import React from 'react';
+import React from 'react'
 import styles from '../stylesheets/projectview.module.css'
+import {FaPlay} from 'react-icons/fa'
 
 export default function ProjectView({
-    project
+    project,
+    getCurrSong
 }) {
     const csrf_token = document.head.querySelector("[name=csrf-token]").content
     let getAudioB64 = id => {
@@ -14,7 +16,10 @@ export default function ProjectView({
             },
         })
         .then(result => result.json())
-        .then(data => console.log(data))
+        .then(data => {
+            // send song to App
+            getCurrSong(data.song) 
+        })
     }
 
     return (
@@ -31,7 +36,14 @@ export default function ProjectView({
                         paddingTop: '10px',
                     }}>
                         {project.songs.map(song => (
-                            <p onClick={() => getAudioB64(song['id'])}>{song['name']}</p>
+                            <div className={styles.song} key={song['id']}>
+                                <div className={styles.song_play} onClick={() => getAudioB64(song['id'])}>
+                                    <FaPlay color='white' />
+                                </div>
+                                <span className={styles.song_name}>{song['name']}</span>
+                                <span className={styles.song_time}>time</span>
+                                <span className={styles.song_date}>date added</span>
+                            </div>
                         ))}
                     </div>
                 </div>

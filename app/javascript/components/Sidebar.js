@@ -24,6 +24,7 @@ export default function Sidebar({
                     return (
                         <div 
                             key={`proj-${i}`}
+                            style={{cursor:'pointer'}}
                         >
                             <h3 onClick={() => projectSelected(proj.id)}>{proj.name}</h3>
                         </div>

@@ -3,7 +3,7 @@ class SongController < ApplicationController
   def get
     @song = Song.find(params['id'])
     render :json => {
-      :b64 => @song.b64
+      :song => @song
     }
   end
 

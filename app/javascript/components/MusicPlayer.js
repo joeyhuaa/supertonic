@@ -1,12 +1,10 @@
 import React, {useState, useEffect, useRef} from 'react'
 import moment from 'moment'
 import styles from '../stylesheets/musicplayer.module.css'
-import play from '../../assets/images/play.png'
-import pause from '../../assets/images/pause.png'
+import {FaPlay, FaPause} from 'react-icons/fa'
 
-export default function MusicPlayer({songs}) {
+export default function MusicPlayer({song}) {
     let [isPlaying, setIsPlaying] = useState(false)
-    //   let [currentSong, setCurrentSong] = useState(songs[Math.floor(Math.random() * songs.length)])
     let [currentTime, setCurrentTime] = useState(null)
 
     // useEffect(() => {
@@ -16,6 +14,7 @@ export default function MusicPlayer({songs}) {
 
     useEffect(() => {
         // console.log(music.current)
+        if (song) console.log(song)
     })
 
     let music = useRef(null)
@@ -30,6 +29,7 @@ export default function MusicPlayer({songs}) {
     let getTimeLineWidth = () => timeline.current.offsetWidth - playHead.current.offsetWidth
 
     let playPause = () => {
+        console.log(music.current)
         if (music.current.paused) {
             music.current.play()
             setIsPlaying(true)
@@ -50,8 +50,8 @@ export default function MusicPlayer({songs}) {
         playHead.current.style.marginLeft = playPercent + 'px'
         setCurrentTime(msString(getCurrentTime()))
         if (getCurrentTime() === getDuration()) {
-        setIsPlaying(false)
-        queueNextSong()
+            setIsPlaying(false)
+            queueNextSong()
         }
     }
 
@@ -71,8 +71,8 @@ export default function MusicPlayer({songs}) {
     };
 
     let button = isPlaying ?  
-        <img id={styles.pButton} src={pause} alt='button' ref={pButton} onClick={playPause} /> :
-        <img id={styles.pButton} src={play} alt='button' ref={pButton} onClick={playPause} />
+        <div id={styles.pButton} ref={pButton} onClick={playPause}><FaPause color='white' /></div> :
+        <div id={styles.pButton} ref={pButton} onClick={playPause}><FaPlay color='white' /></div>
 
     return (
         <section id={styles.player_container}>
@@ -81,21 +81,23 @@ export default function MusicPlayer({songs}) {
                 // key={currentSong.file} 
                 ref={music} 
                 onTimeUpdate={timeUpdate}
-                >
-                {/* <source src={currentSong.file} type='audio/mpeg'></source> */}
-            </audio>
+                src={song ? song.b64 : null}
+            />
 
-            {/* <img src={currentSong.art} width={30} alt='cover art' /> */}
             <span className={styles.song_title}>
-                {/* {currentSong.title} */}
+                {song ? song.name : null}
             </span>
+
             {button}
+
             <span className={styles.timestamp}>
                 {music.current ? currentTime :  `-:--`} {/* change to if currentSong, not if music.current */}
             </span>
+
             <div id={styles.timeline} ref={timeline} onClick={e => timeLineClicked(e)}>
                 <div id={styles.playHead} ref={playHead}></div>
             </div>
+
             <span className={styles.timestamp}>
                 {music.current ? msString(getDuration()) : `-:--`}
             </span>

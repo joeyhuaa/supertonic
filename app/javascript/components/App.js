@@ -80,7 +80,8 @@ export default function App({
     let [state, setState] = useState({
         showNewProjectForm: false,
         files: [],
-        currProj: null
+        currProj: null,
+        currSong: null
     })
 
     let toggleNewProjForm = (val) => {
@@ -110,8 +111,11 @@ export default function App({
             {/* <Header /> */}
             <ProjectView 
                 project={state.currProj}
+                getCurrSong={song => setState({...state, currSong: song})}
             />
-            <MusicPlayer />
+            <MusicPlayer 
+                song={state.currSong}
+            />
 
             {state.showNewProjectForm &&
                 <NewProjectForm 

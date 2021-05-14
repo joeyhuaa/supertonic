@@ -3,3 +3,28 @@
     height: 100%;
     width: 100%;
 }
+
+.song {
+    /* border: solid salmon 2px; */
+    display: flex;
+    align-items: center;
+    height: 50px;
+    max-width: 700px;
+}
+
+.song_play {
+    flex: 5%;
+    cursor: pointer;
+}
+
+.song_name {
+    flex: 40%;
+}
+
+.song_time {
+    flex: 25%;
+}
+
+.song_date {
+    flex: 30%;
+}

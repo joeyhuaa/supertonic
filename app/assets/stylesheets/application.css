@@ -40,6 +40,10 @@ p {
     margin: 0;
 }
 
+button {
+    cursor: pointer;
+}
+
 input, textarea {
     color: black;
     border-radius: 3px;
@@ -78,3 +82,5 @@ section {
 .submit-btn {
     background-color: #008eff;
 }
+
+
