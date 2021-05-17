@@ -9,6 +9,7 @@ export default function Sidebar({
     useEffect(() => {
         // console.log('sidebar')
     })
+    
     return (
         <section id={styles.sidebar}>
             <div style={{

@@ -1,15 +1,21 @@
 require 'byebug'
 
 class ProjectController < ApplicationController
-  def index
-    @projects = Project.all
-  end
+  # def index
+  #   @projects = Project.all
+  # end
 
   # POST /project/new
   def new
     @project = Project.new
+
+    # name
     @project.name = params['name']
+
+    # description
     @project.description = params['description']
+
+    # files
     files = []
     JSON.parse(params['files']).each do |file|
       @song = Song.new
@@ -20,12 +26,13 @@ class ProjectController < ApplicationController
     end
     @project.files = files
     @project.save
-  end
 
-  def update
-  end 
-
-  def delete
+    # branches
+    @project.branches = {
+      'main' => @project.files.map{|file| file['id']},
+      'mixes' => []
+    }
+    @project.save
   end
 
   # GET /project/:id
@@ -45,7 +52,25 @@ class ProjectController < ApplicationController
     render :json => {
       :id => params[:id], 
       :name => @project.name,
-      :songs => @songs
+      :songs => @songs,
+      :branches => @project.branches
     }
   end
+
+  # PUT /project/:id/newbranch
+  def new_branch
+    @project = Project.find(params[:id])
+    @project.branches[params[:branch]]
+  end
+
+  # PUT /project/:id/deletebranch
+  def delete_branch
+  end
+
+  def update
+  end 
+
+  def delete
+  end
+
 end

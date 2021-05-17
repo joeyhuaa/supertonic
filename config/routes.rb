@@ -3,10 +3,13 @@ Rails.application.routes.draw do
   get 'song/post'
   get 'song/update'
   get 'song/delete'
+
   post 'project/new', :to => 'project#new'
+  get 'project/:id', :to => 'project#get'
+  put 'project/:id/newbranch', :to => 'project#new_branch'
+  put 'project/:id/deletebranch', :to => 'project#delete_branch'
   put 'project/update', :to => 'project#update'
   delete 'project/delete', :to => 'project#delete'
-  get 'project/:id', :to => 'project#get'
 
   get 'song/:id', :to => 'song#get'
   

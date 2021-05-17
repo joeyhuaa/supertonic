@@ -40,7 +40,7 @@ p {
     margin: 0;
 }
 
-button {
+button, .clickable {
     cursor: pointer;
 }
 

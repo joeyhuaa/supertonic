@@ -67,6 +67,7 @@ import Header from './Header'
 import MusicPlayer from './MusicPlayer'
 import Sidebar from './Sidebar'
 import NewProjectForm from './NewProjectForm'
+import NewBranchForm from './NewBranchForm'
 
 export default function App({
     projects
@@ -79,6 +80,7 @@ export default function App({
 
     let [state, setState] = useState({
         showNewProjectForm: false,
+        showNewBranchForm: false,
         files: [],
         currProj: null,
         currSong: null,
@@ -87,6 +89,17 @@ export default function App({
 
     let toggleNewProjForm = (val) => {
         setState({...state, showNewProjectForm: val})
+    }
+    
+    // pull up a form or some input 
+    // call addBranch from inside here
+    let toggleNewBranchForm = (val) => {
+        setState({...state, showNewBranchForm: val})
+    }
+
+    // send request to server to add branch
+    let addBranch = (branchName) => {
+
     }
 
     let playPause = async (id) => {
@@ -120,7 +133,13 @@ export default function App({
             },
         })
         .then(result => result.json())
-        .then(data => setState({...state, currProj: data}))
+        .then(data => {
+            setState({...state, currProj: data})
+
+            // set url
+            // need a rails route/view to make this work?
+            // window.location.href = `project/${id}`
+        })
     }
 
     return (
@@ -128,7 +147,7 @@ export default function App({
             <div 
                 id='overlay' 
                 style={{
-                    display: state.showNewProjectForm ? 'block' : 'none',
+                    display: state.showNewProjectForm || state.showNewBranchForm ? 'block' : 'none',
                     position: 'absolute',
                     width: '100%',
                     height: '100%',
@@ -148,6 +167,7 @@ export default function App({
                 isPlaying={state.isPlaying}
                 currSong={state.currSong}
                 playPause={playPause}
+                toggleNewBranchForm={toggleNewBranchForm}
             />
             <MusicPlayer 
                 song={state.currSong}
@@ -158,6 +178,12 @@ export default function App({
             {state.showNewProjectForm &&
                 <NewProjectForm 
                     closeSelf={() => toggleNewProjForm(false)}
+                />
+            }
+
+            {state.showNewBranchForm &&
+                <NewBranchForm 
+                    closeSelf={() => toggleNewBranchForm(false)}
                 />
             }
         </div>
