@@ -1,9 +1,24 @@
 require 'byebug'
 
 class ProjectController < ApplicationController
-  # def index
-  #   @projects = Project.all
-  # end
+
+  # GET /project/:id
+  def index
+    @project = Project.find(params[:id])
+
+    # convert Song models into objects
+    @songs = @project.files.map{|file| 
+      {
+        :id => file['id'],
+        :name => file['name'],
+        :date_created => file['created_at'],
+        :date_updated => file['updated_at'],
+        # pass in time duration here somehow
+      }
+    }
+
+    render :json => {:status => 'ok'}
+  end
 
   # POST /project/new
   def new

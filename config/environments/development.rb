@@ -1,6 +1,12 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  ENV['GOOGLE_OAUTH_CLIENT_ID'] = '684849422656-k9bfpnm61fvs5ljh1sbf5ipvljohlnbs.apps.googleusercontent.com'
+  ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = 'OMCVA2HU_5HDSIUNhN4exQKd'
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded any time
@@ -11,7 +17,7 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
-  # Show full error reports.
+  # Show full error reports
   config.consider_all_requests_local = true
 
   # Enable/disable caching. By default caching is disabled.

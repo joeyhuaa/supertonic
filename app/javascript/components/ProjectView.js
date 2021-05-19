@@ -76,7 +76,10 @@ export default function ProjectView({
                                     {moment( new Date(song.date_created) ).format('MMMM Do, YYYY')}
                                 </span>
                                 <div className={`${styles.song_filechange} clickable`}>
-                                    <span>Change File</span>
+                                    <span>Change</span>
+                                </div>
+                                <div className={`${styles.song_filechange} clickable`}>
+                                    <span>Delete</span>
                                 </div>
                             </div>
                         ))}

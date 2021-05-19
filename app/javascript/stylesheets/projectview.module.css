@@ -46,7 +46,7 @@
 }
 
 .song_name {
-    flex: 40%;
+    flex: 35%;
 }
 
 .song_time {
@@ -58,5 +58,5 @@
 }
 
 .song_filechange {
-    flex: 15%;
+    flex: 10%;
 }
