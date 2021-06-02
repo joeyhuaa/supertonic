@@ -22,6 +22,7 @@ class ProjectController < ApplicationController
 
   # POST /project/new
   def new
+    @user = current_user
     @project = Project.new
 
     # name
@@ -40,7 +41,7 @@ class ProjectController < ApplicationController
       files << @song
     end
     @project.files = files
-    @project.save
+    # @project.save
 
     # branches
     @project.branches = {
@@ -48,6 +49,10 @@ class ProjectController < ApplicationController
       'mixes' => []
     }
     @project.save
+
+    # save project under user
+    @user.projects.push(@project)
+    @user.save
   end
 
   # GET /project/:id
