@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import styles from '../stylesheets/sidebar.module.css'
+import Link from 'react-router-dom'
 
 export default function Sidebar({
+    user,
     projects,
     newProjClicked,
     projectSelected,
-    signout
 }) {
     useEffect(() => {
         // console.log('sidebar')
@@ -18,7 +19,7 @@ export default function Sidebar({
                 paddingBottom: '10px',
             }}>
                 <h1>SuperTonic</h1>
-                {/* <span className='clickable' onClick={signout}>Sign Out</span> */}
+                <p>Welcome, {user.full_name}</p>
                 <a href='/users/sign_out'>Sign Out</a>
             </div>
             <div style={{
@@ -30,7 +31,8 @@ export default function Sidebar({
                             key={`proj-${i}`}
                             style={{cursor:'pointer'}}
                         >
-                            <h3 onClick={() => projectSelected(proj.id)}>{proj.name}</h3>
+                            {/* <h3 onClick={() => projectSelected(proj.id)}>{proj.name}</h3> */}
+                            <a  onClick={() => projectSelected(proj.id)}>{proj.name}</a>
                         </div>
                     )
                 })}

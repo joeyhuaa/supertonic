@@ -18,7 +18,9 @@ ActiveRecord::Schema.define(version: 2021_05_19_023019) do
     t.string "files"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
     t.string "branches"
+    t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
   create_table "songs", force: :cascade do |t|
@@ -26,6 +28,8 @@ ActiveRecord::Schema.define(version: 2021_05_19_023019) do
     t.string "b64"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "project_id"
+    t.index ["project_id"], name: "index_songs_on_project_id"
   end
 
   create_table "users", force: :cascade do |t|

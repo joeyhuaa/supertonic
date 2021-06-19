@@ -21,20 +21,6 @@ export default function ProjectView({
 
     let branchDropdown = useRef(null)
 
-    let dataURLtoFile = (dataurl, filename) => {
-        let arr = dataurl.split(','),
-            mime = arr[0].match(/:(.*?);/)[1],
-            bstr = atob(arr[1]), 
-            n = bstr.length, 
-            u8arr = new Uint8Array(n);
-            
-        while (n--) {
-            u8arr[n] = bstr.charCodeAt(n);
-        }
-        
-        return new File([u8arr], filename, {type:mime});
-    }
-
     // switching branches
     let switchBranch = () => {
         setState({...state, currBranch: branchDropdown.current.value})
@@ -65,7 +51,7 @@ export default function ProjectView({
                     <div style={{
                         paddingTop: '10px',
                     }}>
-                        {project.songs.filter(song => project.branches[state.currBranch].includes(song.id)).map(song => (
+                        {project.files.filter(song => project.branches[state.currBranch].includes(song.id)).map(song => (
                             <div className={styles.song} key={song.id}>
                                 <div className={styles.song_play} onClick={() => playPause(song.id)}>
                                     {isPlaying && currSong.id === song.id ? <FaPause color='white' /> : <FaPlay color='white' />}

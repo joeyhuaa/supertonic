@@ -70,6 +70,7 @@ import NewProjectForm from './NewProjectForm'
 import NewBranchForm from './NewBranchForm'
 
 export default function App({
+    user,
     projects
 }) {
     const csrf_token = document.head.querySelector("[name=csrf-token]").content
@@ -134,16 +135,13 @@ export default function App({
         })
         .then(result => result.json())
         .then(data => {
+            console.log(data)
             setState({...state, currProj: data})
 
             // set url
             // need a rails route/view to make this work?
             // window.location.href = `project/${id}`
         })
-    }
-
-    let signout = () => {
-        fetch('/users/sign_out')
     }
 
     return (
@@ -161,10 +159,10 @@ export default function App({
                 }} 
             />
             <Sidebar 
+                user={user}
                 projects={projects}
                 newProjClicked={() => toggleNewProjForm(true)}
                 projectSelected={projectSelected}
-                signout={signout}
             />
             {/* <Header /> */}
             <ProjectView 
