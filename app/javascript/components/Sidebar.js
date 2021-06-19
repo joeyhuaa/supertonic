@@ -5,7 +5,6 @@ export default function Sidebar({
     projects,
     newProjClicked,
     projectSelected,
-    signout
 }) {
     useEffect(() => {
         // console.log('sidebar')
@@ -18,7 +17,6 @@ export default function Sidebar({
                 paddingBottom: '10px',
             }}>
                 <h1>SuperTonic</h1>
-                {/* <span className='clickable' onClick={signout}>Sign Out</span> */}
                 <a href='/users/sign_out'>Sign Out</a>
             </div>
             <div style={{

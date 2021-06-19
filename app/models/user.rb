@@ -1,7 +1,11 @@
 class User < ApplicationRecord
   devise :omniauthable, omniauth_providers: [:google_oauth2]
 
-  serialize :projects, Array
+  # declarative relationship
+  has_many :projects, dependent: :delete_all
+
+  # this is kinda bad
+  # serialize :projects, Array
 
   def self.from_google(params)
     create_with(

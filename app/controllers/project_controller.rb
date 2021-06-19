@@ -1,5 +1,12 @@
 require 'byebug'
 
+# MIGRATION DB SHENANIGANS
+# https://guides.rubyonrails.org/association_basics.html
+
+# 1. Rollback create songs and create projects
+# 2. Add belongs_to lines to them
+# 3. Migrate
+
 class ProjectController < ApplicationController
 
   # GET /project/:id
@@ -23,7 +30,7 @@ class ProjectController < ApplicationController
   # POST /project/new
   def new
     @user = current_user
-    @project = Project.new
+    @project = @user.projects.create(created_at: Time.now)
 
     # name
     @project.name = params['name']
@@ -34,14 +41,14 @@ class ProjectController < ApplicationController
     # files
     files = []
     JSON.parse(params['files']).each do |file|
-      @song = Song.new
+      @song = @project.songs.create(created_at: Time.now)
       @song.name = file['name']
       @song.b64 = file['b64']
       @song.save
       files << @song
     end
     @project.files = files
-    # @project.save
+    @project.save
 
     # branches
     @project.branches = {
@@ -49,10 +56,6 @@ class ProjectController < ApplicationController
       'mixes' => []
     }
     @project.save
-
-    # save project under user
-    @user.projects.push(@project)
-    @user.save
   end
 
   # GET /project/:id
@@ -60,6 +63,7 @@ class ProjectController < ApplicationController
     @project = Project.find(params[:id])
 
     # convert Song models into objects
+    # BUG FIGURE OUT WHY ALL OF THIS IS NULL 
     @songs = @project.files.map{|file| 
       {
         :id => file['id'],

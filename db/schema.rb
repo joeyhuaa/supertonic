@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_02_025816) do
+ActiveRecord::Schema.define(version: 2021_05_19_023019) do
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
@@ -18,7 +18,8 @@ ActiveRecord::Schema.define(version: 2021_06_02_025816) do
     t.string "files"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "branches"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
   create_table "songs", force: :cascade do |t|
@@ -26,6 +27,8 @@ ActiveRecord::Schema.define(version: 2021_06_02_025816) do
     t.string "b64"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "project_id"
+    t.index ["project_id"], name: "index_songs_on_project_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -35,7 +38,6 @@ ActiveRecord::Schema.define(version: 2021_06_02_025816) do
     t.string "avatar_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "projects"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
