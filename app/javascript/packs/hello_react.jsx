@@ -5,22 +5,26 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from '../components/App'
+import BrowserRouter from 'react-router-dom'
 
 document.addEventListener('DOMContentLoaded', () => {
   // get data from backend
   let div = document.getElementById('projects')
-  // console.log(div.getAttribute('data'))
-  let projects = JSON.parse(div.getAttribute('data'))
-  // console.log(projects)
+   
+  if (div) {
+    let projects = JSON.parse(div.getAttribute('data'))
 
-  // attach root div to DOM
-  let elem = document.createElement('div')
-  elem.setAttribute('id', 'app-container')
+    // attach root div to DOM
+    let elem = document.createElement('div')
+    elem.setAttribute('id', 'app-container')
 
-  ReactDOM.render(
-    <App 
-      projects={projects}
-    />,
-    document.body.appendChild(elem),
-  )
+    ReactDOM.render(
+      <>
+        <App 
+          projects={projects}
+        />
+      </>,
+      document.body.appendChild(elem),
+    )
+  }
 })

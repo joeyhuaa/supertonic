@@ -26,6 +26,7 @@ html {
 }
 
 body {
+    background-image: linear-gradient(to bottom, #33334d, #1f1f2e 25%);
     padding: 0;
     margin: 0;
     height: 100vh;
@@ -53,6 +54,15 @@ input, textarea {
 
 section {
     padding: 20px;
+}
+
+#login {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
 }
 
 #app-container {

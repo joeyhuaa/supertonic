@@ -142,6 +142,10 @@ export default function App({
         })
     }
 
+    let signout = () => {
+        fetch('/users/sign_out')
+    }
+
     return (
         <div id='main'>
             <div 
@@ -160,6 +164,7 @@ export default function App({
                 projects={projects}
                 newProjClicked={() => toggleNewProjForm(true)}
                 projectSelected={projectSelected}
+                signout={signout}
             />
             {/* <Header /> */}
             <ProjectView 
