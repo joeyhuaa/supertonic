@@ -16,19 +16,26 @@ export default function Project({
     const project = projects.find(p => p.id === parseInt(match.params.projectId))
     const branchDropdown = useRef(null)
 
+    useEffect(() => {
+      console.log(projects.length)
+    }, [projects])
+
     // switching branches
     let switchBranch = () => {
         setState({...state, currBranch: branchDropdown.current.value})
     }
+
+    let destroyProj = async () => await fetch(`/projects/${project.id}/destroy`, {method: 'DELETE'}).then(() => window.location.reload())
 
     return (
         <section id={styles.project_view}>
             {project && 
                 <div>
                     <div id={styles.header}>
-                        <h1>
-                            {project.name}
-                        </h1>
+                        <h1>{project.name}</h1>
+                        <div className={`${styles.header_item} clickable`} onClick={destroyProj}>
+                          <span>Destroy</span>
+                        </div>
                         <div id={styles.branch} className={styles.header_item}>
                             <select id={styles.branch_dropdown} onChange={switchBranch} ref={branchDropdown}>
                                 {Object.keys(project.branches).map(branch => (

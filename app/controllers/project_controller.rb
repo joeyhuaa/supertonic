@@ -87,6 +87,7 @@ class ProjectController < ApplicationController
   def new_branch
     @project = Project.find(params[:id])
     @project.branches[params[:branch]]
+    render :json => {status: 200}
   end
 
   # PUT /project/:id/deletebranch
@@ -96,7 +97,11 @@ class ProjectController < ApplicationController
   def update
   end 
 
-  def delete
+  # DELETE /projects/:id/destroy
+  def destroy
+    @project = Project.find(params[:id])
+    @project.destroy
+    render :json => {status: 200}
   end
 
 end

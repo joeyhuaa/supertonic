@@ -18,8 +18,12 @@ class PagesController < ApplicationController
   end
 
   def home
-    # get data thats needed when app first loads
+    # get data thats needed when: user logs in, or project is added/deleted
     @user = current_user
-    @projects = @user.projects
+    puts @user.as_json
+    
+    if !@projects
+      @projects = @user.projects
+    end
   end
 end
