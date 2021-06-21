@@ -5,7 +5,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from '../components/App'
-import BrowserRouter from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 
 // document.addEventListener('DOMContentLoaded', () => {
 //   // get data from backend
@@ -19,11 +19,11 @@ import BrowserRouter from 'react-router-dom'
 //     elem.setAttribute('id', 'app-container')
 
 //     ReactDOM.render(
-//       <>
+//       <BrowserRouter>
 //         <App 
 //           projects={projects}
 //         />
-//       </>,
+//       </BrowserRouter>,
 //       document.body.appendChild(elem),
 //     )
 //   }

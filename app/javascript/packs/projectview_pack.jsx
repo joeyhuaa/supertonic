@@ -1,6 +1,6 @@
-// import WebpackerReact from "webpacker-react"
-// import ProjectView from '../components/ProjectView'
+import WebpackerReact from "webpacker-react"
+import Project from '../components/Project'
 
-// WebpackerReact.setup({
-//     ProjectView
-// })
+WebpackerReact.setup({
+    Project
+})

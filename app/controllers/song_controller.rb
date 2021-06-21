@@ -1,4 +1,6 @@
 class SongController < ApplicationController
+  skip_before_action :verify_authenticity_token
+  
   # GET '/song/:id'
   def get
     @song = Song.find(params['id'])

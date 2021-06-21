@@ -17,6 +17,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.string :name
       t.string :description
       t.string :files
+      t.string :branches
 
       t.timestamps
       t.belongs_to :user

@@ -12,17 +12,14 @@ delete commit
 =end
 
 class PagesController < ApplicationController
+  skip_before_action :verify_authenticity_token
+  
   def landing
   end
 
   def home
     # get data thats needed when app first loads
     @user = current_user
-    @projects = @user.projects.map{|p| 
-      {
-        :id => p.id,
-        :name => p.name
-      }
-    }
+    @projects = @user.projects
   end
 end

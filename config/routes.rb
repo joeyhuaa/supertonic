@@ -16,11 +16,12 @@ Rails.application.routes.draw do
 
   post 'project/new', :to => 'project#new'
   get 'project/:id', :to => 'project#get'
-  # get 'project/:id', :to => 'project#index'
   put 'project/:id/newbranch', :to => 'project#new_branch'
   put 'project/:id/deletebranch', :to => 'project#delete_branch'
   put 'project/update', :to => 'project#update'
   delete 'project/delete', :to => 'project#delete'
 
   get 'song/:id', :to => 'song#get'
+
+  get '*path', :to => 'pages#home'
 end

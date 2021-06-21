@@ -61,41 +61,52 @@
  * ad Parnassum - white/quartz
  */
 
+/**
+ *  ROUTING
+ * 1. react_component (App) only needed??
+ * 2. use react router inside of App.js to handle routing, like when clicking on a project?
+ * 3. but then the route would have to be diff than the rails routes
+ */
+
 import React, {useState, useEffect} from 'react'
-import ProjectView from './ProjectView'
+import { ThingsProvider } from './ThingsContext'
+import { BrowserRouter } from 'react-router-dom'
+
+import Container from './Container'
+import Project from './Project'
 import Header from './Header'
 import MusicPlayer from './MusicPlayer'
 import Sidebar from './Sidebar'
-import NewProjectForm from './NewProjectForm'
-import NewBranchForm from './NewBranchForm'
 
 export default function App({
     user,
     projects
 }) {
-    const csrf_token = document.head.querySelector("[name=csrf-token]").content
-
-    useEffect(() => {
-        // console.log('render')
-    })
-
     let [state, setState] = useState({
-        showNewProjectForm: false,
-        showNewBranchForm: false,
         files: [],
         currProj: null,
         currSong: null,
         isPlaying: false,
     })
 
-    let toggleNewProjForm = (val) => {
-        setState({...state, showNewProjectForm: val})
-    }
-    
-    // pull up a form or some input 
-    // call addBranch from inside here
-    let toggleNewBranchForm = (val) => {
-        setState({...state, showNewBranchForm: val})
+    const things = {
+        user: user,
+        projects: projects,
+        playPause: async (id) => {
+            // if no song is in state, or we are changing songs, make a fetch request and update state
+            if (state.currSong === null) {
+                let {song} = await getSong(id)
+                setState({...state, currSong: song, isPlaying: true})
+            } else if (state.currSong.id !== id) {
+                let {song} = await getSong(id)
+                setState({...state, currSong: song, isPlaying: true})
+                // somehow make 2 successive state changes on isPlaying?
+            } else {
+                setState({...state, isPlaying: !state.isPlaying})
+            }
+        },
+        isPlaying: state.isPlaying,
+        currSong: state.currSong,
     }
 
     // send request to server to add branch
@@ -103,92 +114,41 @@ export default function App({
 
     }
 
-    let playPause = async (id) => {
-        // if no song is in state, or we are changing songs, make a fetch request and update state
-        if (state.currSong === null) {
-            let {song} = await getSong(id)
-            setState({...state, currSong: song, isPlaying: true})
-        } else if (state.currSong.id !== id) {
-            let {song} = await getSong(id)
-            setState({...state, currSong: song, isPlaying: true})
-            // somehow make 2 successive state changes on isPlaying?
-        } else {
-            setState({...state, isPlaying: !state.isPlaying})
-        }
-    }
-
     let getSong = async (id) => {
-        let data = await fetch(`/song/${id}`, {
-            method: 'GET',
-            headers: { "X-CSRF-Token": csrf_token },
-        })
+        let data = await fetch(`/song/${id}`)
         return data.json()
     }
 
     let projectSelected = (id) => {
         // get request to get the project
-        fetch(`/project/${id}`, {
-            method: 'GET',
-            headers: {
-                "X-CSRF-Token": csrf_token
-            },
-        })
-        .then(result => result.json())
-        .then(data => {
-            console.log(data)
-            setState({...state, currProj: data})
+        // fetch(`/project/${id}`, {
+        //     method: 'GET',
+        // })
+        // .then(result => result.json())
+        // .then(data => {
+        //     console.log(data)
+        //     setState({...state, currProj: data})
 
-            // set url
-            // need a rails route/view to make this work?
-            // window.location.href = `project/${id}`
-        })
+        //     // set url
+        //     // need a rails route/view to make this work?
+        //     // window.location.href = `project/${id}`
+        // })
     }
 
     return (
-        <div id='main'>
-            <div 
-                id='overlay' 
-                style={{
-                    display: state.showNewProjectForm || state.showNewBranchForm ? 'block' : 'none',
-                    position: 'absolute',
-                    width: '100%',
-                    height: '100%',
-                    zIndex: 2,
-                    backgroundColor: 'black',
-                    opacity: 0.6
-                }} 
-            />
-            <Sidebar 
-                user={user}
-                projects={projects}
-                newProjClicked={() => toggleNewProjForm(true)}
-                projectSelected={projectSelected}
-            />
-            {/* <Header /> */}
-            <ProjectView 
-                project={state.currProj}
-                isPlaying={state.isPlaying}
-                currSong={state.currSong}
-                playPause={playPause}
-                toggleNewBranchForm={toggleNewBranchForm}
-            />
-            <MusicPlayer 
-                song={state.currSong}
-                isPlaying={state.isPlaying}
-                playPause={playPause}
-            />
-
-            {state.showNewProjectForm &&
-                <NewProjectForm 
-                    closeSelf={() => toggleNewProjForm(false)}
-                />
-            }
-
-            {state.showNewBranchForm &&
-                <NewBranchForm 
-                    closeSelf={() => toggleNewBranchForm(false)}
-                />
-            }
+        <div>
+            <ThingsProvider value={things}>
+                <BrowserRouter>
+                    <Container 
+                        projectSelected={projectSelected}
+                    >
+                        <MusicPlayer 
+                            song={state.currSong}
+                            isPlaying={state.isPlaying}
+                        />
+                    </Container>
+                </BrowserRouter>
+            </ThingsProvider>
         </div>
     )
 }

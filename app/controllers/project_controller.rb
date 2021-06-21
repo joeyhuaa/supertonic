@@ -8,6 +8,7 @@ require 'byebug'
 # 3. Migrate
 
 class ProjectController < ApplicationController
+  skip_before_action :verify_authenticity_token
 
   # GET /project/:id
   def index
@@ -61,7 +62,6 @@ class ProjectController < ApplicationController
   # GET /project/:id
   def get
     @project = Project.find(params[:id])
-    @projects = current_user.projects
 
     # # convert Song models into objects
     # # BUG FIGURE OUT WHY ALL OF THIS IS NULL 

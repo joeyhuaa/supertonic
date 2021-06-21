@@ -16,10 +16,10 @@ ActiveRecord::Schema.define(version: 2021_05_19_023019) do
     t.string "name"
     t.string "description"
     t.string "files"
+    t.string "branches"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
-    t.string "branches"
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 

@@ -1,16 +1,13 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
+import ThingsContext from './ThingsContext'
 import styles from '../stylesheets/sidebar.module.css'
 import Link from 'react-router-dom'
 
 export default function Sidebar({
-    user,
-    projects,
     newProjClicked,
     projectSelected,
 }) {
-    useEffect(() => {
-        // console.log('sidebar')
-    })
+    const { user, projects } = useContext(ThingsContext)
     
     return (
         <section id={styles.sidebar}>
@@ -32,7 +29,7 @@ export default function Sidebar({
                             style={{cursor:'pointer'}}
                         >
                             {/* <h3 onClick={() => projectSelected(proj.id)}>{proj.name}</h3> */}
-                            <a  onClick={() => projectSelected(proj.id)}>{proj.name}</a>
+                            <a href={`/projects/${proj.id}`} onClick={() => {}}>{proj.name}</a>
                         </div>
                     )
                 })}

@@ -1,4 +1,5 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useState, useEffect, useRef, useContext} from 'react'
+import ThingsContext from './ThingsContext'
 import moment from 'moment'
 import styles from '../stylesheets/musicplayer.module.css'
 import {FaPlay, FaPause} from 'react-icons/fa'
@@ -6,9 +7,10 @@ import {FaPlay, FaPause} from 'react-icons/fa'
 export default function MusicPlayer({
     song,
     isPlaying,
-    playPause
 }) {
     let [currentTime, setCurrentTime] = useState(null)
+    const {playPause} = useContext(ThingsContext)
+    // console.log(song)
 
     useEffect(() => {
         if (isPlaying) {

@@ -34,9 +34,6 @@ export default function NewBranchForm({
 }) {
     let [name, setName] = useState()
     let [description, setDescription] = useState()
-    const csrf_token = document.head.querySelector("[name=csrf-token]").content // is this security vulnerability??
-    // can't a hacker just parse this code and get the token...
-    // can't a hacker literally just paste line 36 and bypass csrf protection>??!?!???? 
 
     let audioToBase64 = async (audioFile) => {
         return new Promise((resolve, reject) => {
@@ -50,9 +47,6 @@ export default function NewBranchForm({
     let postNewBranch = formdata => {
         fetch(`/project/newbranch/${id}`, {
             method: 'POST',
-            headers: {
-                "X-CSRF-Token": csrf_token
-            },
             body: formdata,
         })
         .then(() => window.location.reload()) // reload app to get new data

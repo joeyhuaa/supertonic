@@ -1,25 +1,20 @@
-import React, {useState, useEffect, useRef} from 'react'
-import styles from '../stylesheets/projectview.module.css'
+import React, {useState, useEffect, useRef, useContext} from 'react'
+import ThingsContext from './ThingsContext'
+import styles from '../stylesheets/project.module.css'
 import {FaPlay, FaPause} from 'react-icons/fa'
 import moment from 'moment'
 
-export default function ProjectView({
-    project,
-    isPlaying,
-    currSong,
-    playPause,
-    toggleNewBranchForm
+export default function Project({
+    toggleNewBranchForm,
+    match
 }) {
     let [state, setState] = useState({
         currBranch: 'main',
         showNewBranchForm: false
     })
-
-    useEffect(() => {
-        console.log(window.location.href)
-    })
-
-    let branchDropdown = useRef(null)
+    const {user, projects, playPause, isPlaying, currSong} = useContext(ThingsContext)
+    const project = projects.find(p => p.id === parseInt(match.params.projectId))
+    const branchDropdown = useRef(null)
 
     // switching branches
     let switchBranch = () => {
