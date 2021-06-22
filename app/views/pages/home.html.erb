@@ -1,7 +1,4 @@
-<%= react_component(
-  'App', 
-  { 
-    user: @user,
-    projects: @projects
-  }) 
-%>
+<%= content_tag :div,
+    id: "user",
+    data: @user.to_json do %>
+<% end %>

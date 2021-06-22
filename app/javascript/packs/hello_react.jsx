@@ -6,25 +6,28 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from '../components/App'
 import { BrowserRouter } from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
-// document.addEventListener('DOMContentLoaded', () => {
-//   // get data from backend
-//   let div = document.getElementById('projects')
+const queryClient = new QueryClient()
+
+document.addEventListener('DOMContentLoaded', () => {
+  // get data from backend
+  let div = document.getElementById('user')
    
-//   if (div) {
-//     let projects = JSON.parse(div.getAttribute('data'))
+  if (div) {
+    let user = JSON.parse(div.getAttribute('data'))
 
-//     // attach root div to DOM
-//     let elem = document.createElement('div')
-//     elem.setAttribute('id', 'app-container')
+    // attach root div to DOM
+    let elem = document.createElement('div')
+    elem.setAttribute('id', 'app-container')
 
-//     ReactDOM.render(
-//       <BrowserRouter>
-//         <App 
-//           projects={projects}
-//         />
-//       </BrowserRouter>,
-//       document.body.appendChild(elem),
-//     )
-//   }
-// })
+    ReactDOM.render(
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <App user={user} />
+        </BrowserRouter>
+      </QueryClientProvider>,
+      document.body.appendChild(elem),
+    )
+  }
+})

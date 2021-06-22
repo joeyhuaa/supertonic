@@ -71,6 +71,7 @@
 import React, {useState, useEffect} from 'react'
 import { ThingsProvider } from './ThingsContext'
 import { BrowserRouter } from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 import Container from './Container'
 import Project from './Project'
@@ -78,9 +79,12 @@ import Header from './Header'
 import MusicPlayer from './MusicPlayer'
 import Sidebar from './Sidebar'
 
+import useProjects from '../hooks/useProjects'
+
+const queryClient = new QueryClient()
+
 export default function App({
-    user,
-    projects
+  user
 }) {
     let [state, setState] = useState({
         files: [],
@@ -91,7 +95,7 @@ export default function App({
 
     const things = {
         user: user,
-        projects: projects,
+        projects: useProjects(),
         playPause: async (id) => {
             // if no song is in state, or we are changing songs, make a fetch request and update state
             if (state.currSong === null) {

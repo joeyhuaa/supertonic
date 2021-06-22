@@ -13,17 +13,16 @@ delete commit
 
 class PagesController < ApplicationController
   skip_before_action :verify_authenticity_token
-  
-  def landing
-  end
 
   def home
     # get data thats needed when: user logs in, or project is added/deleted
     @user = current_user
-    puts @user.as_json
-    
-    if !@projects
-      @projects = @user.projects
-    end
+    @projects = @user.projects
   end
+
+  def projects
+    puts "/projects"
+    render :json => {:projects => current_user.projects}
+  end
+
 end
