@@ -46,7 +46,7 @@ export default function NewProjectForm({
     });
   }
 
-  let getFormData = () => {
+  let handleNewProj = () => {
     // set up formdata
     let files = Array.from(document.getElementById('upload').files)
     let formdata = new FormData()
@@ -67,15 +67,14 @@ export default function NewProjectForm({
           }
         })
         formdata.append('files', JSON.stringify(songs))
-        return formdata
+
+        // query
+        createProject.mutate(formdata)
+
+        // close form
+        closeSelf()
       })
       .catch(err => console.log(err))
-  }
-
-  let onSubmit = () => {
-    let data = getFormData()
-    createProject.mutate(data)
-    closeSelf()
   }
 
   return (
@@ -108,7 +107,7 @@ export default function NewProjectForm({
       <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
         <button
           className='round-btn submit-btn'
-          onClick={onSubmit}
+          onClick={handleNewProj}
         >CREATE</button>
       </div>
     </section>

@@ -25,7 +25,9 @@ const BranchSelect = React.forwardRef((props, ref) => {
         branch: newBranch,
         id: project.id
       })
-      // some callback
+      // set state to new branch
+      // url change? how to put Link into select...
+      
     } else if (newBranch === '') {
       alert('You must enter a branch name.')
     } else if (branchNames.includes(newBranch)) {

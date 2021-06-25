@@ -30,6 +30,8 @@ class ProjectController < ApplicationController
 
   # POST /project/new
   def new
+    puts 'NEW PROJECT'
+    puts params
     @user = current_user
     @project = @user.projects.create(created_at: Time.now)
 
