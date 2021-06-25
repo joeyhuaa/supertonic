@@ -9,20 +9,16 @@ Rails.application.routes.draw do
     get 'users/sign_out', to: 'users/sessions#destroy', as: :destroy_user_session
   end
 
-  get 'api/song/get'
-  get 'api/song/post'
-  get 'api/song/update'
-  get 'api/song/delete'
+  # api
+  get 'api/songs/:id', :to => 'song#get'
 
   get 'api/projects', :to => 'project#get_all'
-  post 'api/project/new', :to => 'project#new'
-  get 'api/project/:id', :to => 'project#get'
+  post 'api/projects/new', :to => 'project#new'
+  get 'api/projects/:id', :to => 'project#get'
   delete 'api/projects/:id/destroy', :to => 'project#destroy'
-  put 'api/project/:id/newbranch', :to => 'project#new_branch'
-  put 'api/project/:id/deletebranch', :to => 'project#delete_branch'
-  put 'api/project/update', :to => 'project#update'
-
-  get 'api/song/:id', :to => 'song#get'
+  put 'api/projects/:id/newbranch', :to => 'project#new_branch'
+  put 'api/projects/:id/deletebranch', :to => 'project#delete_branch'
+  put 'api/projects/update', :to => 'project#update'
 
   get '*path', :to => 'pages#home'
 end

@@ -69,30 +69,38 @@
  */
 
 import React, { useState, useEffect } from 'react'
+import { BrowserRouter, Route } from 'react-router-dom'
+
 import { ThingsProvider } from './ThingsContext'
 
 import Container from './Container'
-import Project from './Project'
-import Header from './Header'
 import MusicPlayer from './MusicPlayer'
+import Overlay from './Overlay'
 import Sidebar from './Sidebar'
-
-import useProjects from '../hooks/useProjects'
+import NewProjectForm from './NewProjectForm'
+import NewBranchForm from './NewBranchForm'
+import Project from './Project'
 
 export default function App({
   user
 }) {
   let [state, setState] = useState({
-    files: [],
-    currProj: null,
     currSong: null,
     isPlaying: false,
+    showNewProjectForm: false,
+    showNewProjectForm: false
+  })
+
+  useEffect(() => {
+    console.log('app')
   })
 
   const things = {
     user: user,
-    projects: useProjects(),
+    isPlaying: state.isPlaying,
+    currSong: state.currSong,
     playPause: async (id) => {
+      console.log('song', id)
       // if no song is in state, or we are changing songs, make a fetch request and update state
       if (state.currSong === null) {
         let { song } = await getSong(id)
@@ -105,8 +113,6 @@ export default function App({
         setState({ ...state, isPlaying: !state.isPlaying })
       }
     },
-    isPlaying: state.isPlaying,
-    currSong: state.currSong,
   }
 
   // send request to server to add branch
@@ -115,38 +121,45 @@ export default function App({
   }
 
   let getSong = async (id) => {
-    let data = await fetch(`/song/${id}`)
+    let data = await fetch(`/api/songs/${id}`)
     return data.json()
   }
 
-  let projectSelected = (id) => {
-    // get request to get the project
-    // fetch(`/project/${id}`, {
-    //     method: 'GET',
-    // })
-    // .then(result => result.json())
-    // .then(data => {
-    //     console.log(data)
-    //     setState({...state, currProj: data})
+  let toggleNewProjForm = (val) => {
+    setState({...state, showNewProjectForm: val})
+  }
 
-    //     // set url
-    //     // need a rails route/view to make this work?
-    //     // window.location.href = `project/${id}`
-    // })
+  // pull up a form or some input 
+  // call addBranch from inside here
+  let toggleNewBranchForm = (val) => {
+    setState({...state, showNewBranchForm: val})
   }
 
   return (
-    <div>
-      <ThingsProvider value={things}>
-        <Container
-          projectSelected={projectSelected}
-        >
-          <MusicPlayer
-            song={state.currSong}
-            isPlaying={state.isPlaying}
+    <ThingsProvider value={things}>
+      <BrowserRouter>
+        <Container>
+          <Overlay show={state.showNewBranchForm || state.showNewProjectForm} />
+          <Sidebar
+            newProjClicked={() => toggleNewProjForm(true)}
           />
+          <Route 
+            path='/projects/:projectId' 
+            render={() => <Project toggleNewBranchForm={toggleNewBranchForm} />} 
+          />
+          {state.showNewProjectForm &&
+            <NewProjectForm
+              closeSelf={() => toggleNewProjForm(false)}
+            />
+          }
+          {state.showNewBranchForm &&
+            <NewBranchForm
+              closeSelf={() => toggleNewBranchForm(false)}
+            />
+          }
+          <MusicPlayer />
         </Container>
-      </ThingsProvider>
-    </div>
+      </BrowserRouter>
+    </ThingsProvider>
   )
 }

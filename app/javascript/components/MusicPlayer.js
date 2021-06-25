@@ -4,13 +4,9 @@ import moment from 'moment'
 import styles from '../stylesheets/musicplayer.module.css'
 import {FaPlay, FaPause} from 'react-icons/fa'
 
-export default function MusicPlayer({
-    song,
-    isPlaying,
-}) {
+export default function MusicPlayer() {
     let [currentTime, setCurrentTime] = useState(null)
-    const {playPause} = useContext(ThingsContext)
-    // console.log(song)
+    const { currSong, isPlaying, playPause } = useContext(ThingsContext)
 
     useEffect(() => {
         if (isPlaying) {
@@ -68,8 +64,8 @@ export default function MusicPlayer({
     };
 
     let button = isPlaying ?  
-        <div id={styles.pButton} ref={pButton} onClick={() => playPause(song.id)}><FaPause color='white' /></div> :
-        <div id={styles.pButton} ref={pButton} onClick={() => playPause(song.id)}><FaPlay color='white' /></div>
+        <div id={styles.pButton} ref={pButton} onClick={() => playPause(currSong.id)}><FaPause color='white' /></div> :
+        <div id={styles.pButton} ref={pButton} onClick={() => playPause(currSong.id)}><FaPlay color='white' /></div>
 
     return (
         <section id={styles.player_container}>
@@ -77,11 +73,11 @@ export default function MusicPlayer({
                 id='music' 
                 ref={music} 
                 onTimeUpdate={timeUpdate}
-                src={song ? song.b64 : null}
+                src={currSong ? currSong.b64 : null}
             />
 
             <span className={styles.song_title}>
-                {song ? song.name : null}
+                {currSong ? currSong.name : null}
             </span>
 
             {button}
