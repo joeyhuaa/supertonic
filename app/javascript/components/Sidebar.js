@@ -1,21 +1,21 @@
 import React, {useState, useEffect, useContext} from 'react'
 import ThingsContext from './ThingsContext'
 import styles from '../stylesheets/sidebar.module.css'
-import Link from 'react-router-dom'
 import useProjects from '../hooks/useProjects'
+// import { useRouter } from 'next/router'
 
 export default function Sidebar({
     newProjClicked,
 }) {
   const { user } = useContext(ThingsContext)
   const { data, isError, isLoading } = useProjects()
-  // const data = data
+  const projects = data?.projects
   
   return (
     <section id={styles.sidebar}>
       {isError && <span>Error.</span>}
       {isLoading && <span>Loading...</span>}
-      {data &&
+      {projects &&
         <>
           <div style={{
             borderBottom: 'solid gray 1px',
@@ -28,7 +28,7 @@ export default function Sidebar({
           <div style={{
               paddingTop: '10px',
           }}>
-            {data && data.map((proj, i) => {
+            {projects && projects.map((proj, i) => {
               return (
                 <div 
                   key={`proj-${i}`}

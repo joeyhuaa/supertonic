@@ -5,7 +5,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from '../components/App'
-import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 const queryClient = new QueryClient()
@@ -23,9 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     ReactDOM.render(
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <App user={user} />
-        </BrowserRouter>
+        <App user={user} />
       </QueryClientProvider>,
       document.body.appendChild(elem),
     )

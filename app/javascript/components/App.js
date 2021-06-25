@@ -68,10 +68,8 @@
  * 3. but then the route would have to be diff than the rails routes
  */
 
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { ThingsProvider } from './ThingsContext'
-import { BrowserRouter } from 'react-router-dom'
-import { QueryClient, QueryClientProvider } from 'react-query'
 
 import Container from './Container'
 import Project from './Project'
@@ -81,78 +79,74 @@ import Sidebar from './Sidebar'
 
 import useProjects from '../hooks/useProjects'
 
-const queryClient = new QueryClient()
-
 export default function App({
   user
 }) {
-    let [state, setState] = useState({
-        files: [],
-        currProj: null,
-        currSong: null,
-        isPlaying: false,
-    })
+  let [state, setState] = useState({
+    files: [],
+    currProj: null,
+    currSong: null,
+    isPlaying: false,
+  })
 
-    const things = {
-        user: user,
-        projects: useProjects(),
-        playPause: async (id) => {
-            // if no song is in state, or we are changing songs, make a fetch request and update state
-            if (state.currSong === null) {
-                let {song} = await getSong(id)
-                setState({...state, currSong: song, isPlaying: true})
-            } else if (state.currSong.id !== id) {
-                let {song} = await getSong(id)
-                setState({...state, currSong: song, isPlaying: true})
-                // somehow make 2 successive state changes on isPlaying?
-            } else {
-                setState({...state, isPlaying: !state.isPlaying})
-            }
-        },
-        isPlaying: state.isPlaying,
-        currSong: state.currSong,
-    }
+  const things = {
+    user: user,
+    projects: useProjects(),
+    playPause: async (id) => {
+      // if no song is in state, or we are changing songs, make a fetch request and update state
+      if (state.currSong === null) {
+        let { song } = await getSong(id)
+        setState({ ...state, currSong: song, isPlaying: true })
+      } else if (state.currSong.id !== id) {
+        let { song } = await getSong(id)
+        setState({ ...state, currSong: song, isPlaying: true })
+        // somehow make 2 successive state changes on isPlaying?
+      } else {
+        setState({ ...state, isPlaying: !state.isPlaying })
+      }
+    },
+    isPlaying: state.isPlaying,
+    currSong: state.currSong,
+  }
 
-    // send request to server to add branch
-    let addBranch = (branchName) => {
+  // send request to server to add branch
+  let addBranch = (branchName) => {
 
-    }
+  }
 
-    let getSong = async (id) => {
-        let data = await fetch(`/song/${id}`)
-        return data.json()
-    }
+  let getSong = async (id) => {
+    let data = await fetch(`/song/${id}`)
+    return data.json()
+  }
 
-    let projectSelected = (id) => {
-        // get request to get the project
-        // fetch(`/project/${id}`, {
-        //     method: 'GET',
-        // })
-        // .then(result => result.json())
-        // .then(data => {
-        //     console.log(data)
-        //     setState({...state, currProj: data})
+  let projectSelected = (id) => {
+    // get request to get the project
+    // fetch(`/project/${id}`, {
+    //     method: 'GET',
+    // })
+    // .then(result => result.json())
+    // .then(data => {
+    //     console.log(data)
+    //     setState({...state, currProj: data})
 
-        //     // set url
-        //     // need a rails route/view to make this work?
-        //     // window.location.href = `project/${id}`
-        // })
-    }
+    //     // set url
+    //     // need a rails route/view to make this work?
+    //     // window.location.href = `project/${id}`
+    // })
+  }
 
-    return (
-        <div>
-            <ThingsProvider value={things}>
-                <BrowserRouter>
-                    <Container 
-                        projectSelected={projectSelected}
-                    >
-                        <MusicPlayer 
-                            song={state.currSong}
-                            isPlaying={state.isPlaying}
-                        />
-                    </Container>
-                </BrowserRouter>
-            </ThingsProvider>
-        </div>
-    )
+  return (
+    <div>
+      <ThingsProvider value={things}>
+        <Container
+          projectSelected={projectSelected}
+        >
+          <MusicPlayer
+            song={state.currSong}
+            isPlaying={state.isPlaying}
+          />
+        </Container>
+      </ThingsProvider>
+    </div>
+  )
 }

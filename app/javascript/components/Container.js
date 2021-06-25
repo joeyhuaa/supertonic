@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react'
 import ThingsContext from './ThingsContext'
-import  { Switch, Route } from 'react-router-dom'
 
 import Sidebar from './Sidebar'
 import NewProjectForm from './NewProjectForm'
@@ -8,64 +7,60 @@ import NewBranchForm from './NewBranchForm'
 import Project from './Project'
 
 export default function Container({
-    projectSelected,
-    children
+  projectSelected,
+  children
 }) {
-    const things = useContext(ThingsContext)
-    // console.log(things)
+  const things = useContext(ThingsContext)
+  // console.log(things)
 
-    let [state, setState] = useState({
-        showNewProjectForm: false,
-        showNewBranchForm: false
-    })
-    
-    let toggleNewProjForm = (val) => {
-        setState({...state, showNewProjectForm: val})
-    }
-    
-    // pull up a form or some input 
-    // call addBranch from inside here
-    let toggleNewBranchForm = (val) => {
-        setState({...state, showNewBranchForm: val})
-    }
+  let [state, setState] = useState({
+    showNewProjectForm: false,
+    showNewBranchForm: false
+  })
 
-    return (
-        <div id='main'>
-            <div 
-                id='overlay' 
-                style={{
-                    display: state.showNewProjectForm || state.showNewBranchForm ? 'block' : 'none',
-                    position: 'absolute',
-                    width: '100%',
-                    height: '100%',
-                    zIndex: 2,
-                    backgroundColor: 'black',
-                    opacity: 0.6
-                }} 
-            />
+  let toggleNewProjForm = (val) => {
+    setState({ ...state, showNewProjectForm: val })
+  }
 
-            <Sidebar 
-                newProjClicked={() => toggleNewProjForm(true)}
-                projectSelected={projectSelected}
-            />
+  // pull up a form or some input 
+  // call addBranch from inside here
+  let toggleNewBranchForm = (val) => {
+    setState({ ...state, showNewBranchForm: val })
+  }
 
-            <Switch>
-                <Route path='/projects/:projectId' component={Project} />
-            </Switch>
+  return (
+    <div id='main'>
+      <div
+        id='overlay'
+        style={{
+          display: state.showNewProjectForm || state.showNewBranchForm ? 'block' : 'none',
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          zIndex: 2,
+          backgroundColor: 'black',
+          opacity: 0.6
+        }}
+      />
 
-            {state.showNewProjectForm &&
-                <NewProjectForm 
-                    closeSelf={() => toggleNewProjForm(false)}
-                />
-            }
+      <Sidebar
+        newProjClicked={() => toggleNewProjForm(true)}
+        projectSelected={projectSelected}
+      />
 
-            {state.showNewBranchForm &&
-                <NewBranchForm 
-                    closeSelf={() => toggleNewBranchForm(false)}
-                />
-            }
+      {state.showNewProjectForm &&
+        <NewProjectForm
+          closeSelf={() => toggleNewProjForm(false)}
+        />
+      }
 
-            {children}
-        </div>
-    )
+      {state.showNewBranchForm &&
+        <NewBranchForm
+          closeSelf={() => toggleNewBranchForm(false)}
+        />
+      }
+
+      {children}
+    </div>
+  )
 }
