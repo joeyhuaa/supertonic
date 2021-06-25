@@ -11,19 +11,20 @@ Rails.application.routes.draw do
 
   get 'projects', :to => 'pages#projects'
 
-  get 'song/get'
-  get 'song/post'
-  get 'song/update'
-  get 'song/delete'
+  get 'api/song/get'
+  get 'api/song/post'
+  get 'api/song/update'
+  get 'api/song/delete'
 
-  post 'project/new', :to => 'project#new'
-  get 'project/:id', :to => 'project#get'
-  delete 'projects/:id/destroy', :to => 'project#destroy'
-  put 'project/:id/newbranch', :to => 'project#new_branch'
-  put 'project/:id/deletebranch', :to => 'project#delete_branch'
-  put 'project/update', :to => 'project#update'
+  get 'api/projects', :to => 'project#get_all'
+  post 'api/project/new', :to => 'project#new'
+  get 'api/project/:id', :to => 'project#get'
+  delete 'api/projects/:id/destroy', :to => 'project#destroy'
+  put 'api/project/:id/newbranch', :to => 'project#new_branch'
+  put 'api/project/:id/deletebranch', :to => 'project#delete_branch'
+  put 'api/project/update', :to => 'project#update'
 
-  get 'song/:id', :to => 'song#get'
+  get 'api/song/:id', :to => 'song#get'
 
   get '*path', :to => 'pages#home'
 end

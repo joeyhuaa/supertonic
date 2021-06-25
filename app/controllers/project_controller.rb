@@ -83,6 +83,11 @@ class ProjectController < ApplicationController
     render :json => @project
   end
 
+  def get_all
+    puts "/projects"
+    render :json => {:projects => current_user.projects}
+  end
+
   # PUT /project/:id/newbranch
   def new_branch
     @project = Project.find(params[:id])

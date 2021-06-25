@@ -20,9 +20,4 @@ class PagesController < ApplicationController
     @projects = @user.projects
   end
 
-  def projects
-    puts "/projects"
-    render :json => {:projects => current_user.projects}
-  end
-
 end
