@@ -9,8 +9,6 @@ Rails.application.routes.draw do
     get 'users/sign_out', to: 'users/sessions#destroy', as: :destroy_user_session
   end
 
-  get 'projects', :to => 'pages#projects'
-
   get 'api/song/get'
   get 'api/song/post'
   get 'api/song/update'

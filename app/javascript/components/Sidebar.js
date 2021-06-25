@@ -2,7 +2,6 @@ import React, {useState, useEffect, useContext} from 'react'
 import ThingsContext from './ThingsContext'
 import styles from '../stylesheets/sidebar.module.css'
 import useProjects from '../hooks/useProjects'
-// import { useRouter } from 'next/router'
 
 export default function Sidebar({
     newProjClicked,
