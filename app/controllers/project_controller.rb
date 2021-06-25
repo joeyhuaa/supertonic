@@ -90,8 +90,11 @@ class ProjectController < ApplicationController
 
   # PUT /project/:id/newbranch
   def new_branch
+    puts 'NEW BRANCH'
+    puts params
     @project = Project.find(params[:id])
-    @project.branches[params[:branch]]
+    @project.branches[ params[:branch] ] = []
+    @project.save
     render :json => {status: 200}
   end
 

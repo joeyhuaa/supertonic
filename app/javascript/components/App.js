@@ -143,14 +143,6 @@ export default function App({
     <Provider value={context}>
       <BrowserRouter>
         <Container>
-          <Overlay show={state.showNewBranchForm || state.showNewProjectForm} />
-          <Sidebar
-            newProjClicked={() => toggleNewProjForm(true)}
-          />
-          <Route 
-            path='/projects/:projectId' 
-            render={() => <Project toggleNewBranchForm={toggleNewBranchForm} />} 
-          />
           {state.showNewProjectForm &&
             <NewProjectForm
               closeSelf={() => toggleNewProjForm(false)}
@@ -161,7 +153,21 @@ export default function App({
               closeSelf={() => toggleNewBranchForm(false)}
             />
           }
+
+          <Overlay show={state.showNewBranchForm || state.showNewProjectForm} />
+          <Sidebar
+            newProjClicked={() => toggleNewProjForm(true)}
+          />
           <MusicPlayer />
+
+          <Route 
+            path='/projects/:projectId' 
+            render={() => <Project />} 
+          />
+          <Route 
+            path='/projects/:projectId/branch'
+            render={() => <Project />}
+          />
         </Container>
       </BrowserRouter>
     </Provider>
