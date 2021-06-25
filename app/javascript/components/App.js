@@ -71,7 +71,8 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 
-import { ThingsProvider } from './ThingsContext'
+import { Provider } from './Context'
+import useStateCallback from '../hooks/useStateCallback'
 
 import Container from './Container'
 import MusicPlayer from './MusicPlayer'
@@ -84,7 +85,7 @@ import Project from './Project'
 export default function App({
   user
 }) {
-  let [state, setState] = useState({
+  let [state, setState] = useStateCallback({
     currSong: null,
     isPlaying: false,
     showNewProjectForm: false,
@@ -92,24 +93,27 @@ export default function App({
   })
 
   useEffect(() => {
-    console.log('app')
+    // console.log('app')
   })
 
-  const things = {
+  const context = {
     user: user,
     isPlaying: state.isPlaying,
     currSong: state.currSong,
     playPause: async (id) => {
-      console.log('song', id)
       // if no song is in state, or we are changing songs, make a fetch request and update state
       if (state.currSong === null) {
         let { song } = await getSong(id)
         setState({ ...state, currSong: song, isPlaying: true })
       } else if (state.currSong.id !== id) {
+        console.log('change song')
         let { song } = await getSong(id)
-        setState({ ...state, currSong: song, isPlaying: true })
-        // somehow make 2 successive state changes on isPlaying?
+        setState(
+          { ...state, isPlaying: false },
+          newState => setState({ ...newState, currSong: song, isPlaying: true})
+        )
       } else {
+        console.log('toggle same song')
         setState({ ...state, isPlaying: !state.isPlaying })
       }
     },
@@ -121,8 +125,8 @@ export default function App({
   }
 
   let getSong = async (id) => {
-    let data = await fetch(`/api/songs/${id}`)
-    return data.json()
+    let res = await fetch(`/api/songs/${id}`)
+    return res.json()
   }
 
   let toggleNewProjForm = (val) => {
@@ -136,7 +140,7 @@ export default function App({
   }
 
   return (
-    <ThingsProvider value={things}>
+    <Provider value={context}>
       <BrowserRouter>
         <Container>
           <Overlay show={state.showNewBranchForm || state.showNewProjectForm} />
@@ -160,6 +164,6 @@ export default function App({
           <MusicPlayer />
         </Container>
       </BrowserRouter>
-    </ThingsProvider>
+    </Provider>
   )
 }

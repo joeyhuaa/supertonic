@@ -1,14 +1,14 @@
 import React, {useState, useEffect, useContext} from 'react'
 import { Link } from 'react-router-dom'
 
-import ThingsContext from './ThingsContext'
+import Context from './Context'
 import styles from '../stylesheets/sidebar.module.css'
 import useProjects from '../hooks/useProjects'
 
 export default function Sidebar({
     newProjClicked,
 }) {
-  const { user } = useContext(ThingsContext)
+  const { user } = useContext(Context)
   const { data, isError, isLoading } = useProjects()
   const projects = data?.projects
   

@@ -3,7 +3,7 @@ import { FaPlay, FaPause } from 'react-icons/fa'
 import moment from 'moment'
 import { useParams } from 'react-router-dom'
 
-import ThingsContext from './ThingsContext'
+import Context from './Context'
 import useProject from '../hooks/useProject'
 
 import styles from '../stylesheets/project.module.css'
@@ -16,7 +16,7 @@ export default function Project({
     showNewBranchForm: false
   })
   const { projectId } = useParams()
-  const { user, playPause, isPlaying, currSong } = useContext(ThingsContext)
+  const { user, playPause, isPlaying, currSong } = useContext(Context)
   const { data, isError, isLoading } = useProject(projectId)
   const project = data
   const branchDropdown = useRef(null)
