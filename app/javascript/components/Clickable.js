@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react'
 import Context from './Context'
+import { THEME } from '../aesthetics'
 
 export default function Clickable(props) {
   const [isHovering, setHovering] = useState(false)
@@ -11,12 +12,18 @@ export default function Clickable(props) {
     styles
   } = props
 
+  const getStyles = () => {
+    if (isSelected) return {...styles, backgroundColor: THEME[theme].color1}
+    if (isHovering) return {...styles, backgroundColor: THEME[theme].color2}
+    else return null
+  }
+
   return (
     <div 
       className='clickable' 
       onClick={onclick} 
       onMouseEnter={() => setHovering(true)}
-      style={isHovering ? {...styles, backgroundColor: 'black'} : styles}
+      style={getStyles}
     >
       {children}
     </div>

@@ -1,8 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Context from '../components/Context'
 import { THEME } from '../aesthetics'
 import useChangeTheme from '../hooks/useChangeTheme'
-import { useContext } from 'react/cjs/react.development'
 
 export default function Settings() {
   let setTheme = useChangeTheme()

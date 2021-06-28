@@ -1,8 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import Context from './Context'
+import { THEME } from '../aesthetics'
 
 export default function Container({children}) {
+  const { theme } = useContext(Context)
+  const styles = {
+    backgroundImage: `linear-gradient(to bottom, ${THEME[theme].color2}, ${THEME[theme].color3} 25%)`,
+  }
+  console.log(theme)
+  console.log(THEME[theme])
+
   return (
-    <div id='main'>
+    <div id='main' style={styles}>
       {children}
     </div>
   )
