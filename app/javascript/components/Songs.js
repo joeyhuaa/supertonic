@@ -29,7 +29,7 @@ function Song({song}) {
 }
 
 export default function Songs({project, branch}) {
-  console.log(branch)
+  // console.log(branch)
   return (
     <div style={{ padding: '10px' }}>
       {project.files.filter(

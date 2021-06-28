@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useContext, useState } from 'react'
 import { usePopper } from 'react-popper'
 import {
   GoTriangleDown
@@ -6,6 +6,7 @@ import {
 
 import IconButton from './IconButton'
 import Context from './Context'
+import { THEME } from '../aesthetics'
 
 const FloatDropdown = React.forwardRef((props, ref) => {
   const {
@@ -16,6 +17,7 @@ const FloatDropdown = React.forwardRef((props, ref) => {
   const [showDropdown, setShowDropdown] = useState(false)
   const [referenceElement, setReferenceElement] = useState(null);
   const [popperElement, setPopperElement] = useState(null);
+  const { theme } = useContext(Context)
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     modifiers: [
       {
@@ -33,9 +35,10 @@ const FloatDropdown = React.forwardRef((props, ref) => {
     // inset: '0 auto auto 0',
     border: 'solid white 1px',
     zIndex: 999,
-    backgroundColor: '#14141f',
+    backgroundColor: THEME[theme]?.color1,
     padding: '5px 10px 5px 10px',
   }
+  console.log(theme)
 
   return (
     <div>

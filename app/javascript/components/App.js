@@ -67,9 +67,7 @@ import Sidebar from './Sidebar'
 import NewProjectForm from './NewProjectForm'
 import NewBranchForm from './NewBranchForm'
 
-function App({
-  user
-}) {
+function App({ user }) {
   const [state, setState] = useStateCallback({
     currSong: null,
     isPlaying: false,
@@ -83,7 +81,7 @@ function App({
     // console.log('app')
   })
 
-  const context = {
+  const appContext = {
     user: user,
     theme: theme,
     isPlaying: state.isPlaying,
@@ -128,7 +126,7 @@ function App({
   }
 
   return (
-    <Provider value={context}>
+    <Provider value={appContext}>
       <BrowserRouter>
         <Container>
           {state.showNewProjectForm &&

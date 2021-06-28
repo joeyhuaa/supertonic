@@ -96,7 +96,7 @@ const ProjectHeader = React.forwardRef((props, ref) => {
 export default function Project({
   // toggleNewBranchForm,
 }) {
-  let [state, setState] = useState({
+  const [state, setState] = useState({
     currBranch: 'main',
     showNewBranchForm: false
   })
@@ -106,11 +106,17 @@ export default function Project({
   const project = data
 
   const appContext = useContext(Context)
-  const projectContext = {
-    project: project,
-    switchBranch: (newBranch) => {
-      setState({ ...state, currBranch: newBranch })
-    }
+  // console.log(appContext.user)
+  // const projectContext = {
+  //   project: project,
+  //   switchBranch: (newBranch) => {
+  //     setState({ ...state, currBranch: newBranch })
+  //   },
+  //   theme: appContext.theme
+  // }
+  appContext.project = project
+  appContext.switchBranch = (newBranch) => {
+    setState({ ...state, currBranch: newBranch })
   }
 
   let deleteProj = async () => await fetch(`/api/projects/${project.id}/destroy`, { method: 'DELETE' }).then(() => window.location.reload())
@@ -121,7 +127,7 @@ export default function Project({
       {isLoading && <span>Loading...</span>}
       {project &&
         <div>
-          <Provider value={projectContext}>
+          <Provider value={appContext}>
             <ProjectHeader 
               project={project}
               // toggleNewBranchForm={toggleNewBranchForm}

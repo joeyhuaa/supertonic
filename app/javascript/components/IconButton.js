@@ -1,4 +1,6 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
+import { THEME } from "../aesthetics"
+import Context from "./Context"
 
 const IconButton = React.forwardRef((props, ref) => {
   const {
@@ -6,10 +8,11 @@ const IconButton = React.forwardRef((props, ref) => {
     icon
   } = props
 
+  const { theme } = useContext(Context)
   const [isClicked, setClicked] = useState(false)
   const btnStyles = {
     border: 'none',
-    backgroundColor: isClicked ? 'black' : 'transparent',
+    backgroundColor: isClicked ? THEME[theme]?.color1 : 'transparent',
     display: 'flex',
     alignItems: 'center',
     width: '30px',
