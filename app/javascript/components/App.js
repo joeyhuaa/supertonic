@@ -42,25 +42,6 @@
  * 3. no limit to # of commits
  */
 
-/** 
- * COLOR PALETTE - red tones
- * 1. whitesmoke
- * 2. burgundy - #660033, #cc0044, #990033
- * 3. pink - #cc00cc
- * 4. violet/gray - #666699
- * 5. salmon - #ff9999
- */
-
-/**
- * THEMES
- * nocturne - default
- * con fuoco - burgundy/dark red 
- * flambe - salmon/orange/pink
- * adagio - light blue/chill
- * mezzo forte - black/space gray
- * ad Parnassum - white/quartz
- */
-
 /**
  *  ROUTING
  * 1. react_component (App) only needed??
@@ -68,11 +49,15 @@
  * 3. but then the route would have to be diff than the rails routes
  */
 
+import { hot } from 'react-hot-loader/root';
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 
 import { Provider } from './Context'
 import useStateCallback from '../hooks/useStateCallback'
+
+import Settings from '../views/Settings';
+import Project from '../views/Project'
 
 import Container from './Container'
 import MusicPlayer from './MusicPlayer'
@@ -80,9 +65,8 @@ import Overlay from './Overlay'
 import Sidebar from './Sidebar'
 import NewProjectForm from './NewProjectForm'
 import NewBranchForm from './NewBranchForm'
-import Project from './Project'
 
-export default function App({
+function App({
   user
 }) {
   let [state, setState] = useStateCallback({
@@ -98,6 +82,7 @@ export default function App({
 
   const context = {
     user: user,
+    theme: user.theme,
     isPlaying: state.isPlaying,
     currSong: state.currSong,
     playPause: async (id) => {
@@ -155,21 +140,25 @@ export default function App({
           }
 
           <Overlay show={state.showNewBranchForm || state.showNewProjectForm} />
-          <Sidebar
-            newProjClicked={() => toggleNewProjForm(true)}
-          />
+          <Sidebar newProjClicked={toggleNewProjForm} />
           <MusicPlayer />
 
           <Route 
             path='/projects/:projectId' 
-            render={() => <Project />} 
+            component={Project}
           />
           <Route 
             path='/projects/:projectId/branch'
-            render={() => <Project />}
+            component={Project}
+          />
+          <Route 
+            path='/settings'
+            component={Settings}
           />
         </Container>
       </BrowserRouter>
     </Provider>
   )
 }
+
+export default hot(App)

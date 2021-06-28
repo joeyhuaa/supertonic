@@ -54,6 +54,12 @@ input, textarea {
 
 section {
     padding: 20px;
+    width: 100%;
+}
+
+select {
+    background-color: transparent;
+    outline: none;
 }
 
 #login {

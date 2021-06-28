@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2021_05_19_023019) do
     t.string "full_name"
     t.string "uid"
     t.string "avatar_url"
+    t.string "theme"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true

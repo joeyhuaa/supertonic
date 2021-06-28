@@ -16,7 +16,7 @@ function Song({song}) {
       <span className={styles.song_name}>{song.name}</span>
       <span className={styles.song_time}>time</span>
       <span className={styles.song_date}>
-        {moment(new Date(song.date_created)).format('MMMM Do, YYYY')}
+        {moment(new Date(song.created_at)).format('MMMM Do, YYYY')}
       </span>
       <div className={`${styles.song_filechange} clickable`}>
         <span>Change</span>
@@ -27,6 +27,7 @@ function Song({song}) {
     </div>
   )
 }
+
 export default function Songs({project, branch}) {
   console.log(branch)
   return (

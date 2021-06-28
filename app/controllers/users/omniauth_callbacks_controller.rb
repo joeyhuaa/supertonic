@@ -1,6 +1,5 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     def google_oauth2
-
         begin
             User.find(from_google_params[:uid]) != nil
             @user = User.from_google(from_google_params)

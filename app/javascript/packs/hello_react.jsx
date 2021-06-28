@@ -2,6 +2,7 @@
 // like app/views/layouts/application.html.erb. All it does is render <div>Hello React</div> at the bottom
 // of the page.
 
+import 'react-hot-loader' 
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from '../components/App'
@@ -28,3 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
     )
   }
 })
+
+if (module.hot) {
+  module.hot.accept('../components/App.js', () => {
+    render(require('../components/App.js').default);
+  });
+}

@@ -1,6 +1,6 @@
 #sidebar {
     background-color: #14141f; 
-    width: 250px;
+    max-width: 200px;
     height: 100%;
     position: relative;
 }

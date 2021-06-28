@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef, useContext, useCallback } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
-import Songs from './Songs'
-import Context, { Provider } from './Context'
+import Songs from '../components/Songs'
+import FloatDropdown from '../components/FloatDropdown'
+import Context, { Provider } from '../components/Context'
 import useProject from '../hooks/useProject'
 import useCreateBranch from '../hooks/useCreateBranch'
 
@@ -11,9 +12,35 @@ import styles from '../stylesheets/project.module.css'
 
 const BranchSelect = React.forwardRef((props, ref) => {
   const branchNames = Object.keys(props.branches)
-  const { project, switchBranch } = useContext(Context)
+  const { switchBranch } = useContext(Context)
+
+  return (
+    <select
+      id={styles.branch_dropdown} 
+      ref={ref}
+      onChange={e => switchBranch(e.target.value)}
+    >
+      {branchNames.map(branch => (
+        <option key={branch}>
+          {/* <Link to={`/projects/${project.id}/${branch}`}> */}
+            {branch}
+          {/* </Link> */}
+        </option>
+      ))}
+    </select>
+  )
+})
+
+const ProjectHeader = React.forwardRef((props, ref) => {
+  const { 
+    project,
+    deleteProj
+  } = props
+
   let [newBranch, setNewBranch] = useState('')
   let createBranch = useCreateBranch()
+  let branchNames = Object.keys(project.branches)
+
 
   let onSubmit = (e) => {
     // post new branch
@@ -36,53 +63,30 @@ const BranchSelect = React.forwardRef((props, ref) => {
   }
 
   return (
-    <form 
-      id={styles.branch} 
-      className={styles.header_item}
-      onSubmit={onSubmit}
-    >
-      <select
-        id={styles.branch_dropdown} 
-        ref={ref}
-        onChange={e => switchBranch(e.target.value)}
-      >
-        {branchNames.map(branch => (
-          <option key={branch}>
-            {/* <Link to={`/projects/${project.id}/${branch}`}> */}
-              {branch}
-            {/* </Link> */}
-          </option>
-        ))}
-      </select>
-      <input 
-        id={styles.branch_input}
-        placeholder='Add New Branch'
-        onChange={e => setNewBranch(e.target.value)}
-        value={newBranch}
-      />
-    </form>
-  )
-})
-
-const ProjectHeader = React.forwardRef((props, ref) => {
-  const { 
-    project,
-    deleteProj
-  } = props
-
-  return (
     <div id={styles.header}>
-      <h1>{project.name}</h1>
+      <div id={styles.header_heading}>
+        <h1>{project.name}</h1>
+        <FloatDropdown 
+          options={[
+            {name: 'Add Files', danger: false},
+            {name: 'Delete Project', danger: true},
+            {name: 'Delete Current Branch', danger: true}
+          ]}
+        />
+      </div>
       <BranchSelect branches={project.branches} ref={ref} />
-      <div className={`${styles.header_item} clickable`} onClick={deleteProj}>
-        <span>Delete</span>
-      </div>
-      <div className={`${styles.header_item} clickable`}>
-        <span>New Branch</span>
-      </div>
-      <div className={`${styles.header_item} clickable`}>
-        <span>Delete Current Branch</span>
-      </div>
+      <form 
+        id={styles.branch} 
+        className={styles.header_item}
+        onSubmit={onSubmit}
+      >
+        <input 
+          id={styles.branch_input}
+          placeholder='Add New Branch'
+          onChange={e => setNewBranch(e.target.value)}
+          value={newBranch}
+        />
+      </form>
     </div>
   )
 })

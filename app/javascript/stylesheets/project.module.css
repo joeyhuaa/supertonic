@@ -13,6 +13,13 @@
   padding-bottom: 10px;
 }
 
+#header_heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 60px;
+}
+
 .header_item {
   font-size: 12px;
   /* flex: 25%; */
@@ -29,6 +36,7 @@
 
 #branch_dropdown {
   background-color: transparent;
+  outline: none;
 }
 
 #branch_input {
