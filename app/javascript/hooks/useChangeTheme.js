@@ -1,8 +1,15 @@
+import { useMutation, useQueryClient } from 'react-query'
 import axios from 'axios'
-import { useMutation, queryCache } from 'react-query'
 
 export default function useChangeTheme() {
+  const queryClient = useQueryClient()
+
   return useMutation(
-    data => axios.put(`/api/user/change_theme`, data),
+    theme => axios.put(`/api/user/change_theme`, theme).then(res => res.data),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('theme') // re-runs useTheme hook
+      }
+    }
   )
 }

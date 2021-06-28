@@ -5,10 +5,10 @@ import {
   MdSettings
 } from 'react-icons/md'
 
+import { THEME } from '../aesthetics'
 import Context from './Context'
 import Clickable from './Clickable'
 import IconButton from './IconButton'
-import styles from '../stylesheets/sidebar.module.css'
 import useProjects from '../hooks/useProjects'
 
 function SettingsButton() {
@@ -39,12 +39,18 @@ function Menu() {
 export default function Sidebar({
     newProjClicked,
 }) {
-  const { user } = useContext(Context)
+  const { user, theme } = useContext(Context)
   const { data, isError, isLoading } = useProjects()
   const projects = data?.projects
+  const styles = {
+    backgroundColor: THEME[theme]?.color1,
+    maxWidth: '200px',
+    height: '100%',
+    position: 'relative'
+  }
   
   return (
-    <section id={styles.sidebar}>
+    <section id='sidebar' style={styles}>
       <div style={{
         borderBottom: 'solid gray 1px',
         paddingBottom: '10px',

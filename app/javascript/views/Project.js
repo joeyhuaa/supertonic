@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
+import { THEME } from '../aesthetics'
+
 import Songs from '../components/Songs'
 import FloatDropdown from '../components/FloatDropdown'
 import Context, { Provider } from '../components/Context'
@@ -12,7 +14,7 @@ import styles from '../stylesheets/project.module.css'
 
 const BranchSelect = React.forwardRef((props, ref) => {
   const branchNames = Object.keys(props.branches)
-  const { switchBranch } = useContext(Context)
+  const { theme, switchBranch } = useContext(Context)
 
   return (
     <select

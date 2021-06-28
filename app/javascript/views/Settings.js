@@ -17,9 +17,12 @@ export default function Settings() {
     <section>
       <h1>Settings</h1>
       <h3>Theme</h3>
-      <select onChange={e => changeTheme(e.target.value)}>
+      <select 
+        onChange={e => changeTheme(e.target.value)}
+        defaultValue={theme}
+      >
         {Object.keys(THEME).map(t => (
-          <option selected={theme === t}>{t}</option>
+          <option key={t}>{t}</option>
         ))}
       </select>
       <p>

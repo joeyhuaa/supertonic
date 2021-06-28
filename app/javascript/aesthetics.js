@@ -19,16 +19,16 @@
 
 const COLORS = {
   white: 'whitesmoke',
+  skyBlue: '#008eff',
   burgundy: '#660033',
-  pink: '#cc00cc',
-  violetGray: '#666699',
-  salmon: '#ff9999',
+  lightBurgundy: '#993366',
   crimson: '#990033',
+  midLightBurgundy: '#800040',
   darkPurple: '#14141f',
   lightPurple: '#3d3d5c',
   midDarkPurple: '#1f1f2e',
   midLightPurple: '#33334d',
-  skyBlue: '#008eff',
+  violetGray: '#666699',
 }
 
 export const THEME = {
@@ -41,10 +41,10 @@ export const THEME = {
     text: COLORS.white
   },
   'con fuoco': {
-    color1: COLORS.crimson,
-    color2: COLORS.burgundy,
-    color3: COLORS.salmon,
-    color4: COLORS.pink,
+    color1: COLORS.burgundy,
+    color2: COLORS.crimson,
+    color3: COLORS.midLightBurgundy,
+    color4: COLORS.lightBurgundy,
     button: null,
     text: null,
   },

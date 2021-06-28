@@ -55,6 +55,7 @@ import { BrowserRouter, Route } from 'react-router-dom'
 
 import { Provider } from './Context'
 import useStateCallback from '../hooks/useStateCallback'
+import useTheme from '../hooks/useTheme';
 
 import Settings from '../views/Settings';
 import Project from '../views/Project'
@@ -69,12 +70,14 @@ import NewBranchForm from './NewBranchForm'
 function App({
   user
 }) {
-  let [state, setState] = useStateCallback({
+  const [state, setState] = useStateCallback({
     currSong: null,
     isPlaying: false,
     showNewProjectForm: false,
     showNewProjectForm: false
   })
+  const { data } = useTheme()
+  const theme = data?.theme
 
   useEffect(() => {
     // console.log('app')
@@ -82,7 +85,7 @@ function App({
 
   const context = {
     user: user,
-    theme: user.theme,
+    theme: theme,
     isPlaying: state.isPlaying,
     currSong: state.currSong,
     playPause: async (id) => {

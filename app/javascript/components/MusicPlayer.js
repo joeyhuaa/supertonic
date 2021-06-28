@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import Context from './Context'
+import { THEME } from '../aesthetics'
 import moment from 'moment'
 import styles from '../stylesheets/musicplayer.module.css'
 import { FaPlay, FaPause } from 'react-icons/fa'
 
 export default function MusicPlayer() {
   let [currentTime, setCurrentTime] = useState(null)
-  const { currSong, isPlaying, playPause } = useContext(Context)
+  const { currSong, isPlaying, playPause, theme } = useContext(Context)
 
   useEffect(() => {
     if (isPlaying) {
@@ -14,7 +15,7 @@ export default function MusicPlayer() {
     } else {
       music.current.pause()
     }
-    console.log('current song', music.current)
+    // console.log('current song', music.current)
   }, [isPlaying])
 
   let music = useRef(null)
@@ -69,7 +70,10 @@ export default function MusicPlayer() {
     <div id={styles.pButton} ref={pButton} onClick={() => playPause(currSong.id)}><FaPlay color='white' /></div>
 
   return (
-    <section id={styles.player_container}>
+    <section 
+      id={styles.player_container} 
+      style={{backgroundColor: THEME[theme]?.color4}}
+    >
       <audio
         id='music'
         ref={music}
