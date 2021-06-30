@@ -35,7 +35,7 @@ export default function Songs({project, branch}) {
       {project.files.filter(
         file => project.branches[branch].includes(file.id)).map(
           song => (
-            <Song song={song} />
+            <Song key={song.id} song={song} />
           )
         )
       }

@@ -76,6 +76,7 @@ function App({ user }) {
   })
   const { data } = useTheme()
   const theme = data?.theme
+  console.log('app theme:', theme)
 
   useEffect(() => {
     // console.log('app')

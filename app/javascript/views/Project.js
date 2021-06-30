@@ -14,7 +14,7 @@ import styles from '../stylesheets/project.module.css'
 
 const BranchSelect = React.forwardRef((props, ref) => {
   const branchNames = Object.keys(props.branches)
-  const { theme, switchBranch } = useContext(Context)
+  const { switchBranch } = useContext(Context)
 
   return (
     <select
@@ -106,18 +106,11 @@ export default function Project({
   const project = data
 
   const appContext = useContext(Context)
-  // console.log(appContext.user)
-  // const projectContext = {
-  //   project: project,
-  //   switchBranch: (newBranch) => {
-  //     setState({ ...state, currBranch: newBranch })
-  //   },
-  //   theme: appContext.theme
-  // }
-  appContext.project = project
   appContext.switchBranch = (newBranch) => {
     setState({ ...state, currBranch: newBranch })
   }
+  let { theme } = appContext
+  console.log('project theme:', appContext.theme)
 
   let deleteProj = async () => await fetch(`/api/projects/${project.id}/destroy`, { method: 'DELETE' }).then(() => window.location.reload())
 
@@ -127,17 +120,13 @@ export default function Project({
       {isLoading && <span>Loading...</span>}
       {project &&
         <div>
-          <Provider value={appContext}>
-            <ProjectHeader 
-              project={project}
-              // toggleNewBranchForm={toggleNewBranchForm}
-              deleteProj={deleteProj}
-              ref={branchDropdown}
-            />
-          </Provider>
-          <Provider value={appContext}>
-            <Songs project={project} branch={state.currBranch} />
-          </Provider>
+          <ProjectHeader 
+            project={project}
+            // toggleNewBranchForm={toggleNewBranchForm}
+            deleteProj={deleteProj}
+            ref={branchDropdown}
+          />
+          <Songs project={project} branch={state.currBranch} />
         </div>
       }
     </section>

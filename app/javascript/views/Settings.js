@@ -13,21 +13,28 @@ export default function Settings() {
     })
   }
 
+  console.log('settings theme:', theme)
+
   return (
+    
     <section>
-      <h1>Settings</h1>
-      <h3>Theme</h3>
-      <select 
-        onChange={e => changeTheme(e.target.value)}
-        defaultValue={theme}
-      >
-        {Object.keys(THEME).map(t => (
-          <option key={t}>{t}</option>
-        ))}
-      </select>
-      <p>
-        <a href='/users/sign_out'>Sign Out</a>
-      </p>
+      {theme && 
+        <>
+          <h1>Settings</h1>
+          <h3>Theme</h3>
+          <select 
+            onChange={e => changeTheme(e.target.value)}
+            defaultValue={theme}
+          >
+            {Object.keys(THEME).map(t => (
+              <option key={t}>{t}</option>
+            ))}
+          </select>
+          <p>
+            <a href='/users/sign_out'>Sign Out</a>
+          </p>
+        </>
+      }
     </section>
   )
 }

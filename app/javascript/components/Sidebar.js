@@ -7,31 +7,20 @@ import {
 
 import { THEME } from '../aesthetics'
 import Context from './Context'
-import Clickable from './Clickable'
-import IconButton from './IconButton'
+import IconClickable from '../molecules/IconClickable'
 import useProjects from '../hooks/useProjects'
-
-function SettingsButton() {
-  return (
-    <IconButton 
-      icon={<MdSettings color='white' size={30} />} 
-      onclick={() => {}} 
-    />
-  )
-}
 
 function Menu() {
   return (
     <div style={{
       display: 'flex'
     }}>
-      {/* <Clickable> 
-        <Link 
-          to={'/settings'}
-          component={SettingsButton}
+      <Link to='/settings'>
+        <IconClickable 
+          icon={<MdSettings color='white' size={20} />} 
+          onclick={() => {}} 
         />
-      </Clickable> */}
-      <Link to='/settings'>Settings</Link>
+      </Link>
     </div>
   )
 }

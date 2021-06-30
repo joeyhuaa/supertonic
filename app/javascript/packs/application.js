@@ -16,3 +16,6 @@ ActiveStorage.start()
 var componentRequireContext = require.context("components", true);
 var ReactRailsUJS = require("react_ujs");
 ReactRailsUJS.useContext(componentRequireContext);
+
+// reference all imgs in javascript/imgs
+const images = require.context('../imgs', true)
