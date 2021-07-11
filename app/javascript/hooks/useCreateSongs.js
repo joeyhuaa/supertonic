@@ -5,11 +5,13 @@ export default function useCreateProject() {
   const queryClient = useQueryClient()
 
   return useMutation(
-    newProject => axios.post(`/api/projects/new`, newProject),
+    data => {
+      return axios.put(`/api/projects/${data.id}/add_songs`, data)
+    },
     {
       onSuccess: (res) => {
         queryClient.invalidateQueries('projects')
-        queryClient.setQueryData(['project', { id: res.data.projId }], res.data)
+        // queryClient.setQueryData(['project', { id: res.data.projId }], res.data)
       }
     }
   )

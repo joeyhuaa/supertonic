@@ -28,7 +28,7 @@ class ProjectController < ApplicationController
     render :json => {:status => 'ok'}
   end
 
-  # POST /project/new
+  # POST api/projects/new
   def new
     puts 'NEW PROJECT'
     puts params
@@ -36,52 +36,32 @@ class ProjectController < ApplicationController
     @project = @user.projects.create(created_at: Time.now)
 
     # name
-    @project.name = params['name']
+    @project.name = "Untitled Project"
 
     # description
-    @project.description = params['description']
-
-    # files
-    files = []
-    JSON.parse(params['files']).each do |file|
-      @song = @project.songs.create(created_at: Time.now)
-      @song.name = file['name']
-      @song.b64 = file['b64']
-      @song.save
-      files << @song
-    end
-    @project.files = files
-    @project.save
+    @project.description = ""
 
     # branches
     @project.branches = {
-      'main' => @project.files.map{|file| file['id']},
-      'mixes' => []
+      # 'main' => @project.files.map{|file| file['id']},
+      'main' => []
     }
+
     @project.save
+
+    render :json => {:projId => @project.id}
   end
 
-  # GET /project/:id
+  # PUT api/projects/:id/songs
+  def add_songs
+    @project = Project.find(params[:id])
+    @project.addSongs(params[:files], params[:branch])
+    render :json => {:status => 200}
+  end
+
+  # GET api/projects/:id
   def get
     @project = Project.find(params[:id])
-
-    # # convert Song models into objects
-    # # BUG FIGURE OUT WHY ALL OF THIS IS NULL 
-    # @songs = @project.files.map{|file| 
-    #   {
-    #     :id => file['id'],
-    #     :name => file['name'],
-    #     :date_created => file['created_at'],
-    #     :date_updated => file['updated_at'],
-    #     # pass in time duration here somehow
-    #   }
-    # }
-    # render :json => {
-    #   :id => params[:id], 
-    #   :name => @project.name,
-    #   :songs => @songs,
-    #   :branches => @project.branches
-    # }
     render :json => @project
   end
 
@@ -90,28 +70,29 @@ class ProjectController < ApplicationController
     render :json => {:projects => current_user.projects}
   end
 
-  # PUT /project/:id/newbranch
+  # PUT api/projects/:id/newbranch
   def new_branch
     puts 'NEW BRANCH'
-    puts params
     @project = Project.find(params[:id])
     @project.branches[ params[:branch] ] = []
     @project.save
     render :json => {status: 200}
   end
 
-  # PUT /project/:id/deletebranch
+  # PUT api/projects/:id/deletebranch
   def delete_branch
   end
 
   def update
   end 
 
-  # DELETE /projects/:id/destroy
+  # DELETE api/projects/:id/destroy
   def destroy
     @project = Project.find(params[:id])
     @project.destroy
     render :json => {status: 200}
   end
+
+  private
 
 end

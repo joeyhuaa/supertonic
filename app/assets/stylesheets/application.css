@@ -71,6 +71,10 @@ select {
     background-image: linear-gradient(to bottom, #33334d, #1f1f2e 25%);
 }
 
+#upload {
+    color: whitesmoke;
+}
+
 #app-container {
     height: 100%;
 }

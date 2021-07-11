@@ -64,15 +64,12 @@ import Container from './Container'
 import MusicPlayer from './MusicPlayer'
 import Overlay from './Overlay'
 import Sidebar from './Sidebar'
-import NewProjectForm from './NewProjectForm'
 import NewBranchForm from './NewBranchForm'
 
 function App({ user }) {
   const [state, setState] = useStateCallback({
     currSong: null,
     isPlaying: false,
-    showNewProjectForm: false,
-    showNewProjectForm: false
   })
   const { data } = useTheme()
   const theme = data?.theme
@@ -116,13 +113,11 @@ function App({ user }) {
     return res.json()
   }
 
-  let toggleNewProjForm = (val) => {
-    setState({...state, showNewProjectForm: val})
+  let toggleAddSongsForm = val => {
+    setState({...state, showAddSongsForm: val})
   }
 
-  // pull up a form or some input 
-  // call addBranch from inside here
-  let toggleNewBranchForm = (val) => {
+  let toggleNewBranchForm = val => {
     setState({...state, showNewBranchForm: val})
   }
 
@@ -130,19 +125,15 @@ function App({ user }) {
     <Provider value={appContext}>
       <BrowserRouter>
         <Container>
-          {state.showNewProjectForm &&
-            <NewProjectForm
-              closeSelf={() => toggleNewProjForm(false)}
-            />
-          }
+          
           {state.showNewBranchForm &&
             <NewBranchForm
               closeSelf={() => toggleNewBranchForm(false)}
             />
           }
 
-          <Overlay show={state.showNewBranchForm || state.showNewProjectForm} />
-          <Sidebar newProjClicked={toggleNewProjForm} />
+          <Overlay show={state.showNewBranchForm || state.showAddSongsForm} />
+          <Sidebar />
           <MusicPlayer />
 
           <Route 

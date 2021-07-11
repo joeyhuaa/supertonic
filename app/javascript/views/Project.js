@@ -4,9 +4,13 @@ import { Link } from 'react-router-dom'
 
 import { THEME } from '../aesthetics'
 
+import Clickable from '../molecules/Clickable'
+
 import Songs from '../components/Songs'
+import AddSongsForm from '../components/AddSongsForm'
 import FloatDropdown from '../components/FloatDropdown'
 import Context, { Provider } from '../components/Context'
+
 import useProject from '../hooks/useProject'
 import useCreateBranch from '../hooks/useCreateBranch'
 
@@ -36,13 +40,14 @@ const BranchSelect = React.forwardRef((props, ref) => {
 const ProjectHeader = React.forwardRef((props, ref) => {
   const { 
     project,
-    deleteProj
+    deleteProj,
+    branch
   } = props
 
+  let [showAddSongsForm, setAddSongsForm] = useState(false)
   let [newBranch, setNewBranch] = useState('')
   let createBranch = useCreateBranch()
   let branchNames = Object.keys(project.branches)
-
 
   let onSubmit = (e) => {
     // post new branch
@@ -64,19 +69,23 @@ const ProjectHeader = React.forwardRef((props, ref) => {
     }
   }
 
+  let toggleAddSongsForm = val => {
+    setAddSongsForm(val)
+  }
+
   return (
     <div id={styles.header}>
       <div id={styles.header_heading}>
         <h1>{project.name}</h1>
         <FloatDropdown 
           options={[
-            {name: 'Add Files', danger: false},
             {name: 'Delete Project', danger: true},
             {name: 'Delete Current Branch', danger: true}
           ]}
         />
       </div>
       <BranchSelect branches={project.branches} ref={ref} />
+      <Clickable onclick={() => toggleAddSongsForm(true)}>Add Songs</Clickable>
       <form 
         id={styles.branch} 
         className={styles.header_item}
@@ -89,6 +98,14 @@ const ProjectHeader = React.forwardRef((props, ref) => {
           value={newBranch}
         />
       </form>
+
+      {showAddSongsForm && 
+        <AddSongsForm
+          projectId={project.id}
+          branch={branch}
+          closeSelf={() => toggleAddSongsForm(false)}
+        />
+      }
     </div>
   )
 })
@@ -122,7 +139,7 @@ export default function Project({
         <div>
           <ProjectHeader 
             project={project}
-            // toggleNewBranchForm={toggleNewBranchForm}
+            branch={state.currBranch}
             deleteProj={deleteProj}
             ref={branchDropdown}
           />

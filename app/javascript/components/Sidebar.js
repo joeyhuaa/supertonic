@@ -9,6 +9,7 @@ import { THEME } from '../aesthetics'
 import Context from './Context'
 import IconClickable from '../molecules/IconClickable'
 import useProjects from '../hooks/useProjects'
+import useCreateProject from '../hooks/useCreateProject'
 
 function Menu() {
   return (
@@ -25,17 +26,20 @@ function Menu() {
   )
 }
 
-export default function Sidebar({
-    newProjClicked,
-}) {
+export default function Sidebar() {
   const { user, theme } = useContext(Context)
   const { data, isError, isLoading } = useProjects()
   const projects = data?.projects
+  const createProject = useCreateProject()
   const styles = {
     backgroundColor: THEME[theme]?.color1,
     maxWidth: '200px',
     height: '100%',
     position: 'relative'
+  }
+
+  let newProjClicked = () => {
+    createProject.mutate()
   }
   
   return (
@@ -57,17 +61,19 @@ export default function Sidebar({
               key={proj.id}
               className={`clickable`}
             >
-              <Link to={`/projects/${proj.id}`}>{proj.name}</Link>
+              <Link to={`/projects/${proj.id}`}>
+                {proj.name}
+              </Link>
             </div>
           )
         })}
       </div>
       <button
-        onClick={() => newProjClicked(true)}
+        onClick={newProjClicked}
         className='round-btn submit-btn'
         style={{
-          position:'absolute',
-          bottom:170,
+          position: 'absolute',
+          bottom: 170,
         }}
       >
         New Project

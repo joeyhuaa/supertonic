@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { BsX } from 'react-icons/bs'
-import useCreateProject from '../hooks/useCreateProject'
+import useCreateSongs from '../hooks/useCreateSongs'
 
 let styles = {
   form_container: {
@@ -30,12 +30,12 @@ let styles = {
   }
 }
 
-export default function NewProjectForm({
+export default function AddSongsForm({
+  projectId,
+  branch,
   closeSelf
 }) {
-  const createProject = useCreateProject()
-  let [name, setName] = useState()
-  let [description, setDescription] = useState()
+  const createSongs = useCreateSongs()
 
   let audioToBase64 = async (audioFile) => {
     return new Promise((resolve, reject) => {
@@ -46,16 +46,14 @@ export default function NewProjectForm({
     });
   }
 
-  let handleNewProj = () => {
+  let handleAddSongs = () => {
     // set up formdata
     let files = Array.from(document.getElementById('upload').files)
     let formdata = new FormData()
-    formdata.append('name', name)
-    formdata.append('description', description)
 
     // create array of proms for converting audio files -> b64
     let promises = []
-    files.forEach((file) => promises.push(audioToBase64(file)))
+    files.forEach( file => promises.push( audioToBase64(file) ) )
 
     // resolve the array of proms
     Promise.all(promises) // !this was the missing piece of the puzzle!
@@ -69,7 +67,12 @@ export default function NewProjectForm({
         formdata.append('files', JSON.stringify(songs))
 
         // query
-        createProject.mutate(formdata)
+        console.log(branch);
+        createSongs.mutate({
+          files: JSON.stringify(songs),
+          branch: branch,
+          id: projectId
+        })
 
         // close form
         closeSelf()
@@ -86,10 +89,10 @@ export default function NewProjectForm({
         >
           <BsX size={30} color='whitesmoke' />
         </span>
-        <h1 style={{ margin: 'auto' }}>Create Project</h1>
+        <h1 style={{ margin: 'auto' }}>Add Songs</h1>
       </div>
 
-      <p>Name</p>
+      {/* <p>Name</p>
       <input
         type='text'
         style={styles.name_input}
@@ -100,15 +103,14 @@ export default function NewProjectForm({
         type='text'
         style={styles.description_input}
         onChange={e => setDescription(e.target.value)}
-      />
-      <p>Upload Files</p>
+      /> */}
       <input id='upload' type='file' multiple />
 
       <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
         <button
           className='round-btn submit-btn'
-          onClick={handleNewProj}
-        >CREATE</button>
+          onClick={handleAddSongs}
+        >ADD SONGS</button>
       </div>
     </section>
   )
