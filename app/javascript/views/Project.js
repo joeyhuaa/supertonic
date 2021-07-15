@@ -13,6 +13,8 @@ import Context, { Provider } from '../components/Context'
 
 import useProject from '../hooks/useProject'
 import useCreateBranch from '../hooks/useCreateBranch'
+import useUpdateProject from '../hooks/useUpdateProject'
+import useDeleteProject from '../hooks/useDeleteProject'
 
 import styles from '../stylesheets/project.module.css'
 
@@ -40,19 +42,20 @@ const BranchSelect = React.forwardRef((props, ref) => {
 const ProjectHeader = React.forwardRef((props, ref) => {
   const { 
     project,
-    deleteProj,
     branch
   } = props
 
   let [showAddSongsForm, setAddSongsForm] = useState(false)
   let [newBranch, setNewBranch] = useState('')
   let createBranch = useCreateBranch()
+  let updateProject = useUpdateProject()
+  let deleteProject = useDeleteProject()
   let branchNames = Object.keys(project.branches)
 
   let onSubmit = (e) => {
     // post new branch
     e.preventDefault()
-    console.log('new branch', newBranch, 'for project', project.id)
+    // console.log('new branch', newBranch, 'for project', project.id)
 
     if (newBranch !== '' && !branchNames.includes(newBranch)) {
       createBranch.mutate({ 
@@ -73,14 +76,31 @@ const ProjectHeader = React.forwardRef((props, ref) => {
     setAddSongsForm(val)
   }
 
+  let changeProjName = () => {
+    let newName = prompt('Enter a new project name')
+    if (newName) {
+      console.log(newName)
+      updateProject.mutate({
+        id: project.id,
+        name: newName
+      })
+    }
+  }
+
+  let deleteProj = () => {
+    deleteProject.mutate({
+      id: project.id
+    })
+  }
+
   return (
     <div id={styles.header}>
       <div id={styles.header_heading}>
-        <h1>{project.name}</h1>
+        <h1 onClick={changeProjName}>{project.name}</h1>
         <FloatDropdown 
           options={[
-            {name: 'Delete Project', danger: true},
-            {name: 'Delete Current Branch', danger: true}
+            {name: 'Delete Project', danger: true, onclick: deleteProj},
+            {name: 'Delete Current Branch', danger: true, onclick: () => {}}
           ]}
         />
       </div>
@@ -127,9 +147,7 @@ export default function Project({
     setState({ ...state, currBranch: newBranch })
   }
   let { theme } = appContext
-  console.log('project theme:', appContext.theme)
-
-  let deleteProj = async () => await fetch(`/api/projects/${project.id}/destroy`, { method: 'DELETE' }).then(() => window.location.reload())
+  // console.log('project theme:', appContext.theme)
 
   return (
     <section id={styles.project_view}>
@@ -140,7 +158,6 @@ export default function Project({
           <ProjectHeader 
             project={project}
             branch={state.currBranch}
-            deleteProj={deleteProj}
             ref={branchDropdown}
           />
           <Songs project={project} branch={state.currBranch} />

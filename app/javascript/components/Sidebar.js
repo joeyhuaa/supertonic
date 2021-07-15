@@ -32,10 +32,16 @@ export default function Sidebar() {
   const projects = data?.projects
   const createProject = useCreateProject()
   const styles = {
-    backgroundColor: THEME[theme]?.color1,
-    maxWidth: '200px',
-    height: '100%',
-    position: 'relative'
+    sidebar: {
+      backgroundColor: THEME[theme]?.color1,
+      maxWidth: '200px',
+      height: '100%',
+      position: 'relative',
+    },
+    pBrowser: {
+      overflowY: 'scroll',
+      height: '500px'
+    }
   }
 
   let newProjClicked = () => {
@@ -43,7 +49,7 @@ export default function Sidebar() {
   }
   
   return (
-    <section id='sidebar' style={styles}>
+    <section id='sidebar' style={styles.sidebar}>
       <div style={{
         borderBottom: 'solid gray 1px',
         paddingBottom: '10px',
@@ -55,18 +61,21 @@ export default function Sidebar() {
       <div style={{ paddingTop: '10px' }}>
         {isError && <span>Error.</span>}
         {isLoading && <span>Loading...</span>}
-        {projects && projects.map((proj) => {
-          return (
-            <div 
-              key={proj.id}
-              className={`clickable`}
-            >
-              <Link to={`/projects/${proj.id}`}>
-                {proj.name}
-              </Link>
-            </div>
-          )
-        })}
+
+        <div id='project-browser' style={styles.pBrowser}>
+          {projects && projects.map((proj) => {
+            return (
+              <div 
+                key={proj.id}
+                className={`clickable`}
+              >
+                <Link to={`/projects/${proj.id}`}>
+                  {proj.name}
+                </Link>
+              </div>
+            )
+          })}
+        </div>
       </div>
       <button
         onClick={newProjClicked}

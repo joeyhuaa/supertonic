@@ -93,6 +93,13 @@ class ProjectController < ApplicationController
     render :json => {status: 200}
   end
 
+  def change_name
+    @project = Project.find(params[:id])
+    @project.name = params[:name]
+    @project.save
+    render :json => {status: 200}
+  end
+
   private
 
 end

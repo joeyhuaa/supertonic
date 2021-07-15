@@ -5,7 +5,7 @@ export default function useUpdateProject() {
   const queryClient = useQueryClient()
 
   return useMutation(
-    data => axios.delete(`/api/projects/${data.id}/destroy`, data).then(res => res.data),
+    data => axios.put(`/api/projects/${data.id}/change_name`, data).then(res => res.data),
     {
       onSuccess: () => {
         queryClient.invalidateQueries('projects') // refetch projects

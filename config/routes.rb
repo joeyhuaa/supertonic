@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   post 'api/projects/new', :to => 'project#new'
   get 'api/projects/:id', :to => 'project#get'
   put 'api/projects/:id/add_songs', :to => 'project#add_songs'
+  put 'api/projects/:id/change_name', :to => 'project#change_name'
   delete 'api/projects/:id/destroy', :to => 'project#destroy'
   put 'api/projects/:id/newbranch', :to => 'project#new_branch'
   put 'api/projects/:id/deletebranch', :to => 'project#delete_branch'

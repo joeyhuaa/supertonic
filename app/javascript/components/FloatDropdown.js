@@ -53,8 +53,12 @@ const FloatDropdown = React.forwardRef((props, ref) => {
           }} 
           {...attributes.popper}
         >
-          {options.map(({ name, danger }) => (
-            <p className='clickable' style={danger ? dangerStyles : null}>
+          {options.map(({ name, danger, onclick }) => (
+            <p 
+              className='clickable' 
+              style={danger ? dangerStyles : null}
+              onClick={onclick}
+            >
               {name}
             </p>
           ))}
