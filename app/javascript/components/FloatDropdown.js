@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { usePopper } from 'react-popper'
 import {
   GoTriangleDown
@@ -53,14 +54,22 @@ const FloatDropdown = React.forwardRef((props, ref) => {
           }} 
           {...attributes.popper}
         >
-          {options.map(({ name, danger, onclick }) => (
-            <p 
-              className='clickable' 
-              style={danger ? dangerStyles : null}
-              onClick={onclick}
+          {options.map(({ name, danger, onclick, returnHome }) => (
+            <Link 
+              to={returnHome ? '/' : null} 
+              style={{ textDecoration: 'none' }}
             >
-              {name}
-            </p>
+              <p 
+                className='clickable' 
+                style={danger ? dangerStyles : null}
+                onClick={() => {
+                  onclick();
+                  setShowDropdown(false);
+                }}
+              >
+                {name}
+              </p>
+            </Link>
           ))}
         </div>
       }

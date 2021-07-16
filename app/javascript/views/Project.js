@@ -99,8 +99,17 @@ const ProjectHeader = React.forwardRef((props, ref) => {
         <h1 onClick={changeProjName}>{project.name}</h1>
         <FloatDropdown 
           options={[
-            {name: 'Delete Project', danger: true, onclick: deleteProj},
-            {name: 'Delete Current Branch', danger: true, onclick: () => {}}
+            {
+              name: 'Delete Project', 
+              danger: true, 
+              onclick: deleteProj, 
+              returnHome: true
+            },
+            {
+              name: 'Delete Current Branch', 
+              danger: true, 
+              onclick: () => {}
+            }
           ]}
         />
       </div>

@@ -104,4 +104,8 @@ select {
     background-color: #008eff;
 }
 
+.no-decoration {
+  text-decoration: none;
+}
+
 
