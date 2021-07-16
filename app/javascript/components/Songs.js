@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import Context from './Context'
+import Clickable from '../molecules/Clickable'
 
 import styles from '../stylesheets/project.module.css'
 
@@ -31,11 +32,15 @@ function Song({song}) {
 export default function Songs({project, branch}) {
   // console.log(branch)
   return (
-    <div style={{ padding: '10px' }}>
+    <div 
+      // style={{ border: 'solid white 2px' }}
+    >
       {project.files.filter(
         file => project.branches[branch].includes(file.id)).map(
           song => (
-            <Song key={song.id} song={song} />
+            <Clickable styles={{ padding: '5px 15px' }}>
+              <Song key={song.id} song={song} />
+            </Clickable>
           )
         )
       }

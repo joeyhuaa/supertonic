@@ -4,24 +4,24 @@ import { THEME } from '../aesthetics'
 
 const Clickable = React.forwardRef((props, ref) => {
   const [isHovering, setHovering] = useState(false)
-  const [isSelected, setSelected] = useState(false)
+  // const [isSelected, setSelected] = useState(false)
   const { theme } = useContext(Context)
   const {
     children,
-    onclick,
-    styles
+    onclick = () => {},
+    styles = { padding: '5px' },
+    isSelected = false
   } = props
 
-  // useEffect(() => {
-  //   console.log('isSelected:', isSelected)
-  // }, [isSelected])
+  useEffect(() => {
+    console.log('isSelected:', isSelected)
+  }, [isSelected])
 
   // useEffect(() => {
   //   console.log('isHovering:', isHovering)
   // }, [isHovering])
 
   const getStyles = () => {
-    // console.log('styyyyyle')
     if (isSelected) return {...styles, backgroundColor: THEME[theme].color2 }
     if (isHovering) return {...styles, backgroundColor: THEME[theme].color4 }
     else return styles
@@ -33,7 +33,7 @@ const Clickable = React.forwardRef((props, ref) => {
       className='clickable' 
       onClick={() => {
         onclick()
-        setSelected(!isSelected)
+        // setSelected(!isSelected)
       }} 
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}

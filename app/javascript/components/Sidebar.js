@@ -10,6 +10,9 @@ import Context from './Context'
 import IconClickable from '../molecules/IconClickable'
 import useProjects from '../hooks/useProjects'
 import useCreateProject from '../hooks/useCreateProject'
+import Clickable from '../molecules/Clickable'
+
+import { getUrlEndpoint } from '../util/helpers'
 
 function Menu() {
   return (
@@ -27,6 +30,14 @@ function Menu() {
 }
 
 export default function Sidebar() {
+  useEffect(() => {
+    console.log('endpoint', getUrlEndpoint());
+    if (getUrlEndpoint() == 'settings') {
+      setCurrProjId(null)
+    }
+  }, [window.location.href])
+
+  const [currProjId, setCurrProjId] = useState(null)
   const { user, theme } = useContext(Context)
   const { data, isError, isLoading } = useProjects()
   const projects = data?.projects
@@ -37,10 +48,13 @@ export default function Sidebar() {
       maxWidth: '200px',
       height: '100%',
       position: 'relative',
+      // border: 'solid white 1px'
     },
     pBrowser: {
       overflowY: 'scroll',
-      height: '500px'
+      height: '500px',
+      // border: 'solid yellow 1px',
+      width: '100%'
     }
   }
 
@@ -64,15 +78,17 @@ export default function Sidebar() {
 
         <div id='project-browser' style={styles.pBrowser}>
           {projects && projects.map((proj) => {
+            console.log(proj.id);
             return (
-              <div 
-                key={proj.id}
-                className={`clickable`}
-              >
-                <Link to={`/projects/${proj.id}`}>
+              <Link to={`/projects/${proj.id}`}>
+                <Clickable
+                  key={proj.id}
+                  isSelected={currProjId === proj.id}
+                  onclick={() => setCurrProjId(proj.id)}
+                >
                   {proj.name}
-                </Link>
-              </div>
+                </Clickable>
+              </Link>
             )
           })}
         </div>
