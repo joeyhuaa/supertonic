@@ -2,10 +2,11 @@ import React, { useContext } from 'react'
 import Context from '../components/Context'
 import { THEME } from '../aesthetics'
 import useChangeTheme from '../hooks/useChangeTheme'
+import useTheme from '../hooks/useTheme'
 
 export default function Settings() {
   let setTheme = useChangeTheme()
-  let { theme } = useContext(Context)
+  const theme = useTheme().data
 
   let changeTheme = (value) => {
     setTheme.mutate({

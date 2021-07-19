@@ -4,8 +4,9 @@ export default function useTheme() {
   return useQuery(
     'theme',
     async () => {
-      let res = await fetch('api/user/theme')
-      return res.json()
+      let res = await fetch('/api/user/theme')
+      let { theme } = await res.json()
+      return theme
     }
   )
 }

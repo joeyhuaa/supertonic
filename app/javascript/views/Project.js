@@ -150,13 +150,11 @@ export default function Project({
   const { projectId } = useParams()
   const { data, isError, isLoading } = useProject(projectId)
   const project = data
-
+  
   const appContext = useContext(Context)
   appContext.switchBranch = (newBranch) => {
     setState({ ...state, currBranch: newBranch })
   }
-  let { theme } = appContext
-  // console.log('project theme:', appContext.theme)
 
   return (
     <section id={styles.project_view}>

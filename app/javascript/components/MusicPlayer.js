@@ -4,10 +4,12 @@ import { THEME } from '../aesthetics'
 import moment from 'moment'
 import styles from '../stylesheets/musicplayer.module.css'
 import { FaPlay, FaPause } from 'react-icons/fa'
+import useTheme from '../hooks/useTheme'
 
 export default function MusicPlayer() {
-  let [currentTime, setCurrentTime] = useState(null)
-  const { currSong, isPlaying, playPause, theme } = useContext(Context)
+  const [currentTime, setCurrentTime] = useState(null)
+  const { currSong, isPlaying, playPause } = useContext(Context)
+  const theme = useTheme().data
 
   useEffect(() => {
     if (isPlaying) {

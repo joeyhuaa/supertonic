@@ -55,7 +55,6 @@ import { BrowserRouter, Route } from 'react-router-dom'
 
 import { Provider } from './Context'
 import useStateCallback from '../hooks/useStateCallback'
-import useTheme from '../hooks/useTheme';
 
 import Settings from '../views/Settings';
 import Project from '../views/Project'
@@ -71,17 +70,9 @@ function App({ user }) {
     currSong: null,
     isPlaying: false,
   })
-  const { data } = useTheme()
-  const theme = data?.theme
-  // console.log('app theme:', theme)
-
-  useEffect(() => {
-    // console.log('app')
-  })
 
   const appContext = {
     user: user,
-    theme: theme,
     isPlaying: state.isPlaying,
     currSong: state.currSong,
     playPause: async (id) => {

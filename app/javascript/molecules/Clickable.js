@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Context from '../components/Context'
 import { THEME } from '../aesthetics'
+import useTheme from '../hooks/useTheme'
 
 const Clickable = React.forwardRef((props, ref) => {
   const [isHovering, setHovering] = useState(false)
   // const [isSelected, setSelected] = useState(false)
-  const { theme } = useContext(Context)
+  const theme = useTheme().data
   const {
+    elemKey,
     children,
     onclick = () => {},
     styles = { padding: '5px' },
@@ -14,7 +16,7 @@ const Clickable = React.forwardRef((props, ref) => {
   } = props
 
   useEffect(() => {
-    console.log('isSelected:', isSelected)
+    // console.log('isSelected:', isSelected)
   }, [isSelected])
 
   // useEffect(() => {
@@ -29,6 +31,7 @@ const Clickable = React.forwardRef((props, ref) => {
 
   return (
     <div 
+      key={elemKey}
       ref={ref}
       className='clickable' 
       onClick={() => {

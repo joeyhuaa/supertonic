@@ -10,15 +10,12 @@ import Context from './Context'
 import IconClickable from '../molecules/IconClickable'
 import useProjects from '../hooks/useProjects'
 import useCreateProject from '../hooks/useCreateProject'
+import useTheme from '../hooks/useTheme'
 import Clickable from '../molecules/Clickable'
-
-import { getUrlEndpoint } from '../util/helpers'
 
 function Menu() {
   return (
-    <div style={{
-      display: 'flex'
-    }}>
+    <div style={{ display: 'flex' }}>
       <Link to='/settings'>
         <IconClickable 
           icon={<MdSettings color='white' size={20} />} 
@@ -30,15 +27,23 @@ function Menu() {
 }
 
 export default function Sidebar() {
-  useEffect(() => {
-    console.log('endpoint', getUrlEndpoint());
-    if (getUrlEndpoint() == 'settings') {
-      setCurrProjId(null)
-    }
-  }, [window.location.href])
 
   const [currProjId, setCurrProjId] = useState(null)
-  const { user, theme } = useContext(Context)
+  const { user } = useContext(Context)
+
+  useEffect(() => {
+    let projId = parseInt( window.location.pathname.split('/').pop() )
+    setCurrProjId(projId)
+  }, [])
+
+  useEffect(() => {
+    let newPath = window.location.pathname
+    if (!newPath.includes('project')) {
+      setCurrProjId(null)
+    }
+  }, [window.location.pathname])
+
+  const theme = useTheme().data
   const { data, isError, isLoading } = useProjects()
   const projects = data?.projects
   const createProject = useCreateProject()
@@ -78,9 +83,13 @@ export default function Sidebar() {
 
         <div id='project-browser' style={styles.pBrowser}>
           {projects && projects.map((proj) => {
-            console.log(proj.id);
+            // console.log(proj.id);
             return (
-              <Link to={`/projects/${proj.id}`}>
+              <Link 
+                to={`/projects/${proj.id}`} 
+                className='no-decoration'
+                key={proj.id}
+              >
                 <Clickable
                   key={proj.id}
                   isSelected={currProjId === proj.id}

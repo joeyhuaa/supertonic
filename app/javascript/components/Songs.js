@@ -7,7 +7,7 @@ import styles from '../stylesheets/project.module.css'
 import { FaPlay, FaPause } from 'react-icons/fa'
 import moment from 'moment'
 
-function Song({song}) {
+function Song({ song }) {
   const { playPause, isPlaying, currSong } = useContext(Context)
   return (
     <div className={styles.song} key={song.id}>
@@ -38,8 +38,8 @@ export default function Songs({project, branch}) {
       {project.files.filter(
         file => project.branches[branch].includes(file.id)).map(
           song => (
-            <Clickable styles={{ padding: '5px 15px' }}>
-              <Song key={song.id} song={song} />
+            <Clickable styles={{ padding: '5px 15px' }} elemKey={song.id}>
+              <Song song={song} />
             </Clickable>
           )
         )
