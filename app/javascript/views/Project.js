@@ -19,7 +19,7 @@ import useDeleteProject from '../hooks/useDeleteProject'
 import styles from '../stylesheets/project.module.css'
 
 const BranchSelect = React.forwardRef((props, ref) => {
-  const branchNames = Object.keys(props.branches)
+  const { branches } = props
   const { switchBranch } = useContext(Context)
 
   return (
@@ -28,10 +28,10 @@ const BranchSelect = React.forwardRef((props, ref) => {
       ref={ref}
       onChange={e => switchBranch(e.target.value)}
     >
-      {branchNames.map(branch => (
-        <option key={branch}>
+      {branches.map(branch => (
+        <option key={branch.id}>
           {/* <Link to={`/projects/${project.id}/${branch}`}> */}
-            {branch}
+            {branch.name}
           {/* </Link> */}
         </option>
       ))}
@@ -46,28 +46,31 @@ const ProjectHeader = React.forwardRef((props, ref) => {
   } = props
 
   let [showAddSongsForm, setAddSongsForm] = useState(false)
-  let [newBranch, setNewBranch] = useState('')
+  let [newBranchName, setnewBranchName] = useState('')
   let createBranch = useCreateBranch()
   let updateProject = useUpdateProject()
   let deleteProject = useDeleteProject()
   let branchNames = Object.keys(project.branches)
 
+  console.log('branch', branch);
+
   let onSubmit = (e) => {
     // post new branch
     e.preventDefault()
-    // console.log('new branch', newBranch, 'for project', project.id)
+    // console.log('new branch', newBranchName, 'for project', project.id)
 
-    if (newBranch !== '' && !branchNames.includes(newBranch)) {
+    if (newBranchName !== '' && !branchNames.includes(newBranchName)) {
       createBranch.mutate({ 
-        branch: newBranch,
-        id: project.id
+        newBranchName: newBranchName,
+        sourceBranchId: branch.id,
+        projId: project.id
       })
       // set state to new branch
       // url change? how to put Link into select...
       
-    } else if (newBranch === '') {
+    } else if (newBranchName === '') {
       alert('You must enter a branch name.')
-    } else if (branchNames.includes(newBranch)) {
+    } else if (branchNames.includes(newBranchName)) {
       alert ('That branch already exists in this project.')
     }
   }
@@ -123,8 +126,8 @@ const ProjectHeader = React.forwardRef((props, ref) => {
         <input 
           id={styles.branch_input}
           placeholder='Add New Branch'
-          onChange={e => setNewBranch(e.target.value)}
-          value={newBranch}
+          onChange={e => setnewBranchName(e.target.value)}
+          value={newBranchName}
         />
       </form>
 
@@ -140,20 +143,21 @@ const ProjectHeader = React.forwardRef((props, ref) => {
 })
 
 export default function Project({
-  // toggleNewBranchForm,
+  // togglenewBranchNameForm,
 }) {
-  const [state, setState] = useState({
-    currBranch: 'main',
-    showNewBranchForm: false
-  })
   const branchDropdown = useRef()
   const { projectId } = useParams()
   const { data, isError, isLoading } = useProject(projectId)
   const project = data
+
+  const [state, setState] = useState({
+    currBranch: 'main',
+    shownewBranchNameForm: false
+  })
   
   const appContext = useContext(Context)
-  appContext.switchBranch = (newBranch) => {
-    setState({ ...state, currBranch: newBranch })
+  appContext.switchBranch = (newBranchName) => {
+    setState({ ...state, currBranch: newBranchName })
   }
 
   return (

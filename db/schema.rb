@@ -12,11 +12,20 @@
 
 ActiveRecord::Schema.define(version: 2021_05_19_023019) do
 
+  create_table "branches", force: :cascade do |t|
+    t.string "name"
+    t.string "songs"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "project_id"
+    t.index ["project_id"], name: "index_branches_on_project_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.string "files"
     t.string "branches"
+    t.string "songs"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
@@ -29,6 +38,8 @@ ActiveRecord::Schema.define(version: 2021_05_19_023019) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "project_id"
+    t.integer "branch_id"
+    t.index ["branch_id"], name: "index_songs_on_branch_id"
     t.index ["project_id"], name: "index_songs_on_project_id"
   end
 

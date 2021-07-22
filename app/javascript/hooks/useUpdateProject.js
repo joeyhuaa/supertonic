@@ -7,22 +7,22 @@ export default function useUpdateProject() {
   return useMutation(
     data => axios.put(`/api/projects/${data.id}/update`, data).then(res => res.data),
     {
-      onMutate: async newProj => {
-        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-        await queryClient.cancelQueries(['projects', newProj.id])
+      // onMutate: async newProj => {
+      //   // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+      //   await queryClient.cancelQueries(['projects', newProj.id])
 
-        // Snapshot the previous value
-        let prevProj = queryClient.getQueryData(['projects', newProj.id])
+      //   // Snapshot the previous value
+      //   let prevProj = queryClient.getQueryData(['projects', newProj.id])
 
-        // Optimistically update to the new value
-        queryClient.setQueryData(['projects', newProj.id], newProj)
+      //   // Optimistically update to the new value
+      //   queryClient.setQueryData(['projects', newProj.id], newProj)
 
-        // Return a context with the previous and new value
-        return { prevProj, newProj }
-      },
+      //   // Return a context with the previous and new value
+      //   return { prevProj, newProj }
+      // },
       onError: context => {
         queryClient.setQueryData(
-          ['projectss', context.newProj.id],
+          ['projects', context.newProj.id],
           context.prevProj
         )
       },

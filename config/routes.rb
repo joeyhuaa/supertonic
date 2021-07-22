@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   # api
   get 'api/songs/:id', :to => 'song#get'
+  delete 'api/songs/:id/destroy', :to => 'song#destroy'
 
   get 'api/projects', :to => 'project#get_all'
   post 'api/projects/new', :to => 'project#new'

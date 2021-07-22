@@ -17,11 +17,19 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
     create_table :projects do |t|
       t.string :name
       t.string :description
-      t.string :files
       t.string :branches
+      t.string :songs
 
       t.timestamps
       t.belongs_to :user
+    end
+
+    create_table :branches do |t|
+      t.string :name
+      t.string :songs
+
+      t.timestamps
+      t.belongs_to :project
     end
 
     create_table :songs do |t|
@@ -30,6 +38,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
 
       t.timestamps
       t.belongs_to :project
+      t.belongs_to :branch
     end
   end
 end

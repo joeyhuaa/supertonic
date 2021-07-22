@@ -42,10 +42,7 @@ class ProjectController < ApplicationController
     @project.description = ""
 
     # branches
-    @project.branches = {
-      # 'main' => @project.files.map{|file| file['id']},
-      'main' => []
-    }
+    @project.addBranch('main')
 
     @project.save
 
@@ -65,6 +62,7 @@ class ProjectController < ApplicationController
     render :json => @project
   end
 
+  # GET api/projects
   def get_all
     puts "/projects"
     render :json => {:projects => current_user.projects}
@@ -73,18 +71,14 @@ class ProjectController < ApplicationController
   # PUT api/projects/:id/newbranch
   def new_branch
     puts 'NEW BRANCH'
-    @project = Project.find(params[:id])
-    @project.branches[ params[:branch] ] = []
-    @project.save
+    @project = Project.find( params[:projId] )
+    @project.addBranch( params[:newBranchName], params[:sourceBranchId] )
     render :json => {status: 200}
   end
 
   # PUT api/projects/:id/deletebranch
   def delete_branch
   end
-
-  def update
-  end 
 
   # DELETE api/projects/:id/destroy
   def destroy

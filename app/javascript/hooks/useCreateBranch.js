@@ -4,7 +4,7 @@ import { useMutation, queryCache } from 'react-query'
 export default function useCreateBranch() {
   return useMutation(
     (data) => (
-      axios.put(`/api/projects/${data.id}/newbranch`, data)
+      axios.put(`/api/projects/${data.projId}/newbranch`, data)
     ),
     // {
     //   onMutate: (newBranch) => {

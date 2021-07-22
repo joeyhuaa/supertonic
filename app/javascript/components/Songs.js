@@ -7,8 +7,18 @@ import styles from '../stylesheets/project.module.css'
 import { FaPlay, FaPause } from 'react-icons/fa'
 import moment from 'moment'
 
+import useDeleteSong from '../hooks/useDeleteSong'
+
 function Song({ song }) {
+  const deleteSong = useDeleteSong()
   const { playPause, isPlaying, currSong } = useContext(Context)
+
+  let destroy = () => {
+    deleteSong.mutate({
+      id: song.id
+    })
+  }
+
   return (
     <div className={styles.song} key={song.id}>
       <div className={styles.song_play} onClick={() => playPause(song.id)}>
@@ -22,27 +32,27 @@ function Song({ song }) {
       <div className={`${styles.song_filechange} clickable`}>
         <span>Change</span>
       </div>
-      <div className={`${styles.song_filechange} clickable`}>
+      <div className={`${styles.song_filechange} clickable`} onClick={destroy}>
         <span>Delete</span>
       </div>
     </div>
   )
 }
 
-export default function Songs({project, branch}) {
-  // console.log(branch)
+export default function Songs({ project, branchName }) {
+  // console.log(project)
+
+  const songs = project.songs
+  const branch = project.branches.find(b => b.name === branchName)
+  
   return (
-    <div 
-      // style={{ border: 'solid white 2px' }}
-    >
-      {project.files.filter(
-        file => project.branches[branch].includes(file.id)).map(
-          song => (
-            <Clickable styles={{ padding: '5px 15px' }} elemKey={song.id}>
-              <Song song={song} />
-            </Clickable>
-          )
-        )
+    <div>
+      {songs.filter(song =>
+        branch.includes(song.id)).map(song => (
+          <Clickable styles={{ padding: '5px 15px' }} elemKey={song.id}>
+            <Song song={song} />
+          </Clickable>
+        ))
       }
     </div>
   )
