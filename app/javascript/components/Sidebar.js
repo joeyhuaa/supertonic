@@ -51,13 +51,12 @@ export default function Sidebar() {
     sidebar: {
       backgroundColor: THEME[theme]?.color1,
       maxWidth: '200px',
-      height: '100%',
       position: 'relative',
       // border: 'solid white 1px'
     },
     pBrowser: {
-      overflowY: 'scroll',
-      height: '500px',
+      overflowY: 'auto',
+      height: '20%',
       // border: 'solid yellow 1px',
       width: '100%'
     }
@@ -77,7 +76,7 @@ export default function Sidebar() {
         <p>Welcome, {user.full_name}</p>
         <Menu />
       </div>
-      <div style={{ paddingTop: '10px' }}>
+      <div id='pBrowser' style={{ paddingTop: '10px' }}>
         {isError && <span>Error.</span>}
         {isLoading && <span>Loading...</span>}
 
