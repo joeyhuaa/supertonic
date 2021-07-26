@@ -51,12 +51,13 @@ export default function Sidebar() {
     sidebar: {
       backgroundColor: THEME[theme]?.color1,
       maxWidth: '200px',
+      height: '100%',
       position: 'relative',
       // border: 'solid white 1px'
     },
     pBrowser: {
       overflowY: 'auto',
-      height: '20%',
+      height: '60vh',
       // border: 'solid yellow 1px',
       width: '100%'
     }
