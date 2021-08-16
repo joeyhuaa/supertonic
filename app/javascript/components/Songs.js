@@ -8,6 +8,7 @@ import { FaPlay, FaPause } from 'react-icons/fa'
 import { GiMusicalNotes } from 'react-icons/gi'
 
 import moment from 'moment'
+import IconClickable from '../molecules/IconClickable'
 
 function Song({ song }) {
   const deleteSong = useDeleteSong()
@@ -53,6 +54,18 @@ export default function Songs({ project, branchName }) {
             <Song song={song} />
           </Clickable>
         ))
+      }
+      {songs.length === 0 &&
+        <div id='file-input'>
+          <input type='file' id='file' />
+          <label for='file'>
+            <IconClickable 
+              icon={<GiMusicalNotes size={50} />}
+              padding={15}
+            />
+            Add Music
+          </label>
+        </div>
       }
     </div>
   )

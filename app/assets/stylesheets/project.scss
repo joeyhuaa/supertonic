@@ -1,5 +1,29 @@
-#project-view {
+#project {
   flex: 5;
   min-width: 200px;
+  padding-left: 100px;
+  padding-right: 100px;
   // border: solid 1px cyan;
+
+  #file {
+    display: none;
+  }
+
+  #header {
+    display: flex;
+    align-items: center;
+    border-bottom: solid 1px gray;
+    padding-bottom: 10px;
+
+    #heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-width: 60px;
+    }
+
+    .header-item {
+      margin-right: 20px;
+    }
+  }
 }

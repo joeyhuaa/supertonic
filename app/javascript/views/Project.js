@@ -7,22 +7,24 @@ import AddSongsForm from '../components/AddSongsForm'
 import FloatDropdown from '../components/FloatDropdown'
 import Context from '../components/Context'
 
+import { AiOutlineFileAdd } from 'react-icons/ai'
+
 import  { 
   useProject, 
   useCreateBranch, 
   useUpdateProject, 
   useDeleteProject 
 } from '../hooks'
-
-import styles from '../stylesheets/project.module.css'
+import IconClickable from '../molecules/IconClickable'
 
 const BranchSelect = React.forwardRef((props, ref) => {
-  const { branches } = props
+  const { branches, className } = props
   const { switchBranch } = useContext(Context)
 
   return (
     <select
-      id={styles.branch_dropdown} 
+      id='branch-dropdown'
+      className={className}
       ref={ref}
       onChange={e => switchBranch(e.target.value)}
     >
@@ -95,10 +97,11 @@ const ProjectHeader = React.forwardRef((props, ref) => {
   }
 
   return (
-    <div id={styles.header}>
-      <div id={styles.header_heading}>
+    <div id='header'>
+      <div id='heading' className='header-item'>
         <h1 onClick={changeProjName}>{project.name}</h1>
         <FloatDropdown 
+          className='header-item'
           options={[
             {
               name: 'Delete Project', 
@@ -114,15 +117,23 @@ const ProjectHeader = React.forwardRef((props, ref) => {
           ]}
         />
       </div>
-      <BranchSelect branches={project.branches} ref={ref} />
-      <Clickable onclick={() => toggleAddSongsForm(true)}>Add Songs</Clickable>
+      <BranchSelect className='header-item' branches={project.branches} ref={ref} />
+
+      <div id='file-input' className='header-item'>
+        <input type='file' id='file' />
+        <label for='file'>
+          <IconClickable 
+            icon={<AiOutlineFileAdd size={25} />}
+          />
+        </label>
+      </div>
       <form 
-        id={styles.branch} 
-        className={styles.header_item}
+        id='branch-form' 
+        className='header-item'
         onSubmit={onSubmit}
       >
         <input 
-          id={styles.branch_input}
+          id='branch-input'
           placeholder='Add New Branch'
           onChange={e => setnewBranchName(e.target.value)}
           value={newBranchName}
@@ -159,18 +170,18 @@ export default function Project({
   }
 
   return (
-    <section id='project-view'>
+    <section id='project'>
       {isError && <span>Error.</span>}
       {isLoading && <span>Loading...</span>}
       {project &&
-        <div id='project'>
+        <>
           <ProjectHeader 
             project={project}
             branch={state.currBranch}
             ref={branchDropdown}
           />
           <Songs project={project} branch={state.currBranch} />
-        </div>
+        </>
       }
     </section>
   )

@@ -128,7 +128,6 @@ function App({ user }) {
             display: 'flex',
             width: '100%',
             height: '85vh',
-            border: 'solid 1px',
           }}>
             <Sidebar />
 
