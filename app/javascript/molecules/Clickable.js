@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Context from '../components/Context'
 import { THEME } from '../aesthetics'
-import useTheme from '../hooks/useTheme'
+import {useTheme} from '../hooks'
 
 const Clickable = React.forwardRef((props, ref) => {
   const [isHovering, setHovering] = useState(false)

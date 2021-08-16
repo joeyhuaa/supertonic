@@ -64,7 +64,6 @@ class ProjectController < ApplicationController
 
   # GET api/projects
   def get_all
-    puts "/projects"
     render :json => {:projects => current_user.projects}
   end
 

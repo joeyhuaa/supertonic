@@ -31,10 +31,9 @@ const FloatDropdown = React.forwardRef((props, ref) => {
     color: 'red'
   }
   const menuStyles = {
-    // inset: '0 auto auto 0',
     border: 'solid white 1px',
     zIndex: 999,
-    backgroundColor: THEME[theme]?.color1,
+    backgroundColor: 'black',
     padding: '5px 10px 5px 10px',
   }
 

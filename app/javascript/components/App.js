@@ -54,7 +54,7 @@ import React, { useState, useEffect } from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 
 import { Provider } from './Context'
-import useStateCallback from '../hooks/useStateCallback'
+import { useStateCallback } from '../hooks';
 
 import Settings from '../views/Settings';
 import Project from '../views/Project'
@@ -124,21 +124,29 @@ function App({ user }) {
           }
 
           <Overlay show={state.showNewBranchForm || state.showAddSongsForm} />
-          <Sidebar />
-          <MusicPlayer />
+          <div style={{
+            display: 'flex',
+            width: '100%',
+            height: '85vh',
+            border: 'solid 1px',
+          }}>
+            <Sidebar />
 
-          <Route 
-            path='/projects/:projectId' 
-            component={Project}
-          />
-          <Route 
-            path='/projects/:projectId/branch'
-            component={Project}
-          />
-          <Route 
-            path='/settings'
-            component={Settings}
-          />
+            <Route 
+              path='/projects/:projectId' 
+              component={Project}
+            />
+            <Route 
+              path='/projects/:projectId/branch'
+              component={Project}
+            />
+            <Route 
+              path='/settings'
+              component={Settings}
+            />
+          </div>
+
+          <MusicPlayer />
         </Container>
       </BrowserRouter>
     </Provider>

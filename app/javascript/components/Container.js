@@ -1,11 +1,9 @@
-import React, { useContext } from 'react'
-import Context from './Context'
+import React from 'react'
 import { THEME } from '../aesthetics'
-import useTheme from '../hooks/useTheme'
+import { useTheme } from '../hooks'
 import { useEffect } from 'react/cjs/react.development'
 
 export default function Container({children}) {
-  // const { theme } = useContext(Context)
   const theme = useTheme().data
   const styles = {
     backgroundImage: `linear-gradient(to bottom, ${THEME[theme]?.color2}, ${THEME[theme]?.color3} 25%)`,

@@ -4,7 +4,7 @@ import { THEME } from '../aesthetics'
 import moment from 'moment'
 import styles from '../stylesheets/musicplayer.module.css'
 import { FaPlay, FaPause } from 'react-icons/fa'
-import useTheme from '../hooks/useTheme'
+import { useTheme } from '../hooks'
 
 export default function MusicPlayer() {
   const [currentTime, setCurrentTime] = useState(null)
@@ -13,7 +13,7 @@ export default function MusicPlayer() {
 
   useEffect(() => {
     if (isPlaying) {
-      music.current.play()
+      music.current.play()  
     } else {
       music.current.pause()
     }

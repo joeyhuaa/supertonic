@@ -1,20 +1,18 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import { useParams } from 'react-router-dom'
-import { Link } from 'react-router-dom'
-
-import { THEME } from '../aesthetics'
 
 import Clickable from '../molecules/Clickable'
-
 import Songs from '../components/Songs'
 import AddSongsForm from '../components/AddSongsForm'
 import FloatDropdown from '../components/FloatDropdown'
-import Context, { Provider } from '../components/Context'
+import Context from '../components/Context'
 
-import useProject from '../hooks/useProject'
-import useCreateBranch from '../hooks/useCreateBranch'
-import useUpdateProject from '../hooks/useUpdateProject'
-import useDeleteProject from '../hooks/useDeleteProject'
+import  { 
+  useProject, 
+  useCreateBranch, 
+  useUpdateProject, 
+  useDeleteProject 
+} from '../hooks'
 
 import styles from '../stylesheets/project.module.css'
 
@@ -161,11 +159,11 @@ export default function Project({
   }
 
   return (
-    <section id={styles.project_view}>
+    <section id='project-view'>
       {isError && <span>Error.</span>}
       {isLoading && <span>Loading...</span>}
       {project &&
-        <div>
+        <div id='project'>
           <ProjectHeader 
             project={project}
             branch={state.currBranch}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { BsX } from 'react-icons/bs'
-import useCreateSongs from '../hooks/useCreateSongs'
+import { useCreateSongs } from '../hooks'
 
 let styles = {
   form_container: {

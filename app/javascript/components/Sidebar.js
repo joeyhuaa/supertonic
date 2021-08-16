@@ -8,10 +8,9 @@ import {
 import { THEME } from '../aesthetics'
 import Context from './Context'
 import IconClickable from '../molecules/IconClickable'
-import useProjects from '../hooks/useProjects'
-import useCreateProject from '../hooks/useCreateProject'
-import useTheme from '../hooks/useTheme'
 import Clickable from '../molecules/Clickable'
+
+import { useProjects, useCreateProject, useTheme } from '../hooks'
 
 function Menu() {
   return (
@@ -47,68 +46,43 @@ export default function Sidebar() {
   const { data, isError, isLoading } = useProjects()
   const projects = data?.projects
   const createProject = useCreateProject()
-  const styles = {
-    sidebar: {
-      backgroundColor: THEME[theme]?.color1,
-      maxWidth: '200px',
-      height: '100%',
-      position: 'relative',
-      // border: 'solid white 1px'
-    },
-    pBrowser: {
-      overflowY: 'auto',
-      height: '60vh',
-      // border: 'solid yellow 1px',
-      width: '100%'
-    }
-  }
 
   let newProjClicked = () => {
     createProject.mutate()
   }
   
   return (
-    <section id='sidebar' style={styles.sidebar}>
-      <div style={{
-        borderBottom: 'solid gray 1px',
-        paddingBottom: '10px',
-      }}>
+    <section id='sidebar' style={{ backgroundColor: THEME[theme]?.color1 }}>
+      <div id='top'>
         <h1>SuperTonic</h1>
         <p>Welcome, {user.full_name}</p>
         <Menu />
       </div>
-      <div id='pBrowser' style={{ paddingTop: '10px' }}>
+      <div id='browser'>
         {isError && <span>Error.</span>}
         {isLoading && <span>Loading...</span>}
-
-        <div id='project-browser' style={styles.pBrowser}>
-          {projects && projects.map((proj) => {
-            // console.log(proj.id);
-            return (
-              <Link 
-                to={`/projects/${proj.id}`} 
-                className='no-decoration'
+        {projects?.map((proj) => {
+          return (
+            <Link 
+              to={`/projects/${proj.id}`} 
+              className='no-decoration'
+              key={proj.id}
+            >
+              <Clickable
                 key={proj.id}
+                isSelected={currProjId === proj.id}
+                onclick={() => setCurrProjId(proj.id)}
               >
-                <Clickable
-                  key={proj.id}
-                  isSelected={currProjId === proj.id}
-                  onclick={() => setCurrProjId(proj.id)}
-                >
-                  {proj.name}
-                </Clickable>
-              </Link>
-            )
-          })}
-        </div>
+                {proj.name}
+              </Clickable>
+            </Link>
+          )
+        })}
       </div>
       <button
         onClick={newProjClicked}
+        id='new-project-btn'
         className='round-btn submit-btn'
-        style={{
-          position: 'absolute',
-          bottom: 170,
-        }}
       >
         New Project
       </button>

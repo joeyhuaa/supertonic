@@ -19,17 +19,12 @@
     color: whitesmoke;
 }
 
-html {
-    padding: 0;
-    margin: 0;
-    height: 100vh;
-}
-
 body {
     padding: 0;
     margin: 0;
     height: 100vh;
-    overflow: hidden;
+    /* overflow: hidden; */
+    /* border: solid yellow; */
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -80,9 +75,9 @@ select {
 }
 
 #main {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
+    height: 100%;
+    /* display: flex; */
+    /* border: solid yellow 1px; */
 }
 
 .round-btn {

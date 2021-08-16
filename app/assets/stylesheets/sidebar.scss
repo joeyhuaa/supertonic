@@ -1,0 +1,21 @@
+#sidebar {
+  flex: 1;
+  max-width: 200px;
+  min-width: 200px;
+  position: relative;
+  // border: solid 1px;
+
+  #top {
+    border-bottom: solid gray 1px;
+    padding-bottom: 10px;
+  }
+
+  #browser {
+    overflow: auto;
+    height: 70%;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    // border: solid orange 1px;
+  }
+}

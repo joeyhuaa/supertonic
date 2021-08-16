@@ -2,12 +2,12 @@ import React, { useContext } from 'react'
 import Context from './Context'
 import Clickable from '../molecules/Clickable'
 
-import styles from '../stylesheets/project.module.css'
+import { useDeleteSong } from '../hooks'
 
 import { FaPlay, FaPause } from 'react-icons/fa'
-import moment from 'moment'
+import { GiMusicalNotes } from 'react-icons/gi'
 
-import useDeleteSong from '../hooks/useDeleteSong'
+import moment from 'moment'
 
 function Song({ song }) {
   const deleteSong = useDeleteSong()
@@ -20,19 +20,19 @@ function Song({ song }) {
   }
 
   return (
-    <div className={styles.song} key={song.id}>
-      <div className={styles.song_play} onClick={() => playPause(song.id)}>
+    <div className='song' key={song.id}>
+      <div className='play' onClick={() => playPause(song.id)}>
         {isPlaying && currSong.id === song.id ? <FaPause color='white' /> : <FaPlay color='white' />}
       </div>
-      <span className={styles.song_name}>{song.name}</span>
-      <span className={styles.song_time}>time</span>
-      <span className={styles.song_date}>
+      <span className='name'>{song.name}</span>
+      <span className='time'>time</span>
+      <span className='date'>
         {moment(new Date(song.created_at)).format('MMMM Do, YYYY')}
       </span>
-      <div className={`${styles.song_filechange} clickable`}>
+      <div className='filechange clickable'>
         <span>Change</span>
       </div>
-      <div className={`${styles.song_filechange} clickable`} onClick={destroy}>
+      <div className='filechange clickable' onClick={destroy}>
         <span>Delete</span>
       </div>
     </div>
@@ -46,7 +46,7 @@ export default function Songs({ project, branchName }) {
   const branch = project.branches.find(b => b.name === branchName)
   
   return (
-    <div>
+    <div id='songs'>
       {songs.filter(song =>
         branch.includes(song.id)).map(song => (
           <Clickable styles={{ padding: '5px 15px' }} elemKey={song.id}>
