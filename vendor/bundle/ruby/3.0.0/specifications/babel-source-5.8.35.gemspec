@@ -12,8 +12,8 @@ Gem::Specification.new do |s|
   s.email = "sebmck@gmail.com".freeze
   s.homepage = "https://github.com/babel/ruby-babel-transpiler".freeze
   s.licenses = ["MIT".freeze]
-  s.rubygems_version = "3.2.3".freeze
+  s.rubygems_version = "3.2.22".freeze
   s.summary = "Babel JS source".freeze
 
-  s.installed_by_version = "3.2.3" if s.respond_to? :installed_by_version
+  s.installed_by_version = "3.2.22" if s.respond_to? :installed_by_version
 end

@@ -152,9 +152,10 @@ export function useCreateSongs() {
       return axios.put(`/api/projects/${data.id}/add_songs`, data)
     },
     {
+      onMutate: () => console.log('new songs'),
       onSuccess: (res) => {
         queryClient.invalidateQueries('projects')
-        // queryClient.setQueryData(['project', { id: res.data.projId }], res.data)
+        queryClient.setQueryData(['project', { id: res.data.projId }], res.data)
       }
     }
   )
@@ -164,9 +165,19 @@ export function useDeleteSong() {
   const queryClient = useQueryClient()
 
   return useMutation(
-    data => axios.delete(`/api/songs/${data.id}/destroy`, data).then(res => res.data),
+    data => axios.delete(`/api/songs/${data.songId}/destroy`, data).then(res => res.data),
     {
-      onSuccess: (data, vars) => {
+      onMutate: async data => {
+        // optimistic update, remove song from project
+        // let songIdToRemove = data.songId
+        // queryClient.setQueryData(['project', data.projectId], old => ({
+        //   ...old,
+        //   songs: {
+        //     ...
+        //   }
+        // }))
+      },
+      onSettled: (data, vars) => {
         queryClient.setQueryData(['project', { id: vars.id }], data)
       }
     }

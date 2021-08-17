@@ -35,6 +35,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
     create_table :songs do |t|
       t.string :name
       t.string :b64
+      t.string :duration
 
       t.timestamps
       t.belongs_to :project

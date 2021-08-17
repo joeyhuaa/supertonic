@@ -1,6 +1,6 @@
 have_func: checking for rb_ary_subseq()... -------------------- yes
 
-"gcc -fdeclspec -o conftest -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe conftest.c  -L. -L/Users/jhua/.rvm/rubies/ruby-3.0.0/lib -L. -L/usr/local/opt/libyaml/lib -L/usr/local/opt/libksba/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/zlib/lib -L/usr/local/opt/openssl@1.1/lib -fstack-protector-strong -L/usr/local/lib     -lruby.3.0   "
+"gcc -fdeclspec -o conftest -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe conftest.c  -L. -L/Users/jhua/.rvm/rubies/ruby-3.0.2/lib -L. -L/usr/local/opt/libyaml/lib -L/usr/local/opt/libksba/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/zlib/lib -L/usr/local/opt/openssl@1.1/lib -fstack-protector-strong -L/usr/local/lib     -lruby.3.0   "
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -11,7 +11,7 @@ checked program was:
 6: }
 /* end */
 
-"gcc -fdeclspec -o conftest -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe conftest.c  -L. -L/Users/jhua/.rvm/rubies/ruby-3.0.0/lib -L. -L/usr/local/opt/libyaml/lib -L/usr/local/opt/libksba/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/zlib/lib -L/usr/local/opt/openssl@1.1/lib -fstack-protector-strong -L/usr/local/lib     -lruby.3.0   "
+"gcc -fdeclspec -o conftest -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe conftest.c  -L. -L/Users/jhua/.rvm/rubies/ruby-3.0.2/lib -L. -L/usr/local/opt/libyaml/lib -L/usr/local/opt/libksba/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/zlib/lib -L/usr/local/opt/openssl@1.1/lib -fstack-protector-strong -L/usr/local/lib     -lruby.3.0   "
 checked program was:
 /* begin */
  1: #include "ruby.h"

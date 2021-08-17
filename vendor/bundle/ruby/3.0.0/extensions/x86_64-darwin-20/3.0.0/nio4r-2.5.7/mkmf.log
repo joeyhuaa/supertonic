@@ -1,6 +1,6 @@
 have_header: checking for unistd.h... -------------------- yes
 
-"gcc -fdeclspec -o conftest -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe conftest.c  -L. -L/Users/jhua/.rvm/rubies/ruby-3.0.0/lib -L. -L/usr/local/opt/libyaml/lib -L/usr/local/opt/libksba/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/zlib/lib -L/usr/local/opt/openssl@1.1/lib -fstack-protector-strong -L/usr/local/lib     -lruby.3.0   "
+"gcc -fdeclspec -o conftest -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe conftest.c  -L. -L/Users/jhua/.rvm/rubies/ruby-3.0.2/lib -L. -L/usr/local/opt/libyaml/lib -L/usr/local/opt/libksba/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/zlib/lib -L/usr/local/opt/openssl@1.1/lib -fstack-protector-strong -L/usr/local/lib     -lruby.3.0   "
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -11,7 +11,7 @@ checked program was:
 6: }
 /* end */
 
-"gcc -E -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe  conftest.c -o conftest.i"
+"gcc -E -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe  conftest.c -o conftest.i"
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -23,7 +23,7 @@ checked program was:
 
 have_header: checking for linux/aio_abi.h... -------------------- no
 
-"gcc -E -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe  conftest.c -o conftest.i"
+"gcc -E -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe  conftest.c -o conftest.i"
 conftest.c:3:10: fatal error: 'linux/aio_abi.h' file not found
 #include <linux/aio_abi.h>
          ^~~~~~~~~~~~~~~~~
@@ -39,7 +39,7 @@ checked program was:
 
 have_header: checking for linux/io_uring.h... -------------------- no
 
-"gcc -E -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe  conftest.c -o conftest.i"
+"gcc -E -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe  conftest.c -o conftest.i"
 conftest.c:3:10: fatal error: 'linux/io_uring.h' file not found
 #include <linux/io_uring.h>
          ^~~~~~~~~~~~~~~~~~
@@ -55,7 +55,7 @@ checked program was:
 
 have_header: checking for sys/select.h... -------------------- yes
 
-"gcc -E -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe  conftest.c -o conftest.i"
+"gcc -E -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe  conftest.c -o conftest.i"
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -67,7 +67,7 @@ checked program was:
 
 have_type: checking for port_event_t in poll.h... -------------------- no
 
-"gcc -fdeclspec -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe   -c conftest.c"
+"gcc -fdeclspec -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe   -c conftest.c"
 conftest.c:6:9: error: unknown type name 'port_event_t'
 typedef port_event_t conftest_type;
         ^
@@ -87,7 +87,7 @@ checked program was:
 
 have_header: checking for sys/epoll.h... -------------------- no
 
-"gcc -E -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe  conftest.c -o conftest.i"
+"gcc -E -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe  conftest.c -o conftest.i"
 conftest.c:3:10: fatal error: 'sys/epoll.h' file not found
 #include <sys/epoll.h>
          ^~~~~~~~~~~~~
@@ -103,7 +103,7 @@ checked program was:
 
 have_header: checking for sys/event.h... -------------------- yes
 
-"gcc -E -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe  conftest.c -o conftest.i"
+"gcc -E -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe  conftest.c -o conftest.i"
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -115,7 +115,7 @@ checked program was:
 
 have_header: checking for sys/queue.h... -------------------- yes
 
-"gcc -E -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe  conftest.c -o conftest.i"
+"gcc -E -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe  conftest.c -o conftest.i"
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -127,7 +127,7 @@ checked program was:
 
 have_type: checking for port_event_t in port.h... -------------------- no
 
-"gcc -fdeclspec -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe   -c conftest.c"
+"gcc -fdeclspec -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe   -c conftest.c"
 conftest.c:3:10: fatal error: 'port.h' file not found
 #include <port.h>
          ^~~~~~~~
@@ -147,7 +147,7 @@ checked program was:
 
 have_header: checking for sys/resource.h... -------------------- yes
 
-"gcc -E -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe  conftest.c -o conftest.i"
+"gcc -E -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/x86_64-darwin20 -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/ruby/backward -I/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/usr/local/opt/libyaml/include -I/usr/local/opt/libksba/include -I/usr/local/opt/readline/include -I/usr/local/opt/zlib/include -I/usr/local/opt/openssl@1.1/include -fno-common -pipe  conftest.c -o conftest.i"
 checked program was:
 /* begin */
 1: #include "ruby.h"

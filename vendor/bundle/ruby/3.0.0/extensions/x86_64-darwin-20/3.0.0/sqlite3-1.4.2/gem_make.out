@@ -1,5 +1,5 @@
 current directory: /Users/jhua/supertonic/vendor/bundle/ruby/3.0.0/gems/sqlite3-1.4.2/ext/sqlite3
-/Users/jhua/.rvm/rubies/ruby-3.0.0/bin/ruby -I /Users/jhua/.rvm/rubies/ruby-3.0.0/lib/ruby/3.0.0 -r ./siteconf20210618-52484-p3i3ph.rb extconf.rb
+/Users/jhua/.rvm/rubies/ruby-3.0.2/bin/ruby -I /Users/jhua/.rvm/rubies/ruby-3.0.2/lib/ruby/3.0.0 -r ./siteconf20210816-29012-b2d6by.rb extconf.rb
 checking for sqlite3.h... yes
 checking for pthread_create() in -lpthread... yes
 checking for -ldl... yes
@@ -18,10 +18,10 @@ checking for sqlite3_uint64 in sqlite3.h... yes
 creating Makefile
 
 current directory: /Users/jhua/supertonic/vendor/bundle/ruby/3.0.0/gems/sqlite3-1.4.2/ext/sqlite3
-make "DESTDIR=" clean
+make DESTDIR\= clean
 
 current directory: /Users/jhua/supertonic/vendor/bundle/ruby/3.0.0/gems/sqlite3-1.4.2/ext/sqlite3
-make "DESTDIR="
+make DESTDIR\=
 compiling aggregator.c
 compiling backup.c
 compiling database.c
@@ -56,5 +56,5 @@ compiling statement.c
 linking shared-object sqlite3/sqlite3_native.bundle
 
 current directory: /Users/jhua/supertonic/vendor/bundle/ruby/3.0.0/gems/sqlite3-1.4.2/ext/sqlite3
-make "DESTDIR=" install
-/usr/local/opt/coreutils/bin/ginstall -c -m 0755 sqlite3_native.bundle ./.gem.20210618-52484-lpewr0/sqlite3
+make DESTDIR\= install
+/usr/local/opt/coreutils/bin/ginstall -c -m 0755 sqlite3_native.bundle ./.gem.20210816-29012-c2f039/sqlite3

@@ -6,8 +6,6 @@ import {
 } from 'react-icons/go'
 
 import IconClickable from '../molecules/IconClickable'
-import Context from './Context'
-import { THEME } from '../aesthetics'
 
 const FloatDropdown = React.forwardRef((props, ref) => {
   const { options } = props
@@ -16,7 +14,6 @@ const FloatDropdown = React.forwardRef((props, ref) => {
   const [referenceElement, setReferenceElement] = useState(null);
   const [popperElement, setPopperElement] = useState(null);
   
-  const { theme } = useContext(Context)
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     modifiers: [
       {
@@ -30,28 +27,22 @@ const FloatDropdown = React.forwardRef((props, ref) => {
   const dangerStyles = {
     color: 'red'
   }
-  const menuStyles = {
-    border: 'solid white 1px',
-    zIndex: 999,
-    backgroundColor: 'black',
-    padding: '5px 10px 5px 10px',
-  }
 
   return (
-    <div>
+    <div className='floatdropdown'>
       <IconClickable 
         icon={<GoTriangleDown size={20} />}
         onclick={() => setShowDropdown(!showDropdown)}
         ref={setReferenceElement}
+        className='icon'
       />
-      {showDropdown && 
+      {/* {showDropdown &&  */}
         <div 
           ref={setPopperElement} 
-          style={{
-            ...styles.popper,
-            ...menuStyles
-          }} 
+          className='dropdown'
+          style={{ ...styles.popper }} 
           {...attributes.popper}
+          tabIndex='0'
         >
           {options.map(({ name, danger, onclick, returnHome }) => (
             <Link 
@@ -62,6 +53,7 @@ const FloatDropdown = React.forwardRef((props, ref) => {
                 className='clickable' 
                 style={danger ? dangerStyles : null}
                 onClick={() => {
+                  console.log(name);
                   onclick();
                   setShowDropdown(false);
                 }}
@@ -71,7 +63,7 @@ const FloatDropdown = React.forwardRef((props, ref) => {
             </Link>
           ))}
         </div>
-      }
+      {/* } */}
     </div>
   )
 })

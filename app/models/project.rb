@@ -18,8 +18,8 @@ class Project < ApplicationRecord
         @branch.songs = self.branches.find(sourceId).songs
       end
       
-      @branch.save
-      self.save
+      @branch.save!
+      self.save!
     end
 
     def addSongs(files, branch)
@@ -27,11 +27,12 @@ class Project < ApplicationRecord
         @song = self.songs.create(created_at: Time.now)
         @song.name = file['name']
         @song.b64 = file['b64']
-        @song.save
-        puts 'SONG'
-        puts @song.name
-        self.branches.find_by(name: branch).songs.create(created_at: Time.now)
+        @song.duration = file['duration']
+        @song.save! 
+
+        @branch = self.branches.find_by(name: branch)
+        @branch.addSong(@song)
       end
-      self.save
+      self.save!
     end
 end

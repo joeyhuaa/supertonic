@@ -1,72 +1,96 @@
 import React, { useContext } from 'react'
 import Context from './Context'
 import Clickable from '../molecules/Clickable'
+import IconClickable from '../molecules/IconClickable'
 
-import { useDeleteSong } from '../hooks'
+import { useCreateSongs, useDeleteSong } from '../hooks'
 
 import { FaPlay, FaPause } from 'react-icons/fa'
 import { GiMusicalNotes } from 'react-icons/gi'
+import { BsTrash } from 'react-icons/bs'
+import { VscNewFile } from 'react-icons/vsc'
 
-import moment from 'moment'
-import IconClickable from '../molecules/IconClickable'
+import { ScaleLoader, FadeLoader } from 'react-spinners'
 
-function Song({ song }) {
+import * as moment from 'moment'
+import 'moment-duration-format'
+
+function Song({ song, key }) {
   const deleteSong = useDeleteSong()
   const { playPause, isPlaying, currSong } = useContext(Context)
 
-  let destroy = () => {
-    deleteSong.mutate({
-      id: song.id
-    })
-  }
+  let destroy = () => deleteSong.mutate(
+    { songId: song.id, projectId: song.project_id }
+  )
 
   return (
-    <div className='song' key={song.id}>
-      <div className='play' onClick={() => playPause(song.id)}>
-        {isPlaying && currSong.id === song.id ? <FaPause color='white' /> : <FaPlay color='white' />}
-      </div>
-      <span className='name'>{song.name}</span>
-      <span className='time'>time</span>
-      <span className='date'>
+    <Clickable key={key} className='song'>
+      <IconClickable 
+        className='clickable play song-item'
+        onclick={() => playPause(song.id)}
+        icon={
+          isPlaying && currSong.id === song.id ? (
+            <FaPause className='grow' />
+          ) : (
+            <FaPlay className='grow' />
+          )
+      }
+      />
+      <span className='name ellipse song-item'>{song.name}</span>
+      <span className='time song-item'>
+        {moment.duration(song.duration, 'seconds').format('m:ss')}
+      </span>
+      <span className='date song-item'>
         {moment(new Date(song.created_at)).format('MMMM Do, YYYY')}
       </span>
-      <div className='filechange clickable'>
-        <span>Change</span>
-      </div>
-      <div className='filechange clickable' onClick={destroy}>
-        <span>Delete</span>
-      </div>
-    </div>
+      <IconClickable 
+        className='filechange clickable song-item'
+        icon={<VscNewFile />}
+      />
+      {deleteSong.isLoading ? (
+        <FadeLoader color='white' />
+      ) : (
+        <IconClickable 
+          className='filechange clickable song-item' 
+          onclick={destroy}
+          icon={<BsTrash />}
+        />
+      )}
+    </Clickable>
   )
 }
 
 export default function Songs({ project, branchName }) {
-  // console.log(project)
+  const { isLoading, error } = useCreateSongs()
 
   const songs = project.songs
   const branch = project.branches.find(b => b.name === branchName)
+
+  // console.log(isLoading)
+
+  if (songs.length === 0) {
+    return (
+      <div id='empty-songs'>
+        {isLoading && <ScaleLoader color='whitesmoke' />}
+        {!isLoading && 
+          <div id='file-input'>
+            <input type='file' id='file' accept='.mp3, .wav' />
+            <label for='file'>
+              <IconClickable 
+                icon={<GiMusicalNotes size={50} />}
+                padding={15}
+              />
+              Add Music
+            </label>
+          </div>
+        }
+      </div>
+    )
+  }
   
   return (
     <div id='songs'>
-      {songs.filter(song =>
-        branch.includes(song.id)).map(song => (
-          <Clickable styles={{ padding: '5px 15px' }} elemKey={song.id}>
-            <Song song={song} />
-          </Clickable>
-        ))
-      }
-      {songs.length === 0 &&
-        <div id='file-input'>
-          <input type='file' id='file' />
-          <label for='file'>
-            <IconClickable 
-              icon={<GiMusicalNotes size={50} />}
-              padding={15}
-            />
-            Add Music
-          </label>
-        </div>
-      }
+      {branch?.songs?.map(song => <Song song={song} key={song.id} />)}
     </div>
   )
 }

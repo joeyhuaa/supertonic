@@ -9,10 +9,11 @@ const Clickable = React.forwardRef((props, ref) => {
   const theme = useTheme().data
   const {
     elemKey,
+    className,
     children,
     onclick = () => {},
     styles = { padding: '5px' },
-    isSelected = false
+    isSelected = false,
   } = props
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const Clickable = React.forwardRef((props, ref) => {
     <div 
       key={elemKey}
       ref={ref}
-      className='clickable' 
+      className={`clickable ${className}`}
       onClick={() => {
         onclick()
         // setSelected(!isSelected)
@@ -41,6 +42,7 @@ const Clickable = React.forwardRef((props, ref) => {
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
       style={getStyles()}
+      tabIndex='0'
     >
       {children}
     </div>

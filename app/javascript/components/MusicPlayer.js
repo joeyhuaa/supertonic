@@ -45,8 +45,8 @@ export default function MusicPlayer() {
     timelinePast.current.style.width = playPercent + 5 + 'px'
 
     // set state
-    setCurrentTime(msString(getCurrentTime()))
-    if (getCurrentTime() === getDuration()) {
+    setCurrentTime( msString(getCurrentTime()) )
+    if ( getCurrentTime() === getDuration() ) {
       setIsPlaying(false)
       queueNextSong()
     }

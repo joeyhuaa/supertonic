@@ -15,91 +15,111 @@
  */
 
 * {
-    font-family: 'Mukta', sans-serif;
-    color: whitesmoke;
+  font-family: 'Mukta', sans-serif;
+  color: whitesmoke;
 }
 
 body {
-    padding: 0;
-    margin: 0;
-    height: 100vh;
-    /* overflow: hidden; */
-    /* border: solid yellow; */
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  /* overflow: hidden; */
+  /* border: solid yellow; */
 }
 
 h1, h2, h3, h4, h5, h6 {
-    margin: 0;
+  margin: 0;
 }
 
 p {
-    margin: 0;
+  margin: 0;
 }
 
 button, .clickable {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.clickable {
+  transition: 0.3s;
+}
+
+.clickable:hover {
+  opacity: 1;
 }
 
 input, textarea {
-    color: black;
-    border-radius: 3px;
-    border: none;
-    outline: none;
+  color: black;
+  border-radius: 3px;
+  border: none;
+  outline: none;
 }
 
 section {
-    padding: 20px;
+  padding: 20px;
 }
 
 select {
-    background-color: transparent;
-    outline: none;
+  background-color: transparent;
+  outline: none;
 }
 
 #login {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    background-image: linear-gradient(to bottom, #33334d, #1f1f2e 25%);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(to bottom, #33334d, #1f1f2e 25%);
 }
 
 #upload {
-    color: whitesmoke;
+  color: whitesmoke;
 }
 
 #app-container {
-    height: 100%;
+  height: 100%;
 }
 
 #main {
-    height: 100%;
-    /* display: flex; */
-    /* border: solid yellow 1px; */
+  height: 100%;
+  /* display: flex; */
+  /* border: solid yellow 1px; */
 }
 
 .round-btn {
-    outline: none;
-    border: none;
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
-    border-top-right-radius: 50px;
-    border-bottom-right-radius: 50px;
-    width: 100px;
-    height: 30px;
-    display: table-cell;
-    vertical-align: middle;
-    font-weight: bold;
-    font-size: 10pt;
+  outline: none;
+  border: none;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  width: 100px;
+  height: 30px;
+  display: table-cell;
+  vertical-align: middle;
+  font-weight: bold;
+  font-size: 10pt;
 }
 
 .submit-btn {
-    background-color: #008eff;
+  background-color: #008eff;
 }
 
-.no-decoration {
+.grow {
+  transition: 0.2;
+}
+
+.grow:hover {
+  transform: scale(1.1);
+}
+
+.no-decor {
   text-decoration: none;
 }
 
-
+.ellipse {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

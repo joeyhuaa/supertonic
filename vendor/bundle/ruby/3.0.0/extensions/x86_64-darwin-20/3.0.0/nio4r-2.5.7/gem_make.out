@@ -1,5 +1,5 @@
 current directory: /Users/jhua/supertonic/vendor/bundle/ruby/3.0.0/gems/nio4r-2.5.7/ext/nio4r
-/Users/jhua/.rvm/rubies/ruby-3.0.0/bin/ruby -I /Users/jhua/.rvm/rubies/ruby-3.0.0/lib/ruby/3.0.0 -r ./siteconf20210618-52484-uqibpl.rb extconf.rb
+/Users/jhua/.rvm/rubies/ruby-3.0.2/bin/ruby -I /Users/jhua/.rvm/rubies/ruby-3.0.2/lib/ruby/3.0.0 -r ./siteconf20210816-29012-7kq0r3.rb extconf.rb
 checking for unistd.h... yes
 checking for linux/aio_abi.h... no
 checking for linux/io_uring.h... no
@@ -13,10 +13,10 @@ checking for sys/resource.h... yes
 creating Makefile
 
 current directory: /Users/jhua/supertonic/vendor/bundle/ruby/3.0.0/gems/nio4r-2.5.7/ext/nio4r
-make "DESTDIR=" clean
+make DESTDIR\= clean
 
 current directory: /Users/jhua/supertonic/vendor/bundle/ruby/3.0.0/gems/nio4r-2.5.7/ext/nio4r
-make "DESTDIR="
+make DESTDIR\=
 compiling bytebuffer.c
 compiling monitor.c
 compiling nio4r_ext.c
@@ -32,12 +32,12 @@ compiling selector.c
 selector.c:301:26: warning: incompatible function pointer types passing 'VALUE (*)(VALUE *)' (aka 'unsigned long (*)(unsigned long *)') to parameter of type 'VALUE (*)(VALUE)' (aka 'unsigned long (*)(unsigned long)') [-Wincompatible-function-pointer-types]
         return rb_ensure(func, (VALUE)args, NIO_Selector_unlock, self);
                          ^~~~
-/Users/jhua/.rvm/rubies/ruby-3.0.0/include/ruby-3.0.0/ruby/internal/iterator.h:53:24: note: passing argument to parameter here
+/Users/jhua/.rvm/rubies/ruby-3.0.2/include/ruby-3.0.0/ruby/internal/iterator.h:53:24: note: passing argument to parameter here
 VALUE rb_ensure(VALUE(*)(VALUE),VALUE,VALUE(*)(VALUE),VALUE);
                        ^
 1 warning generated.
 linking shared-object nio4r_ext.bundle
 
 current directory: /Users/jhua/supertonic/vendor/bundle/ruby/3.0.0/gems/nio4r-2.5.7/ext/nio4r
-make "DESTDIR=" install
-/usr/local/opt/coreutils/bin/ginstall -c -m 0755 nio4r_ext.bundle ./.gem.20210618-52484-gj67js
+make DESTDIR\= install
+/usr/local/opt/coreutils/bin/ginstall -c -m 0755 nio4r_ext.bundle ./.gem.20210816-29012-bmq9v4

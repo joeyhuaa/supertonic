@@ -7,6 +7,7 @@ const IconClickable = React.forwardRef((props, ref) => {
     onclick,
     icon,
     padding = 5,
+    className
   } = props
 
   const baseStyles = {
@@ -21,6 +22,7 @@ const IconClickable = React.forwardRef((props, ref) => {
       ref={ref}
       onclick={onclick}
       styles={baseStyles}
+      className={className}
     >
       {icon}
     </Clickable>

@@ -65,7 +65,7 @@ export default function Sidebar() {
           return (
             <Link 
               to={`/projects/${proj.id}`} 
-              className='no-decoration'
+              className='no-decor'
               key={proj.id}
             >
               <Clickable
@@ -82,7 +82,7 @@ export default function Sidebar() {
       <button
         onClick={newProjClicked}
         id='new-project-btn'
-        className='round-btn submit-btn'
+        className='round-btn submit-btn grow'
       >
         New Project
       </button>

@@ -63,7 +63,6 @@ import Container from './Container'
 import MusicPlayer from './MusicPlayer'
 import Overlay from './Overlay'
 import Sidebar from './Sidebar'
-import NewBranchForm from './NewBranchForm'
 
 function App({ user }) {
   const [state, setState] = useStateCallback({
@@ -93,36 +92,16 @@ function App({ user }) {
       }
     },
   }
-
-  // send request to server to add branch
-  let addBranch = (branchName) => {
-
-  }
-
+  
   let getSong = async (id) => {
     let res = await fetch(`/api/songs/${id}`)
     return res.json()
-  }
-
-  let toggleAddSongsForm = val => {
-    setState({...state, showAddSongsForm: val})
-  }
-
-  let toggleNewBranchForm = val => {
-    setState({...state, showNewBranchForm: val})
   }
 
   return (
     <Provider value={appContext}>
       <BrowserRouter>
         <Container>
-          
-          {state.showNewBranchForm &&
-            <NewBranchForm
-              closeSelf={() => toggleNewBranchForm(false)}
-            />
-          }
-
           <Overlay show={state.showNewBranchForm || state.showAddSongsForm} />
           <div style={{
             display: 'flex',

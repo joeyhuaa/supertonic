@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2021_05_19_023019) do
   create_table "songs", force: :cascade do |t|
     t.string "name"
     t.string "b64"
+    t.string "duration"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "project_id"

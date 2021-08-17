@@ -1,5 +1,5 @@
 current directory: /Users/jhua/supertonic/vendor/bundle/ruby/3.0.0/gems/puma-5.2.2/ext/puma_http11
-/Users/jhua/.rvm/rubies/ruby-3.0.0/bin/ruby -I /Users/jhua/.rvm/rubies/ruby-3.0.0/lib/ruby/3.0.0 -r ./siteconf20210618-52484-nsd3i.rb extconf.rb
+/Users/jhua/.rvm/rubies/ruby-3.0.2/bin/ruby -I /Users/jhua/.rvm/rubies/ruby-3.0.2/lib/ruby/3.0.0 -r ./siteconf20210816-29012-fvekgr.rb extconf.rb
 checking for BIO_read() in -lcrypto... yes
 checking for SSL_CTX_new() in -lssl... yes
 checking for openssl/bio.h... yes
@@ -11,15 +11,15 @@ checking for SSL_CTX_set_ecdh_auto(NULL, 0) in openssl/ssl.h... yes
 creating Makefile
 
 current directory: /Users/jhua/supertonic/vendor/bundle/ruby/3.0.0/gems/puma-5.2.2/ext/puma_http11
-make "DESTDIR=" clean
+make DESTDIR\= clean
 
 current directory: /Users/jhua/supertonic/vendor/bundle/ruby/3.0.0/gems/puma-5.2.2/ext/puma_http11
-make "DESTDIR="
+make DESTDIR\=
 compiling http11_parser.c
 compiling mini_ssl.c
 compiling puma_http11.c
 linking shared-object puma/puma_http11.bundle
 
 current directory: /Users/jhua/supertonic/vendor/bundle/ruby/3.0.0/gems/puma-5.2.2/ext/puma_http11
-make "DESTDIR=" install
-/usr/local/opt/coreutils/bin/ginstall -c -m 0755 puma_http11.bundle ./.gem.20210618-52484-luwgva/puma
+make DESTDIR\= install
+/usr/local/opt/coreutils/bin/ginstall -c -m 0755 puma_http11.bundle ./.gem.20210816-29012-t4ujwf/puma

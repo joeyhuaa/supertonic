@@ -1,9 +1,18 @@
+#loading-project {
+  flex: 5;
+  min-width: 200px;
+  padding-left: 100px;
+  padding-right: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #project {
   flex: 5;
   min-width: 200px;
   padding-left: 100px;
   padding-right: 100px;
-  // border: solid 1px cyan;
 
   #file {
     display: none;
@@ -24,6 +33,29 @@
 
     .header-item {
       margin-right: 20px;
+    }
+  }
+
+  #add-songs-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 3px;
+    background-color: #4e4f52;
+    width: 500px;
+    // height: 400px;
+    padding: 20px;
+    z-index: 3;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    #top {
+      text-align: center;
+      width: 100%;
     }
   }
 }

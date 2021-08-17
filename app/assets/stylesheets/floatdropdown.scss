@@ -1,0 +1,15 @@
+.floatdropdown {
+  .dropdown {
+    border: solid 1px white;
+    z-index: 999;
+    background: black;
+    padding: 5px 10px 5px 10px;
+    visibility: hidden;
+  }
+
+  .icon:focus + .dropdown, 
+  .dropdown:focus + .dropdown,
+  .dropdown > a:active {
+    visibility: visible;
+  }
+}

@@ -1,16 +1,16 @@
 current directory: /Users/jhua/supertonic/vendor/bundle/ruby/3.0.0/gems/racc-1.5.2/ext/racc/cparse
-/Users/jhua/.rvm/rubies/ruby-3.0.0/bin/ruby -I /Users/jhua/.rvm/rubies/ruby-3.0.0/lib/ruby/3.0.0 -r ./siteconf20210618-52484-kbpwav.rb extconf.rb
+/Users/jhua/.rvm/rubies/ruby-3.0.2/bin/ruby -I /Users/jhua/.rvm/rubies/ruby-3.0.2/lib/ruby/3.0.0 -r ./siteconf20210816-29012-766hl5.rb extconf.rb
 checking for rb_ary_subseq()... yes
 creating Makefile
 
 current directory: /Users/jhua/supertonic/vendor/bundle/ruby/3.0.0/gems/racc-1.5.2/ext/racc/cparse
-make "DESTDIR=" clean
+make DESTDIR\= clean
 
 current directory: /Users/jhua/supertonic/vendor/bundle/ruby/3.0.0/gems/racc-1.5.2/ext/racc/cparse
-make "DESTDIR="
+make DESTDIR\=
 compiling cparse.c
 linking shared-object racc/cparse.bundle
 
 current directory: /Users/jhua/supertonic/vendor/bundle/ruby/3.0.0/gems/racc-1.5.2/ext/racc/cparse
-make "DESTDIR=" install
-/usr/local/opt/coreutils/bin/ginstall -c -m 0755 cparse.bundle ./.gem.20210618-52484-ha3vlu/racc
+make DESTDIR\= install
+/usr/local/opt/coreutils/bin/ginstall -c -m 0755 cparse.bundle ./.gem.20210816-29012-cp3f0f/racc

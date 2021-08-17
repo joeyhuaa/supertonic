@@ -30,8 +30,6 @@ class ProjectController < ApplicationController
 
   # POST api/projects/new
   def new
-    puts 'NEW PROJECT'
-    puts params
     @user = current_user
     @project = @user.projects.create(created_at: Time.now)
 
@@ -44,7 +42,7 @@ class ProjectController < ApplicationController
     # branches
     @project.addBranch('main')
 
-    @project.save
+    @project.save!
 
     render :json => {:projId => @project.id}
   end
