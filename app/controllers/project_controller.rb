@@ -31,7 +31,7 @@ class ProjectController < ApplicationController
   # POST api/projects/new
   def new
     @user = current_user
-    @project = @user.projects.create(created_at: Time.now)
+    @project = @user.projects.create(id: params[:id])
 
     # name
     @project.name = "Untitled Project"
@@ -62,7 +62,7 @@ class ProjectController < ApplicationController
 
   # GET api/projects
   def get_all
-    render :json => {:projects => current_user.projects}
+    render :json => current_user.projects
   end
 
   # PUT api/projects/:id/newbranch

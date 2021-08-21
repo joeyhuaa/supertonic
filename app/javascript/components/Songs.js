@@ -15,7 +15,7 @@ import { ScaleLoader, FadeLoader } from 'react-spinners'
 import * as moment from 'moment'
 import 'moment-duration-format'
 
-function Song({ song, key }) {
+function Song({ song }) {
   const deleteSong = useDeleteSong()
   const { playPause, isPlaying, currSong } = useContext(Context)
 
@@ -24,10 +24,10 @@ function Song({ song, key }) {
   )
 
   return (
-    <Clickable key={key} className='song'>
+    <Clickable className='song'>
       <IconClickable 
         className='clickable play song-item'
-        onclick={() => playPause(song.id)}
+        onClick={() => playPause(song.id)}
         icon={
           isPlaying && currSong.id === song.id ? (
             <FaPause className='grow' />
@@ -52,7 +52,7 @@ function Song({ song, key }) {
       ) : (
         <IconClickable 
           className='filechange clickable song-item' 
-          onclick={destroy}
+          onClick={destroy}
           icon={<BsTrash />}
         />
       )}
@@ -90,7 +90,11 @@ export default function Songs({ project, branchName }) {
   
   return (
     <div id='songs'>
-      {branch?.songs?.map(song => <Song song={song} key={song.id} />)}
+      {branch?.songs?.map(song => 
+        <div key={song.id}>
+          <Song song={song} />
+        </div>
+      )}
     </div>
   )
 }

@@ -4,13 +4,15 @@ import Clickable from "./Clickable"
 
 const IconClickable = React.forwardRef((props, ref) => {
   const {
-    onclick,
+    onClick,
     icon,
     padding = 5,
-    className
+    className,
+    style,
   } = props
 
-  const baseStyles = {
+  const styles = {
+    ...style,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -20,8 +22,8 @@ const IconClickable = React.forwardRef((props, ref) => {
   return (
     <Clickable
       ref={ref}
-      onclick={onclick}
-      styles={baseStyles}
+      onClick={onClick}
+      styles={styles}
       className={className}
     >
       {icon}

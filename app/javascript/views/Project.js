@@ -9,7 +9,7 @@ import IconClickable from '../molecules/IconClickable'
 import { AiOutlineFileAdd } from 'react-icons/ai'
 import { BsX } from 'react-icons/bs'
 
-import { ScaleLoader } from 'react-spinners'
+import { ScaleLoader, ClipLoader } from 'react-spinners'
 
 import  { 
   useProject, 
@@ -25,7 +25,11 @@ const AddSongsForm = ({
   branch,
   closeSelf
 }) => {
-  const { mutate, isLoading, error } = useCreateSongs()
+  const { mutate, isLoading, isSuccess, error } = useCreateSongs()
+
+  useEffect(() => {
+    if (isSuccess) closeSelf()
+  }, [isSuccess])
 
   let audioToBase64 = async (audioFile) => {
     return new Promise((resolve, reject) => {
@@ -72,9 +76,6 @@ const AddSongsForm = ({
           branch: branch,
           id: projectId
         })
-
-        // close form
-        closeSelf()
       })
       .catch(err => console.log(err))
   }
@@ -82,12 +83,13 @@ const AddSongsForm = ({
   return (
     <section id='add-songs-form'>
       <div id='top'>
-        <span
-          style={{ float: 'right', cursor: 'pointer' }}
-          onClick={closeSelf}
-        >
-          <BsX size={30} color='whitesmoke' />
-        </span>
+        {!isLoading && 
+          <IconClickable
+            onClick={closeSelf}
+            icon={<BsX size={30} />}
+            style={{ float: 'right', cursor: 'pointer' }}
+          />
+        }
         <h1 style={{ margin: 'auto' }}>Add Songs</h1>
       </div>
 
@@ -100,10 +102,14 @@ const AddSongsForm = ({
       </div>
 
       <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-        <button
-          className='round-btn submit-btn grow'
-          onClick={handleAddSongs}
-        >ADD SONGS</button>
+        {isLoading ? (
+          <ClipLoader color='white' />
+        ) : (
+          <button
+            className='round-btn submit-btn grow'
+            onClick={handleAddSongs}
+          >ADD SONGS</button>
+        )}
       </div>
     </section>
   )
@@ -172,7 +178,6 @@ const ProjectHeader = React.forwardRef((props, ref) => {
   let changeProjName = () => {
     let newName = prompt('Enter a new project name')
     if (newName) {
-      console.log(newName)
       updateProject.mutate({
         id: project.id,
         name: newName
@@ -196,13 +201,13 @@ const ProjectHeader = React.forwardRef((props, ref) => {
             {
               name: 'Delete Project', 
               danger: true, 
-              onclick: deleteProj, 
+              onClick: deleteProj, 
               returnHome: true
             },
             {
               name: 'Delete Current Branch', 
               danger: true, 
-              onclick: () => {}
+              onClick: () => {}
             }
           ]}
         />
@@ -253,8 +258,8 @@ const ProjectHeader = React.forwardRef((props, ref) => {
 export default function Project() {
   const branchDropdown = useRef()
   const { projectId } = useParams()
-  const { data, isError, isLoading } = useProject(projectId)
-  const project = data
+  const { data, isError, isLoading, isFetching } = useProject(projectId)
+  console.log(data)
 
   const [state, setState] = useState({
     currBranch: 'main',
@@ -266,7 +271,7 @@ export default function Project() {
     setState({ ...state, currBranch: newBranchName })
   }
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return (
       <section id='loading-project'>
         <ScaleLoader color='whitesmoke' />
@@ -277,14 +282,14 @@ export default function Project() {
   return (
     <section id='project'>
       {isError && <span>Error.</span>}
-      {project &&
+      {data &&
         <>
           <ProjectHeader 
-            project={project}
+            project={data}
             branch={state.currBranch}
             ref={branchDropdown}
           />
-          <Songs project={project} branchName={state.currBranch} />
+          <Songs project={data} branchName={state.currBranch} />
         </>
       }
     </section>

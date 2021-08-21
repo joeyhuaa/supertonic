@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import axios from 'axios'
+import lodash from 'lodash'
 
 export function useStateCallback(initialState) {
   const [state, setState] = useState(initialState);
@@ -76,11 +77,21 @@ export function useProjects() {
 }
 
 export function useProject(projectId) {
+  const queryClient = useQueryClient()
+
   return useQuery(
     ['project', projectId],
     async () => {
       let res = await fetch(`/api/projects/${projectId}`)
       return res.json()
+    },
+    {
+      refetchOnWindowFocus: false,
+      onSettled: (data) => {
+        // NOT WORKING
+        console.log('useProject', data)
+        queryClient.setQueryData(['project', { id: data.projId }], data)
+      }
     }
   )
 }
@@ -89,21 +100,17 @@ export function useUpdateProject() {
   const queryClient = useQueryClient()
 
   return useMutation(
-    data => axios.put(`/api/projects/${data.id}/update`, data).then(res => res.data),
+    data => axios.put(`/api/projects/${data.id}/update`, data),
     {
-      // onMutate: async newProj => {
-      //   // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-      //   await queryClient.cancelQueries(['projects', newProj.id])
-
-      //   // Snapshot the previous value
-      //   let prevProj = queryClient.getQueryData(['projects', newProj.id])
-
-      //   // Optimistically update to the new value
-      //   queryClient.setQueryData(['projects', newProj.id], newProj)
-
-      //   // Return a context with the previous and new value
-      //   return { prevProj, newProj }
-      // },
+      onMutate: async project => {
+        let oldProj = queryClient.getQueryData(['project', project.id])
+        // NOT WORKING
+        queryClient.setQueryData(['project', { id: project.id }], old => ({
+          ...old,
+          name: project.name
+        }))
+        return { oldProj }
+      },
       onError: context => {
         queryClient.setQueryData(
           ['projects', context.newProj.id],
@@ -121,11 +128,17 @@ export function useCreateProject() {
   const queryClient = useQueryClient()
 
   return useMutation(
-    newProject => axios.post(`/api/projects/new`, newProject),
+    data => axios.post(`/api/projects/new`, data),
     {
-      onSuccess: (res) => {
+      onMutate: async newProject => {
+        await queryClient.cancelQueries('projects')
+        const prevProjects = queryClient.getQueryData('projects')
+        queryClient.setQueryData('projects', old => [...old, newProject])
+        return { prevProjects }
+      },
+      onSettled: ({ data }) => {
         queryClient.invalidateQueries('projects')
-        queryClient.setQueryData(['project', { id: res.data.projId }], res.data)
+        queryClient.setQueryData(['project', { id: data.projId }], data)
       }
     }
   )
@@ -152,10 +165,12 @@ export function useCreateSongs() {
       return axios.put(`/api/projects/${data.id}/add_songs`, data)
     },
     {
-      onMutate: () => console.log('new songs'),
-      onSuccess: (res) => {
-        queryClient.invalidateQueries('projects')
-        queryClient.setQueryData(['project', { id: res.data.projId }], res.data)
+      onMutate: async data => {
+        console.log(data)
+      },
+      onSuccess: ({ data }) => {
+        queryClient.invalidateQueries('project')
+        queryClient.setQueryData(['project', { id: data.projId }], data)
       }
     }
   )
@@ -165,17 +180,23 @@ export function useDeleteSong() {
   const queryClient = useQueryClient()
 
   return useMutation(
-    data => axios.delete(`/api/songs/${data.songId}/destroy`, data).then(res => res.data),
+    data => axios.delete(`/api/songs/${data.songId}/destroy`, data),
     {
       onMutate: async data => {
         // optimistic update, remove song from project
-        // let songIdToRemove = data.songId
-        // queryClient.setQueryData(['project', data.projectId], old => ({
-        //   ...old,
-        //   songs: {
-        //     ...
-        //   }
-        // }))
+        console.log(data)
+        let songIdToRemove = data.songId
+        queryClient.setQueryData(['project', { id: data.projectId }], old => {
+          let songs = lodash.cloneDeep(old.songs)
+          let index = songs.findIndex(song => song.id == songIdToRemove)
+          songs.splice(index, 1)
+          return (
+            {
+              ...old,
+              songs: songs
+            }
+          )
+        })
       },
       onSettled: (data, vars) => {
         queryClient.setQueryData(['project', { id: vars.id }], data)

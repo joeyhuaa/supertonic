@@ -11,7 +11,7 @@ const Clickable = React.forwardRef((props, ref) => {
     elemKey,
     className,
     children,
-    onclick = () => {},
+    onClick = () => {},
     styles = { padding: '5px' },
     isSelected = false,
   } = props
@@ -36,7 +36,7 @@ const Clickable = React.forwardRef((props, ref) => {
       ref={ref}
       className={`clickable ${className}`}
       onClick={() => {
-        onclick()
+        onClick()
         // setSelected(!isSelected)
       }} 
       onMouseEnter={() => setHovering(true)}

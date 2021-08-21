@@ -18,7 +18,7 @@ function Menu() {
       <Link to='/settings'>
         <IconClickable 
           icon={<MdSettings color='white' size={20} />} 
-          onclick={() => {}} 
+          onClick={() => {}} 
         />
       </Link>
     </div>
@@ -29,6 +29,10 @@ export default function Sidebar() {
 
   const [currProjId, setCurrProjId] = useState(null)
   const { user } = useContext(Context)
+
+  const theme = useTheme().data
+  const { data, isError, isLoading } = useProjects()
+  const createProject = useCreateProject()
 
   useEffect(() => {
     let projId = parseInt( window.location.pathname.split('/').pop() )
@@ -42,13 +46,8 @@ export default function Sidebar() {
     }
   }, [window.location.pathname])
 
-  const theme = useTheme().data
-  const { data, isError, isLoading } = useProjects()
-  const projects = data?.projects
-  const createProject = useCreateProject()
-
   let newProjClicked = () => {
-    createProject.mutate()
+    createProject.mutate({ id: Date.now() })
   }
   
   return (
@@ -61,7 +60,7 @@ export default function Sidebar() {
       <div id='browser'>
         {isError && <span>Error.</span>}
         {isLoading && <span>Loading...</span>}
-        {projects?.map((proj) => {
+        {data?.map((proj) => {
           return (
             <Link 
               to={`/projects/${proj.id}`} 
@@ -71,7 +70,7 @@ export default function Sidebar() {
               <Clickable
                 key={proj.id}
                 isSelected={currProjId === proj.id}
-                onclick={() => setCurrProjId(proj.id)}
+                onClick={() => setCurrProjId(proj.id)}
               >
                 {proj.name}
               </Clickable>

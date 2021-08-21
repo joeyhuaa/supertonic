@@ -32,7 +32,7 @@ const FloatDropdown = React.forwardRef((props, ref) => {
     <div className='floatdropdown'>
       <IconClickable 
         icon={<GoTriangleDown size={20} />}
-        onclick={() => setShowDropdown(!showDropdown)}
+        onClick={() => setShowDropdown(!showDropdown)}
         ref={setReferenceElement}
         className='icon'
       />
@@ -44,7 +44,7 @@ const FloatDropdown = React.forwardRef((props, ref) => {
           {...attributes.popper}
           tabIndex='0'
         >
-          {options.map(({ name, danger, onclick, returnHome }) => (
+          {options.map(({ name, danger, onClick, returnHome }) => (
             <Link 
               to={returnHome ? '/' : null} 
               style={{ textDecoration: 'none' }}
@@ -54,7 +54,7 @@ const FloatDropdown = React.forwardRef((props, ref) => {
                 style={danger ? dangerStyles : null}
                 onClick={() => {
                   console.log(name);
-                  onclick();
+                  onClick();
                   setShowDropdown(false);
                 }}
               >
