@@ -13,8 +13,6 @@ export default function Settings() {
     })
   }
 
-  console.log('settings theme:', theme)
-
   return (
     
     <section>

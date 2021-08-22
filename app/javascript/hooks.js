@@ -88,9 +88,8 @@ export function useProject(projectId) {
     {
       refetchOnWindowFocus: false,
       onSettled: (data) => {
-        // NOT WORKING
         console.log('useProject', data)
-        queryClient.setQueryData(['project', { id: data.projId }], data)
+        queryClient.setQueryData(['project', data.id], data)
       }
     }
   )
@@ -102,23 +101,27 @@ export function useUpdateProject() {
   return useMutation(
     data => axios.put(`/api/projects/${data.id}/update`, data),
     {
-      onMutate: async project => {
-        let oldProj = queryClient.getQueryData(['project', project.id])
+      onMutate: async projToBeUpdated => {
+        let oldProj = queryClient.getQueryData(['project', projToBeUpdated.id])
+
         // NOT WORKING
-        queryClient.setQueryData(['project', { id: project.id }], old => ({
+        queryClient.setQueryData(['project', projToBeUpdated.id], old => ({
           ...old,
-          name: project.name
+          name: projToBeUpdated.name
         }))
+
+        // WORKING
+        queryClient.setQueryData('projects', old => {
+          let proj = old.find(p => p.id === projToBeUpdated.id)
+          proj.name = projToBeUpdated.name
+          return old;
+        })
+
         return { oldProj }
       },
-      onError: context => {
-        queryClient.setQueryData(
-          ['projects', context.newProj.id],
-          context.prevProj
-        )
-      },
-      onSettled: () => {
-        queryClient.invalidateQueries('projects') // refetch projects
+      onSettled: (data) => {
+        queryClient.invalidateQueries('projects') 
+        queryClient.invalidateQueries(['project', data.id])
       }
     }
   )
@@ -138,7 +141,7 @@ export function useCreateProject() {
       },
       onSettled: ({ data }) => {
         queryClient.invalidateQueries('projects')
-        queryClient.setQueryData(['project', { id: data.projId }], data)
+        queryClient.setQueryData(['project', data.projId], data)
       }
     }
   )

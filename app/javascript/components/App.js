@@ -80,14 +80,12 @@ function App({ user }) {
         let { song } = await getSong(id)
         setState({ ...state, currSong: song, isPlaying: true })
       } else if (state.currSong.id !== id) {
-        console.log('change song')
         let { song } = await getSong(id)
         setState(
           { ...state, isPlaying: false },
           newState => setState({ ...newState, currSong: song, isPlaying: true})
         )
       } else {
-        console.log('toggle same song')
         setState({ ...state, isPlaying: !state.isPlaying })
       }
     },

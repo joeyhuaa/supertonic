@@ -1,4 +1,4 @@
 class Song < ApplicationRecord
   belongs_to :project
-  belongs_to :branch, optional: true
+  has_and_belongs_to_many :branch
 end

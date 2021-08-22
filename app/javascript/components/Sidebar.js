@@ -26,12 +26,11 @@ function Menu() {
 }
 
 export default function Sidebar() {
-
   const [currProjId, setCurrProjId] = useState(null)
   const { user } = useContext(Context)
 
   const theme = useTheme().data
-  const { data, isError, isLoading } = useProjects()
+  const { data, isError, isLoading, isFetching } = useProjects()
   const createProject = useCreateProject()
 
   useEffect(() => {
@@ -68,7 +67,6 @@ export default function Sidebar() {
               key={proj.id}
             >
               <Clickable
-                key={proj.id}
                 isSelected={currProjId === proj.id}
                 onClick={() => setCurrProjId(proj.id)}
               >

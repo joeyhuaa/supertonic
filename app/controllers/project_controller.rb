@@ -44,13 +44,13 @@ class ProjectController < ApplicationController
 
     @project.save!
 
-    render :json => {:projId => @project.id}
+    render :json => @project
   end
 
   # PUT api/projects/:id/songs
   def add_songs
     @project = Project.find(params[:id])
-    @project.addSongs(params[:files], params[:branch])
+    @project.addSongs(params[:files], params[:branchName])
     render :json => {:status => 200}
   end
 
@@ -62,15 +62,14 @@ class ProjectController < ApplicationController
 
   # GET api/projects
   def get_all
-    render :json => current_user.projects
+    render :json => current_user.projects.reverse
   end
 
   # PUT api/projects/:id/newbranch
   def new_branch
-    puts 'NEW BRANCH'
     @project = Project.find( params[:projId] )
-    @project.addBranch( params[:newBranchName], params[:sourceBranchId] )
-    render :json => {status: 200}
+    @project.addBranch( params[:newBranchName], params[:sourceBranchName] )
+    render :json => @project
   end
 
   # PUT api/projects/:id/deletebranch
@@ -92,7 +91,7 @@ class ProjectController < ApplicationController
     end
 
     @project.save
-    render :json => {status: 200}
+    render :json => @project
   end
 
   private

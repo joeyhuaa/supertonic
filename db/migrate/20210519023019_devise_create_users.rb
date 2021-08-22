@@ -13,33 +13,5 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
     end
 
     add_index :users, :email, unique: true
-
-    create_table :projects do |t|
-      t.string :name
-      t.string :description
-      t.string :branches
-      t.string :songs
-
-      t.timestamps
-      t.belongs_to :user
-    end
-
-    create_table :branches do |t|
-      t.string :name
-      t.string :songs
-
-      t.timestamps
-      t.belongs_to :project
-    end
-
-    create_table :songs do |t|
-      t.string :name
-      t.string :b64
-      t.string :duration
-
-      t.timestamps
-      t.belongs_to :project
-      t.belongs_to :branch
-    end
   end
 end

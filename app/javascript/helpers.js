@@ -16,5 +16,4 @@ export const audioDuration = async audioFile => {
   }
 
   const duration = await readFile(audioFile)
-  console.log(duration)
 }

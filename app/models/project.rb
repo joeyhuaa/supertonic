@@ -10,19 +10,19 @@ class Project < ApplicationRecord
       self.songs.map{|song| song.id}
     end
 
-    def addBranch(newBranchName, sourceId = nil)
+    def addBranch(newBranchName, sourceBranchName = nil)
       @branch = self.branches.create(created_at: Time.now)
       @branch.name = newBranchName
 
-      if sourceId
-        @branch.songs = self.branches.find(sourceId).songs
+      if sourceBranchName
+        @branch.songs = self.branches.find_by(name: sourceBranchName).songs
       end
       
       @branch.save!
       self.save!
     end
 
-    def addSongs(files, branch)
+    def addSongs(files, branchName)
       JSON.parse(files).each do |file|
         @song = self.songs.create(created_at: Time.now)
         @song.name = file['name']
@@ -30,7 +30,7 @@ class Project < ApplicationRecord
         @song.duration = file['duration']
         @song.save! 
 
-        @branch = self.branches.find_by(name: branch)
+        @branch = self.branches.find_by(name: branchName)
         @branch.addSong(@song)
       end
       self.save!

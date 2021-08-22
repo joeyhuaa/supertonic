@@ -11,6 +11,8 @@ import { BsX } from 'react-icons/bs'
 
 import { ScaleLoader, ClipLoader } from 'react-spinners'
 
+// import { FancyFileInput } from '@typ'
+
 import  { 
   useProject, 
   useCreateBranch, 
@@ -19,10 +21,50 @@ import  {
   useCreateSongs
 } from '../hooks'
 
+const AddBranchForm = ({ project, sourceBranchName }) => {
+  let [newBranchName, setNewBranchName] = useState('')
+  let createBranch = useCreateBranch()
+  let branchNames = project.branches.map(branch => branch.name)
+
+  let onSubmit = (e) => {
+    e.preventDefault()
+
+    if (newBranchName !== '' && !branchNames.includes(newBranchName)) {
+      createBranch.mutate({ 
+        newBranchName: newBranchName,
+        sourceBranchName: sourceBranchName,
+        projId: project.id
+      })
+      // set state to new branch
+      // url change? how to put Link into select...
+      
+    } else if (newBranchName === '') {
+      alert('Branch name cannot be blank.')
+    } else if (branchNames.includes(newBranchName)) {
+      alert ('That branch already exists in this project.')
+    }
+  }
+
+  return (
+    <form 
+      id='branch-form' 
+      className='header-item'
+      onSubmit={onSubmit}
+    >
+      <input 
+        id='branch-input'
+        placeholder='Add New Branch'
+        onChange={e => setNewBranchName(e.target.value)}
+        value={newBranchName}
+      />
+    </form>
+  )
+}
+
 const AddSongsForm = ({
   files,
   projectId,
-  branch,
+  branchName,
   closeSelf
 }) => {
   const { mutate, isLoading, isSuccess, error } = useCreateSongs()
@@ -31,12 +73,11 @@ const AddSongsForm = ({
     if (isSuccess) closeSelf()
   }, [isSuccess])
 
-  let audioToBase64 = async (audioFile) => {
+  let audioToBase64 = (audioFile) => {
     return new Promise((resolve, reject) => {
-      let reader = new FileReader();
-      reader.onerror = reject;
+      const reader = new FileReader();
       reader.onload = (e) => {
-        let b64 = e.target.result;
+        const b64 = e.target.result;
         let audio = document.createElement('audio')
         audio.src = b64;
         audio.addEventListener('loadedmetadata', () => {
@@ -46,6 +87,7 @@ const AddSongsForm = ({
           });
         })
       }
+      reader.onerror = reject;
       reader.readAsDataURL(audioFile);
     });
   }
@@ -73,7 +115,7 @@ const AddSongsForm = ({
         // mutate
         mutate({
           files: JSON.stringify(songs),
-          branch: branch,
+          branchName: branchName,
           id: projectId
         })
       })
@@ -87,7 +129,7 @@ const AddSongsForm = ({
           <IconClickable
             onClick={closeSelf}
             icon={<BsX size={30} />}
-            className='top-right'
+            className='top-right-n-8'
           />
         }
         <h1 style={{ margin: 'auto' }}>Add Songs</h1>
@@ -140,40 +182,12 @@ const BranchSelect = React.forwardRef((props, ref) => {
 const ProjectHeader = React.forwardRef((props, ref) => {
   const { 
     project,
-    branch
+    branchName
   } = props
 
   let [files, setFiles] = useState(null)
-  let [newBranchName, setnewBranchName] = useState('')
-  let createBranch = useCreateBranch()
   let updateProject = useUpdateProject()
   let deleteProject = useDeleteProject()
-  let branchNames = Object.keys(project.branches)
-
-  useEffect(() => {
-    if (files) console.log(files);
-  }, [files])
-
-  let onSubmit = (e) => {
-    // post new branch
-    e.preventDefault()
-    // console.log('new branch', newBranchName, 'for project', project.id)
-
-    if (newBranchName !== '' && !branchNames.includes(newBranchName)) {
-      createBranch.mutate({ 
-        newBranchName: newBranchName,
-        sourceBranchId: branch.id,
-        projId: project.id
-      })
-      // set state to new branch
-      // url change? how to put Link into select...
-      
-    } else if (newBranchName === '') {
-      alert('You must enter a branch name.')
-    } else if (branchNames.includes(newBranchName)) {
-      alert ('That branch already exists in this project.')
-    }
-  }
 
   let changeProjName = () => {
     let newName = prompt('Enter a new project name')
@@ -230,24 +244,13 @@ const ProjectHeader = React.forwardRef((props, ref) => {
         </label>
       </div>
 
-      <form 
-        id='branch-form' 
-        className='header-item'
-        onSubmit={onSubmit}
-      >
-        <input 
-          id='branch-input'
-          placeholder='Add New Branch'
-          onChange={e => setnewBranchName(e.target.value)}
-          value={newBranchName}
-        />
-      </form>
+      <AddBranchForm project={project} sourceBranchName={branchName} />
 
       {files && 
         <AddSongsForm
           files={files}
           projectId={project.id}
-          branch={branch}
+          branchName={branchName}
           closeSelf={() => setFiles(null)}
         />
       }
@@ -259,7 +262,6 @@ export default function Project() {
   const branchDropdown = useRef()
   const { projectId } = useParams()
   const { data, isError, isLoading, isFetching } = useProject(projectId)
-  console.log(data)
 
   const [state, setState] = useState({
     currBranch: 'main',
@@ -286,7 +288,7 @@ export default function Project() {
         <>
           <ProjectHeader 
             project={data}
-            branch={state.currBranch}
+            branchName={state.currBranch}
             ref={branchDropdown}
           />
           <Songs project={data} branchName={state.currBranch} />
