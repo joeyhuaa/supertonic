@@ -123,3 +123,15 @@ select {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+.top-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.top-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

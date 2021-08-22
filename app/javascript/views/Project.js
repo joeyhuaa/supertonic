@@ -87,13 +87,13 @@ const AddSongsForm = ({
           <IconClickable
             onClick={closeSelf}
             icon={<BsX size={30} />}
-            style={{ float: 'right', cursor: 'pointer' }}
+            className='top-right'
           />
         }
         <h1 style={{ margin: 'auto' }}>Add Songs</h1>
       </div>
 
-      <div>
+      <div id='file-list'>
         {files.map(file => (
           <div>
             {file.name}
