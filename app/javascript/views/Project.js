@@ -8,10 +8,11 @@ import IconClickable from '../molecules/IconClickable'
 
 import { AiOutlineFileAdd } from 'react-icons/ai'
 import { BsX } from 'react-icons/bs'
+import { GiLightningBranches } from 'react-icons/gi'
 
 import { ScaleLoader, ClipLoader } from 'react-spinners'
 
-// import { FancyFileInput } from '@typ'
+import { FancyFileInput, FlyoutMenu } from '@types/joeys-components'
 
 import  { 
   useProject, 
@@ -158,31 +159,43 @@ const AddSongsForm = ({
 }
 
 const BranchSelect = React.forwardRef((props, ref) => {
-  const { branches } = props
-  const { switchBranch } = useContext(Context)
+  const { branches, currBranch, setCurrBranch } = props
+  const items = branches.map(branch => ({
+    label: branch.name,
+    callback: () => setCurrBranch(branch.name)
+  }))
 
   return (
-    <select
-      id='branch-dropdown'
-      className='header-item'
+    // <select
+    //   id='branch-dropdown'
+    //   className='header-item'
+    //   ref={ref}
+    //   onChange={e => switchBranch(e.target.value)}
+    // >
+    //   {branches.map(branch => (
+    //     <option key={branch.id}>
+    //       {/* <Link to={`/projects/${project.id}/${branch}`}> */}
+    //         {branch.name}
+    //       {/* </Link> */}
+    //     </option>
+    //   ))}
+    // </select>
+    <FlyoutMenu
       ref={ref}
-      onChange={e => switchBranch(e.target.value)}
-    >
-      {branches.map(branch => (
-        <option key={branch.id}>
-          {/* <Link to={`/projects/${project.id}/${branch}`}> */}
-            {branch.name}
-          {/* </Link> */}
-        </option>
-      ))}
-    </select>
+      items={items}
+      icon={<GiLightningBranches size={20} className='mr-8' />}
+      label={currBranch}
+      buttonColor='white'
+      buttonSize='medium'
+    />
   )
 })
 
 const ProjectHeader = React.forwardRef((props, ref) => {
   const { 
     project,
-    branchName
+    branchName,
+    setCurrBranch,
   } = props
 
   let [files, setFiles] = useState(null)
@@ -208,7 +221,7 @@ const ProjectHeader = React.forwardRef((props, ref) => {
   return (
     <div id='header'>
       <div id='heading' className='header-item'>
-        <h1 onClick={changeProjName}>{project.name}</h1>
+        <h2 onClick={changeProjName}>{project.name}</h2>
         <FloatDropdown 
           className='header-item'
           options={[
@@ -227,7 +240,12 @@ const ProjectHeader = React.forwardRef((props, ref) => {
         />
       </div>
 
-      <BranchSelect branches={project.branches} ref={ref} />
+      <BranchSelect 
+        branches={project.branches} 
+        currBranch={branchName}
+        setCurrBranch={setCurrBranch}
+        ref={ref} 
+      />
 
       <div id='file-input' className='header-item'>
         <input 
@@ -239,12 +257,15 @@ const ProjectHeader = React.forwardRef((props, ref) => {
         />
         <label for='file'>
           <IconClickable 
-            icon={<AiOutlineFileAdd size={25} />}
+            icon={<AiOutlineFileAdd size={20} />}
           />
         </label>
       </div>
 
-      <AddBranchForm project={project} sourceBranchName={branchName} />
+      <AddBranchForm 
+        project={project} 
+        sourceBranchName={branchName} 
+      />
 
       {files && 
         <AddSongsForm
@@ -263,17 +284,9 @@ export default function Project() {
   const { projectId } = useParams()
   const { data, isError, isLoading, isFetching } = useProject(projectId)
 
-  const [state, setState] = useState({
-    currBranch: 'main',
-    shownewBranchNameForm: false
-  })
+  const [currBranch, setCurrBranch] = useState('main')
   
-  const appContext = useContext(Context)
-  appContext.switchBranch = (newBranchName) => {
-    setState({ ...state, currBranch: newBranchName })
-  }
-
-  if (isLoading || isFetching) {
+  if (isLoading) {
     return (
       <section id='loading-project'>
         <ScaleLoader color='whitesmoke' />
@@ -288,10 +301,11 @@ export default function Project() {
         <>
           <ProjectHeader 
             project={data}
-            branchName={state.currBranch}
+            branchName={currBranch}
+            setCurrBranch={setCurrBranch}
             ref={branchDropdown}
           />
-          <Songs project={data} branchName={state.currBranch} />
+          <Songs project={data} branchName={currBranch} />
         </>
       }
     </section>

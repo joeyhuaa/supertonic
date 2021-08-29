@@ -31,7 +31,8 @@
     "react_ujs": "^2.6.1",
     "turbolinks": "^5.2.0",
     "zustand": "^3.5.2",
-    "@types/joeys-components": "git+ssh://git@github.com:joeyhuaa/joeys-components.git#main"
+    "@types/joeys-components": "git+https://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:x-oauth-basic@github.com/joeyhuaa/joeys-components.git#main"
+
   },
   "version": "0.1.0",
   "devDependencies": {

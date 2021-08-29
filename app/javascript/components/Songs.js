@@ -66,8 +66,6 @@ export default function Songs({ project, branchName }) {
   const songs = project.songs
   const branch = project.branches.find(b => b.name === branchName)
 
-  // console.log(isLoading)
-
   if (songs.length === 0) {
     return (
       <div id='empty-songs'>

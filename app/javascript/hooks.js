@@ -134,6 +134,7 @@ export function useCreateProject() {
     data => axios.post(`/api/projects/new`, data),
     {
       onMutate: async newProject => {
+        console.log('new', newProject)
         await queryClient.cancelQueries('projects')
         const prevProjects = queryClient.getQueryData('projects')
         queryClient.setQueryData('projects', old => [...old, newProject])
