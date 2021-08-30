@@ -88,7 +88,7 @@ export function useProject(projectId) {
     {
       refetchOnWindowFocus: false,
       onSettled: (data) => {
-        console.log('useProject', data)
+        console.log('fetching', data.id)
         queryClient.setQueryData(['project', data.id], data)
       }
     }
@@ -104,13 +104,19 @@ export function useUpdateProject() {
       onMutate: async projToBeUpdated => {
         let oldProj = queryClient.getQueryData(['project', projToBeUpdated.id])
 
-        // NOT WORKING
-        queryClient.setQueryData(['project', projToBeUpdated.id], old => ({
-          ...old,
-          name: projToBeUpdated.name
-        }))
+        console.log('updating', projToBeUpdated.id)
 
-        // WORKING
+        // ! NOT WORKING
+        // queryClient.setQueryData(['project', projToBeUpdated.id], old => ({
+        //   ...old,
+        //   name: projToBeUpdated.name
+        // }))
+        queryClient.setQueryData(['project', projToBeUpdated.id], {
+          ...oldProj,
+          name: projToBeUpdated.name,
+        })
+
+        // * WORKING
         queryClient.setQueryData('projects', old => {
           let proj = old.find(p => p.id === projToBeUpdated.id)
           proj.name = projToBeUpdated.name
@@ -119,7 +125,8 @@ export function useUpdateProject() {
 
         return { oldProj }
       },
-      onSettled: (data) => {
+      onSettled: ({ data }) => {
+        console.log('settled', data)
         queryClient.invalidateQueries('projects') 
         queryClient.invalidateQueries(['project', data.id])
       }
@@ -135,9 +142,9 @@ export function useCreateProject() {
     {
       onMutate: async newProject => {
         console.log('new', newProject)
-        await queryClient.cancelQueries('projects')
+        // await queryClient.cancelQueries('projects')
         const prevProjects = queryClient.getQueryData('projects')
-        queryClient.setQueryData('projects', old => [...old, newProject])
+        queryClient.setQueryData('projects', old => [newProject, ...old])
         return { prevProjects }
       },
       onSettled: ({ data }) => {

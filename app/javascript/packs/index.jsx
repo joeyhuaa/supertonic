@@ -8,7 +8,13 @@ import ReactDOM from 'react-dom'
 import App from '../components/App'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    }
+  }
+})
 
 document.addEventListener('DOMContentLoaded', () => {
   // get data from backend

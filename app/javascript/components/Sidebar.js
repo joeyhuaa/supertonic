@@ -46,7 +46,11 @@ export default function Sidebar() {
   }, [window.location.pathname])
 
   let newProjClicked = () => {
-    createProject.mutate({ id: Date.now() })
+    // createProject.mutate({ id: Date.now() })
+    createProject.mutate({
+      id: Date.now(),
+      name: 'Untitled Project',
+    })
   }
   
   return (
@@ -54,6 +58,7 @@ export default function Sidebar() {
       <div id='top'>
         <h1>SuperTonic</h1>
         <p>Welcome, {user.full_name}</p>
+        {isFetching && <p>fetching...</p>}
         <Menu />
       </div>
       <div id='browser'>

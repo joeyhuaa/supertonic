@@ -31,15 +31,16 @@ class ProjectController < ApplicationController
   # POST api/projects/new
   def new
     @user = current_user
-    @project = @user.projects.create(id: params[:id])
+    # @project = @user.projects.create(id: params[:id])
+    @project = @user.projects.create(created_at: Time.now)
 
-    # name
+    # * name
     @project.name = "Untitled Project"
 
-    # description
+    # * description
     @project.description = ""
 
-    # branches
+    # * branch
     @project.addBranch('main')
 
     @project.save!
@@ -91,6 +92,7 @@ class ProjectController < ApplicationController
     end
 
     @project.save
+    # byebug
     render :json => @project
   end
 
