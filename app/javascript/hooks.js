@@ -52,18 +52,12 @@ export function useCreateBranch() {
     (data) => (
       axios.put(`/api/projects/${data.projId}/newbranch`, data)
     ),
-    // {
-    //   onMutate: (newBranch) => {
-    //     const oldBranchs = queryCache.getQueryData('Branchs')
-
-    //     if (queryCache.getQueryData('Branchs')) {
-    //       queryCache.setQueryData('Branchs', old => [...old, newBranch])
-    //     }
-
-    //     return () => queryCache.setQueryData('Branchs', oldBranchs)
-    //   },
-    // }
-  )
+  ),
+  {
+    onSettled: (data) => {
+      queryClient.invalidateQueries(['project', data.project.id])
+    }
+  }
 }
 
 export function useProjects() {

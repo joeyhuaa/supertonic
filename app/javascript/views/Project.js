@@ -3,8 +3,9 @@ import { useParams } from 'react-router-dom'
 
 import Songs from '../components/Songs'
 import FloatDropdown from '../components/FloatDropdown'
-import Context from '../components/Context'
+
 import IconClickable from '../molecules/IconClickable'
+import Dropdown from '../molecules/Dropdown'
 
 import { AiOutlineFileAdd } from 'react-icons/ai'
 import { BsX } from 'react-icons/bs'
@@ -133,7 +134,7 @@ const AddSongsForm = ({
             className='top-right-n-8'
           />
         }
-        <h1 style={{ margin: 'auto' }}>Add Songs</h1>
+        <h2 style={{ margin: 'auto' }}>Add Songs</h2>
       </div>
 
       <div id='file-list'>
@@ -166,27 +167,17 @@ const BranchSelect = React.forwardRef((props, ref) => {
   }))
 
   return (
-    // <select
-    //   id='branch-dropdown'
-    //   className='header-item'
+    // <FlyoutMenu
+    //   className='branch-dropdown'
     //   ref={ref}
-    //   onChange={e => switchBranch(e.target.value)}
-    // >
-    //   {branches.map(branch => (
-    //     <option key={branch.id}>
-    //       {/* <Link to={`/projects/${project.id}/${branch}`}> */}
-    //         {branch.name}
-    //       {/* </Link> */}
-    //     </option>
-    //   ))}
-    // </select>
-    <FlyoutMenu
-      ref={ref}
+    //   items={items}
+    //   icon={<GiLightningBranches size={20} className='mr-8' />}
+    //   label={currBranch}
+    //   buttonColor='white'
+    //   buttonSize='medium'
+    // />
+    <Dropdown 
       items={items}
-      icon={<GiLightningBranches size={20} className='mr-8' />}
-      label={currBranch}
-      buttonColor='white'
-      buttonSize='medium'
     />
   )
 })

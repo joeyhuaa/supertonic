@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useContext } from 'react'
 import Context from './Context'
 import { THEME } from '../aesthetics'
 import moment from 'moment'
-import styles from '../stylesheets/musicplayer.module.css'
 import { FaPlay, FaPause } from 'react-icons/fa'
 import { useTheme } from '../hooks'
 
@@ -68,12 +67,12 @@ export default function MusicPlayer() {
   };
 
   let button = isPlaying ?
-    <div id={styles.pButton} ref={pButton} onClick={() => playPause(currSong.id)}><FaPause color='white' /></div> :
-    <div id={styles.pButton} ref={pButton} onClick={() => playPause(currSong.id)}><FaPlay color='white' /></div>
+    <div id='pButton' ref={pButton} onClick={() => playPause(currSong.id)}><FaPause color='white' /></div> :
+    <div id='pButton' ref={pButton} onClick={() => playPause(currSong.id)}><FaPlay color='white' /></div>
 
   return (
     <section 
-      id={styles.player_container} 
+      id='player_container' 
       style={{backgroundColor: THEME[theme]?.color4}}
     >
       <audio
@@ -83,22 +82,22 @@ export default function MusicPlayer() {
         src={currSong ? currSong.b64 : null}
       />
 
-      <span className={styles.song_title}>
+      <span className='song_title'>
         {currSong ? currSong.name : null}
       </span>
 
       {button}
 
-      <span className={styles.timestamp}>
+      <span className='timestamp'>
         {music.current ? currentTime : `-:--`} {/* change to if currentSong, not if music.current */}
       </span>
 
-      <div id={styles.timeline} ref={timeline} onClick={e => timeLineClicked(e)}>
-        <div id={styles.timeline_past} ref={timelinePast} />
-        <div id={styles.playhead} ref={playhead} />
+      <div id='timeline' ref={timeline} onClick={e => timeLineClicked(e)}>
+        <div id='timeline_past' ref={timelinePast} />
+        <div id='playhead' ref={playhead} />
       </div>
 
-      <span className={styles.timestamp}>
+      <span className='timestamp'>
         {music.current ? msString(getDuration()) : `-:--`}
       </span>
     </section>

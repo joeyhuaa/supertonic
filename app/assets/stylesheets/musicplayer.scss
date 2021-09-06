@@ -1,45 +1,44 @@
 #player_container {
-    /* height: 70px; */
-    height: 10vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* border: solid 1px pink; */
-}
+  /* height: 70px; */
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: solid 1px pink; */
 
-#pButton {
+  #pButton {
     width: 20px;
     height: 20px;
     margin-left: 20px;
-}
-#pButton:focus {
+  }
+  #pButton:focus {
     outline:none;   
-}
-#pButton:hover {
+  }
+  #pButton:hover {
     cursor:pointer;
-}
-
-.player_info {
+  }
+  
+  .player_info {
     font-size: 12px;
     font-weight: bold;
     margin-right: 20px;
     padding-right: 20px;
     border-right: solid rgb(126, 126, 126) 1px;
-}
-
-.timestamp {
+  }
+  
+  .timestamp {
     font-size: 12px;
     width: 30px;
     text-align: center;
-}
-
-.song_title {
+  }
+  
+  .song_title {
     font-size: 12px;
     font-weight: bold;
     margin-left: 1em;
-}
-
-#timeline {
+  }
+  
+  #timeline {
     width: 400px;
     height: 5px;
     background: rgb(0, 0, 0);
@@ -47,21 +46,22 @@
     display: flex;
     align-items: center;
     position: relative;
-}
-#timeline:hover {
+  }
+  #timeline:hover {
     cursor:pointer; 
-}
-#timeline_past {
+  }
+  #timeline_past {
     border-radius: 15px;
     background-color: white;
     height: 100%;
     position: absolute;
-}
-
-#playhead {
+  }
+  
+  #playhead {
     width: 10px;
     height: 10px;
     border-radius: 50%;
     margin-top: 1px;
     background-color: white;
+  }
 }
