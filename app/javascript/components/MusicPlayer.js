@@ -66,10 +66,6 @@ export default function MusicPlayer() {
     else return `${m}:${s}`
   };
 
-  let button = isPlaying ?
-    <div id='pButton' ref={pButton} onClick={() => playPause(currSong.id)}><FaPause color='white' /></div> :
-    <div id='pButton' ref={pButton} onClick={() => playPause(currSong.id)}><FaPlay color='white' /></div>
-
   return (
     <section 
       id='player_container' 
@@ -86,7 +82,13 @@ export default function MusicPlayer() {
         {currSong ? currSong.name : null}
       </span>
 
-      {button}
+      <div id='pButton' ref={pButton} onClick={() => playPause(currSong.id)}>
+        {isPlaying ? (
+          <FaPause color='white' />
+        ) : (
+          <FaPlay color='white' />
+        )}
+      </div>
 
       <span className='timestamp'>
         {music.current ? currentTime : `-:--`} {/* change to if currentSong, not if music.current */}

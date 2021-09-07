@@ -58,7 +58,7 @@ export default function Sidebar() {
       <div id='top'>
         <h1>SuperTonic</h1>
         <p>Welcome, {user.full_name}</p>
-        {isFetching && <p>fetching...</p>}
+        {/* {isFetching && <p>fetching...</p>} */}
         <Menu />
       </div>
       <div id='browser'>

@@ -5,7 +5,7 @@ import Songs from '../components/Songs'
 import FloatDropdown from '../components/FloatDropdown'
 
 import IconClickable from '../molecules/IconClickable'
-import Dropdown from '../molecules/Dropdown'
+import DropdownMenu from '../molecules/DropdownMenu'
 
 import { AiOutlineFileAdd } from 'react-icons/ai'
 import { BsX } from 'react-icons/bs'
@@ -176,8 +176,9 @@ const BranchSelect = React.forwardRef((props, ref) => {
     //   buttonColor='white'
     //   buttonSize='medium'
     // />
-    <Dropdown 
+    <DropdownMenu 
       items={items}
+      label={currBranch}
     />
   )
 })
@@ -212,7 +213,10 @@ const ProjectHeader = React.forwardRef((props, ref) => {
   return (
     <div id='header'>
       <div id='heading' className='header-item'>
-        <h2 onClick={changeProjName}>{project.name}</h2>
+        <h2 
+          className='ellipse'
+          onClick={changeProjName}
+        >{project.name}</h2>
         <FloatDropdown 
           className='header-item'
           options={[

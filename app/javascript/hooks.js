@@ -98,17 +98,13 @@ export function useUpdateProject() {
       onMutate: async projToBeUpdated => {
         let oldProj = queryClient.getQueryData(['project', projToBeUpdated.id])
 
-        console.log('updating', projToBeUpdated.id)
+        console.log('updating', oldProj.id)
 
         // ! NOT WORKING
-        // queryClient.setQueryData(['project', projToBeUpdated.id], old => ({
-        //   ...old,
-        //   name: projToBeUpdated.name
-        // }))
-        queryClient.setQueryData(['project', projToBeUpdated.id], {
-          ...oldProj,
-          name: projToBeUpdated.name,
-        })
+        queryClient.setQueryData(['project', projToBeUpdated.id], old => ({
+          ...old,
+          name: projToBeUpdated.name
+        }))
 
         // * WORKING
         queryClient.setQueryData('projects', old => {
