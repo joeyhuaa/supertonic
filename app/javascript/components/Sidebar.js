@@ -46,7 +46,6 @@ export default function Sidebar() {
   }, [window.location.pathname])
 
   let newProjClicked = () => {
-    // createProject.mutate({ id: Date.now() })
     createProject.mutate({
       id: Date.now(),
       name: 'Untitled Project',

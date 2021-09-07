@@ -68,6 +68,7 @@ function App({ user }) {
   const [state, setState] = useStateCallback({
     currSong: null,
     isPlaying: false,
+    showOverlay: false,
   })
 
   const appContext = {
@@ -89,6 +90,7 @@ function App({ user }) {
         setState({ ...state, isPlaying: !state.isPlaying })
       }
     },
+    setShowOverlay: val => setState({...state, showOverlay: val})
   }
   
   let getSong = async (id) => {
@@ -100,14 +102,13 @@ function App({ user }) {
     <Provider value={appContext}>
       <BrowserRouter>
         <Container>
-          <Overlay show={state.showNewBranchForm || state.showAddSongsForm} />
+          {state.showOverlay && <Overlay />}
           <div style={{
             display: 'flex',
             width: '100%',
             height: '85vh',
           }}>
             <Sidebar />
-
             <Route 
               path='/projects/:projectId' 
               component={Project}
@@ -121,7 +122,6 @@ function App({ user }) {
               component={Settings}
             />
           </div>
-
           <MusicPlayer />
         </Container>
       </BrowserRouter>

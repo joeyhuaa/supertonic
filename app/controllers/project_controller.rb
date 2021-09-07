@@ -31,8 +31,8 @@ class ProjectController < ApplicationController
   # POST api/projects/new
   def new
     @user = current_user
-    # @project = @user.projects.create(id: params[:id])
-    @project = @user.projects.create(created_at: Time.now)
+    @project = @user.projects.create(id: params[:id])
+    # @project = @user.projects.create(created_at: Time.now)
 
     # * name
     @project.name = "Untitled Project"

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import { useParams } from 'react-router-dom'
+import Context from '../components/Context'
 
 import Songs from '../components/Songs'
 import FloatDropdown from '../components/FloatDropdown'
@@ -9,7 +10,6 @@ import DropdownMenu from '../molecules/DropdownMenu'
 
 import { AiOutlineFileAdd } from 'react-icons/ai'
 import { BsX } from 'react-icons/bs'
-import { GiLightningBranches } from 'react-icons/gi'
 
 import { ScaleLoader, ClipLoader } from 'react-spinners'
 
@@ -70,6 +70,12 @@ const AddSongsForm = ({
   closeSelf
 }) => {
   const { mutate, isLoading, isSuccess, error } = useCreateSongs()
+  const { setShowOverlay } = useContext(Context)
+
+  useEffect(() => {
+    setShowOverlay(true)
+    return () => setShowOverlay(false)
+  }, [])
 
   useEffect(() => {
     if (isSuccess) closeSelf()
@@ -190,7 +196,7 @@ const ProjectHeader = React.forwardRef((props, ref) => {
     setCurrBranch,
   } = props
 
-  let [files, setFiles] = useState(null)
+  let [files, setFiles] = useState([])
   let updateProject = useUpdateProject()
   let deleteProject = useDeleteProject()
 
@@ -262,12 +268,12 @@ const ProjectHeader = React.forwardRef((props, ref) => {
         sourceBranchName={branchName} 
       />
 
-      {files && 
+      {files.length > 0 && 
         <AddSongsForm
           files={files}
           projectId={project.id}
           branchName={branchName}
-          closeSelf={() => setFiles(null)}
+          closeSelf={() => setFiles([])}
         />
       }
     </div>

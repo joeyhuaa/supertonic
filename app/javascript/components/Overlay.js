@@ -1,13 +1,10 @@
 import React from "react"
 
-export default function Overlay({
-  show
-}) {
+export default function Overlay() {
   return (
     <div
       id='overlay'
       style={{
-        display: show ? 'block' : 'none',
         position: 'absolute',
         width: '100%',
         height: '100%',
