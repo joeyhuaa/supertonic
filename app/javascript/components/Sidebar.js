@@ -53,14 +53,17 @@ export default function Sidebar() {
   }
   
   return (
-    <section id='sidebar' style={{ backgroundColor: THEME[theme]?.color1 }}>
+    <section 
+      id='sidebar' 
+      style={{ backgroundColor: THEME[theme]?.color1 }}
+    >
       <div id='top'>
         <h1>SuperTonic</h1>
         <p>Welcome, {user.full_name}</p>
         {/* {isFetching && <p>fetching...</p>} */}
         <Menu />
       </div>
-      <div id='browser'>
+      <div id='browser' className='fade-ends'>
         {isError && <span>Error.</span>}
         {isLoading && <span>Loading...</span>}
         {data?.map((proj) => {
