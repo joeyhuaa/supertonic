@@ -1,6 +1,9 @@
 {
   "name": "supertonic",
   "private": true,
+  "scripts": {
+    "start:dev": "./bin/webpack-dev-server"
+  },
   "dependencies": {
     "@babel/core": "^7.15.0",
     "@babel/preset-env": "^7.15.0",

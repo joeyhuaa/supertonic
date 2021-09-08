@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react'
-import Context from '../components/Context'
 import { THEME } from '../aesthetics'
 import {useTheme} from '../hooks'
 
 const Clickable = React.forwardRef((props, ref) => {
   const [isHovering, setHovering] = useState(false)
-  // const [isSelected, setSelected] = useState(false)
   const theme = useTheme().data
   const {
     elemKey,
@@ -15,10 +13,6 @@ const Clickable = React.forwardRef((props, ref) => {
     styles = { padding: '5px' },
     isSelected = false,
   } = props
-
-  useEffect(() => {
-    // console.log('isSelected:', isSelected)
-  }, [isSelected])
 
   // useEffect(() => {
   //   console.log('isHovering:', isHovering)
@@ -37,7 +31,6 @@ const Clickable = React.forwardRef((props, ref) => {
       className={`clickable ${className}`}
       onClick={() => {
         onClick()
-        // setSelected(!isSelected)
       }} 
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}

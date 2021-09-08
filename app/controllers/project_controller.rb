@@ -29,7 +29,7 @@ class ProjectController < ApplicationController
   end
 
   # POST api/projects/new
-  def new
+  def newdown
     @user = current_user
     @project = @user.projects.create(id: params[:id])
     # @project = @user.projects.create(created_at: Time.now)

@@ -87,7 +87,7 @@ export default function Songs({ project, branchName }) {
   }
   
   return (
-    <div id='songs' className='fade-ends'>
+    <div id='songs' className='fade-bottom'>
       {branch?.songs?.map(song => 
         <div key={song.id}>
           <Song song={song} />

@@ -10,6 +10,7 @@ import DropdownMenu from '../molecules/DropdownMenu'
 
 import { AiOutlineFileAdd } from 'react-icons/ai'
 import { BsX } from 'react-icons/bs'
+import { BiGitBranch } from 'react-icons/bi'
 
 import { ScaleLoader, ClipLoader } from 'react-spinners'
 
@@ -166,25 +167,18 @@ const AddSongsForm = ({
 }
 
 const BranchSelect = React.forwardRef((props, ref) => {
-  const { branches, currBranch, setCurrBranch } = props
+  const { branches, currBranch, setCurrBranch, className } = props
   const items = branches.map(branch => ({
     label: branch.name,
     callback: () => setCurrBranch(branch.name)
   }))
 
   return (
-    // <FlyoutMenu
-    //   className='branch-dropdown'
-    //   ref={ref}
-    //   items={items}
-    //   icon={<GiLightningBranches size={20} className='mr-8' />}
-    //   label={currBranch}
-    //   buttonColor='white'
-    //   buttonSize='medium'
-    // />
     <DropdownMenu 
+      className={className}
       items={items}
       label={currBranch}
+      icon={<BiGitBranch />}
     />
   )
 })
@@ -242,6 +236,7 @@ const ProjectHeader = React.forwardRef((props, ref) => {
       </div>
 
       <BranchSelect 
+        className='header-item'
         branches={project.branches} 
         currBranch={branchName}
         setCurrBranch={setCurrBranch}

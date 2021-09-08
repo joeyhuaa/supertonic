@@ -45,7 +45,7 @@ export default function Sidebar() {
     }
   }, [window.location.pathname])
 
-  let newProjClicked = () => {
+  let makeNewProject = () => {
     createProject.mutate({
       id: Date.now(),
       name: 'Untitled Project',
@@ -63,7 +63,7 @@ export default function Sidebar() {
         {/* {isFetching && <p>fetching...</p>} */}
         <Menu />
       </div>
-      <div id='browser' className='fade-ends'>
+      <div id='browser' className='fade-bottom'>
         {isError && <span>Error.</span>}
         {isLoading && <span>Loading...</span>}
         {data?.map((proj) => {
@@ -84,7 +84,7 @@ export default function Sidebar() {
         })}
       </div>
       <button
-        onClick={newProjClicked}
+        onClick={makeNewProject}
         id='new-project-btn'
         className='round-btn submit-btn grow'
       >

@@ -3,11 +3,18 @@ import Dropdown from 'react-bootstrap/Dropdown'
 
 export default function DropdownMenu({
   items,
-  label
+  label,
+  icon,
+  className,
 }) {
   return (
-    <Dropdown>
-      <Dropdown.Toggle variant="success" id="dropdown-basic">
+    <Dropdown className={className}>
+      <Dropdown.Toggle 
+        variant="success" 
+        id="dropdown-basic"
+        className='df aic'
+      >
+        {icon}
         {label}
       </Dropdown.Toggle>
 
