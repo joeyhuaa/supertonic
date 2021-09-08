@@ -1,5 +1,4 @@
-import React, { useContext } from 'react'
-import Context from '../components/Context'
+import React from 'react'
 import { THEME } from '../aesthetics'
 import { useTheme, useChangeTheme } from '../hooks'
 
@@ -7,14 +6,11 @@ export default function Settings() {
   let setTheme = useChangeTheme()
   const theme = useTheme().data
 
-  let changeTheme = (value) => {
-    setTheme.mutate({
-      theme: value
-    })
+  let changeTheme = (newTheme) => {
+    setTheme.mutate({ theme: newTheme })
   }
 
   return (
-    
     <section>
       {theme && 
         <>

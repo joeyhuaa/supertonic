@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState } from 'react'
 import { THEME } from '../aesthetics'
 import {useTheme} from '../hooks'
 
@@ -10,18 +10,26 @@ const Clickable = React.forwardRef((props, ref) => {
     className,
     children,
     onClick = () => {},
+    onMouseEnter = () => {},
+    onMouseLeave = () => {},
     styles = { padding: '5px' },
     isSelected = false,
   } = props
-
-  // useEffect(() => {
-  //   console.log('isHovering:', isHovering)
-  // }, [isHovering])
 
   const getStyles = () => {
     if (isSelected) return {...styles, backgroundColor: THEME[theme].color2 }
     if (isHovering) return {...styles, backgroundColor: THEME[theme].color4 }
     else return styles
+  }
+
+  const _onMouseEnter = () => {
+    onMouseEnter()
+    setHovering(true)
+  }
+
+  const _onMouseLeave = () => {
+    onMouseLeave()
+    setHovering(false)
   }
 
   return (
@@ -32,8 +40,8 @@ const Clickable = React.forwardRef((props, ref) => {
       onClick={() => {
         onClick()
       }} 
-      onMouseEnter={() => setHovering(true)}
-      onMouseLeave={() => setHovering(false)}
+      onMouseEnter={_onMouseEnter}
+      onMouseLeave={_onMouseLeave}
       style={getStyles()}
       tabIndex='0'
     >

@@ -1,10 +1,11 @@
 import React from "react"
-
 import Clickable from "./Clickable"
 
 const IconClickable = React.forwardRef((props, ref) => {
   const {
-    onClick,
+    onClick = () => {},
+    onMouseEnter = () => {},
+    onMouseLeave = () => {},
     icon,
     padding = 5,
     className,
@@ -23,6 +24,8 @@ const IconClickable = React.forwardRef((props, ref) => {
     <Clickable
       ref={ref}
       onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       styles={styles}
       className={className}
     >

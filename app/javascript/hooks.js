@@ -131,7 +131,7 @@ export function useCreateProject() {
     data => axios.post(`/api/projects/new`, data),
     {
       onMutate: async newProject => {
-        // await queryClient.cancelQueries('projects')
+        await queryClient.cancelQueries('projects')
         const prevProjects = queryClient.getQueryData('projects')
         queryClient.setQueryData('projects', old => [newProject, ...old])
         return { prevProjects }
@@ -148,8 +148,14 @@ export function useDeleteProject() {
   const queryClient = useQueryClient()
 
   return useMutation(
-    data => axios.delete(`/api/projects/${data.id}/destroy`, data).then(res => res.data),
+    project => axios.delete(`/api/projects/${project.id}/destroy`, project).then(res => res.data),
     {
+      onMutate: async project => {
+        await queryClient.cancelQueries('projects')
+        const prevProjects = queryClient.getQueryData('projects')
+        queryClient.setQueryData('projects', old => old.filter(proj => proj.id != project.id))
+        return { prevProjects }
+      },
       onSuccess: () => {
         queryClient.invalidateQueries('projects') // refetch projects
       }
@@ -182,20 +188,22 @@ export function useDeleteSong() {
   return useMutation(
     data => axios.delete(`/api/songs/${data.songId}/destroy`, data),
     {
-      onMutate: async data => {
+      onMutate: data => {
         // optimistic update, remove song from project
-        console.log(data)
+        console.log('deleteSong', data)
         let songIdToRemove = data.songId
-        queryClient.setQueryData(['project', { id: data.projectId }], old => {
+
+        console.log('query data', queryClient.getQueryData(['project', data.projectId]))
+
+        queryClient.setQueryData(['project', data.projectId], old => {
+          console.log(old)
           let songs = lodash.cloneDeep(old.songs)
           let index = songs.findIndex(song => song.id == songIdToRemove)
           songs.splice(index, 1)
-          return (
-            {
-              ...old,
-              songs: songs
-            }
-          )
+          return {
+            ...old,
+            songs: songs
+          }
         })
       },
       onSettled: (data, vars) => {

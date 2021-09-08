@@ -19,9 +19,10 @@ function Song({ song }) {
   const deleteSong = useDeleteSong()
   const { playPause, isPlaying, currSong } = useContext(Context)
 
-  let destroy = () => deleteSong.mutate(
-    { songId: song.id, projectId: song.project_id }
-  )
+  let destroy = () => deleteSong.mutate({ 
+    songId: song.id, 
+    projectId: song.project_id 
+  })
 
   return (
     <Clickable className='song'>
@@ -34,7 +35,7 @@ function Song({ song }) {
           ) : (
             <FaPlay className='grow' />
           )
-      }
+        }
       />
       <span className='name ellipse song-item'>{song.name}</span>
       <span className='time song-item'>
@@ -45,17 +46,19 @@ function Song({ song }) {
       </span>
       <IconClickable 
         className='filechange clickable song-item'
-        icon={<VscNewFile />}
+        icon={<VscNewFile className='grow' />}
       />
-      {deleteSong.isLoading ? (
-        <FadeLoader color='white' />
-      ) : (
-        <IconClickable 
-          className='filechange clickable song-item' 
-          onClick={destroy}
-          icon={<BsTrash />}
-        />
-      )}
+      <IconClickable 
+        className='filechange clickable song-item' 
+        onClick={destroy}
+        icon={
+          deleteSong.isLoading ? (
+            <FadeLoader />
+          ) : (
+            <BsTrash className='grow' />
+          )
+        }
+      />
     </Clickable>
   )
 }
