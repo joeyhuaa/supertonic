@@ -55,7 +55,7 @@ export function useCreateBranch() {
   ),
   {
     onSettled: (data) => {
-      queryClient.invalidateQueries(['project', data.project.id])
+      queryClient.invalidateQueries(['projects', data.project.id])
     }
   }
 }
@@ -74,7 +74,7 @@ export function useProject(projectId) {
   const queryClient = useQueryClient()
 
   return useQuery(
-    ['project', projectId],
+    ['projects', projectId],
     async () => {
       let res = await fetch(`/api/projects/${projectId}`)
       return res.json()
@@ -82,8 +82,7 @@ export function useProject(projectId) {
     {
       refetchOnWindowFocus: false,
       onSettled: (data) => {
-        console.log('fetching', data.id)
-        queryClient.setQueryData(['project', data.id], data)
+        queryClient.setQueryData(['projects', data.id], data)
       }
     }
   )
@@ -96,17 +95,16 @@ export function useUpdateProject() {
     data => axios.put(`/api/projects/${data.id}/update`, data),
     {
       onMutate: async projToBeUpdated => {
-        let oldProj = queryClient.getQueryData(['project', projToBeUpdated.id])
+        await queryClient.cancelQueries('projects')
+        let oldProj = queryClient.getQueryData(['projects', projToBeUpdated.id])
 
-        console.log('updating', oldProj.id)
-
-        // ! NOT WORKING
-        queryClient.setQueryData(['project', projToBeUpdated.id], old => ({
+        // optimistic update project view
+        queryClient.setQueryData(['projects', projToBeUpdated.id], old => ({
           ...old,
           name: projToBeUpdated.name
         }))
 
-        // * WORKING
+        // optimistic update sidebar
         queryClient.setQueryData('projects', old => {
           let proj = old.find(p => p.id === projToBeUpdated.id)
           proj.name = projToBeUpdated.name
@@ -116,9 +114,8 @@ export function useUpdateProject() {
         return { oldProj }
       },
       onSettled: ({ data }) => {
-        console.log('settled', data)
         queryClient.invalidateQueries('projects') 
-        queryClient.invalidateQueries(['project', data.id])
+        queryClient.invalidateQueries(['projects', data.id])
       }
     }
   )
@@ -138,7 +135,7 @@ export function useCreateProject() {
       },
       onSettled: ({ data }) => {
         queryClient.invalidateQueries('projects')
-        queryClient.setQueryData(['project', data.projId], data)
+        queryClient.setQueryData(['projects', data.projId], data)
       }
     }
   )
@@ -171,12 +168,9 @@ export function useCreateSongs() {
       return axios.put(`/api/projects/${data.id}/add_songs`, data)
     },
     {
-      onMutate: async data => {
-        console.log(data)
-      },
       onSuccess: ({ data }) => {
-        queryClient.invalidateQueries('project')
-        queryClient.setQueryData(['project', { id: data.projId }], data)
+        queryClient.invalidateQueries('projects')
+        queryClient.setQueryData(['projects', { id: data.projId }], data)
       }
     }
   )
@@ -189,14 +183,10 @@ export function useDeleteSong() {
     data => axios.delete(`/api/songs/${data.songId}/destroy`, data),
     {
       onMutate: data => {
-        // optimistic update, remove song from project
-        console.log('deleteSong', data)
         let songIdToRemove = data.songId
 
-        console.log('query data', queryClient.getQueryData(['project', data.projectId]))
-
-        queryClient.setQueryData(['project', data.projectId], old => {
-          console.log(old)
+        // optimistic update, remove song from project
+        queryClient.setQueryData(['projects', data.projectId], old => {
           let songs = lodash.cloneDeep(old.songs)
           let index = songs.findIndex(song => song.id == songIdToRemove)
           songs.splice(index, 1)
@@ -207,7 +197,7 @@ export function useDeleteSong() {
         })
       },
       onSettled: (data, vars) => {
-        queryClient.setQueryData(['project', { id: vars.id }], data)
+        queryClient.setQueryData(['projects', { id: vars.id }], data)
       }
     }
   )
