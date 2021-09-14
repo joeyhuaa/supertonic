@@ -1,0 +1,202 @@
+@charset "utf-8";
+@import './_colors.scss';
+
+// general classes
+
+$sizes: 2, 4, 8, 12, 14, 16, 20, 24, 32, 40, 48, 64, 96, 128, 256;
+
+@each $size in $sizes {
+  .p-#{$size} {
+    padding: #{$size}px;
+  }
+  .pl-#{$size} {
+    padding-left: #{$size}px;
+  }
+  .pr-#{$size} {
+    padding-right: #{$size}px;
+  }
+  .px-#{$size} {
+    padding-left: #{$size}px;
+    padding-right: #{$size}px;
+  }
+  .pt-#{$size} {
+    padding-top: #{$size}px;
+  }
+  .pb-#{$size} {
+    padding-bottom: #{$size}px;
+  }
+  .py-#{$size} {
+    padding-top: #{$size}px;
+    padding-bottom: #{$size}px;
+  }
+
+  .m-#{$size} {
+    margin: #{$size}px;
+  }
+  .ml-#{$size} {
+    margin-left: #{$size}px;
+  }
+  .mr-#{$size} {
+    margin-right: #{$size}px;
+  }
+  .mx-#{$size} {
+    margin-left: #{$size}px;
+    margin-right: #{$size}px;
+  }
+  .mt-#{$size} {
+    margin-top: #{$size}px;
+  }
+  .mb-#{$size} {
+    margin-bottom: #{$size}px;
+  }
+  .my-#{$size} {
+    margin-top: #{$size}px;
+    margin-bottom: #{$size}px;
+  }
+
+  .m-n-#{$size} {
+    margin: -#{$size}px;
+  }
+  .ml-n-#{$size} {
+    margin-left: -#{$size}px;
+  }
+  .mr-n-#{$size} {
+    margin-right: -#{$size}px;
+  }
+  .mx-n-#{$size} {
+    margin-left: -#{$size}px;
+    margin-right: -#{$size}px;
+  }
+  .mt-n-#{$size} {
+    margin-top: -#{$size}px;
+  }
+  .mb-n-#{$size} {
+    margin-bottom: -#{$size}px;
+  }
+  .my-n-#{$size} {
+    margin-top: -#{$size}px;
+    margin-bottom: -#{$size}px;
+  }
+}
+
+$boxSizes: 12, 16, 20, 24, 32, 48, 60;
+@each $size in $boxSizes {
+  .box-size-#{$size} {
+    width: #{$size}px;
+    height: #{$size}px;
+  }
+}
+
+$borderRadiusSizes: 4, 6;
+@each $size in $borderRadiusSizes {
+  .br-#{$size} {
+    border-radius: #{$size}px;
+  }
+}
+
+.center-v {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.center-h {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.mla {
+  margin-left: auto;
+}
+
+.text-muted {
+  color: $muted;
+}
+
+// color classes
+$colors: (
+  'marine-blue': $marineBlue,
+  'amber-gold': $amberGold,
+  'stone-black': $stoneBlack,
+  'white': $white,
+  'marine-blue-1': $marineBlue1,
+  'amber-gold-m-1': $amberGoldM1,
+  'amber-gold-m-2': $amberGoldM2,
+  'stone-black-1': $stoneBlack1,
+  'stone-black-2': $stoneBlack2,
+  'stone-black-3': $stoneBlack3,
+  'stone-black-4': $stoneBlack4,
+  'stone-black-5': $stoneBlack5,
+  'stone-black-6': $stoneBlack6,
+  'stone-black-7': $stoneBlack7,
+  'positive': $positive,
+  'negative': $negative,
+  'purple': $purple,
+  'positive-m-1': $positiveM1,
+  'positive-m-2': $positiveM2,
+  'negative-m-2': $negativeM2,
+  'negative-m-1': $negativeM1,
+  'negative-4': $negative4,
+  // duplicates of positive and negative
+  'green': $positive,
+  'red': $negative,
+  'red-m-2': $negativeM2,
+  'red-m-3': $negativeM3,
+  'red-m-1': $negativeM1,
+  'red-4': $negative4,
+);
+@each $className, $varName in $colors {
+  .color-#{$className} {
+    color: $varName;
+  }
+  .bc-#{$className} {
+    background-color: $varName;
+  }
+  .border-#{$className} {
+    border-color: $varName;
+  }
+  .stroke-#{$className} {
+    stroke: $varName;
+  }
+}
+
+.df {
+  display: flex;
+}
+
+.aic {
+  align-items: center;
+}
+
+.fdc {
+  flex-direction: column;
+}
+
+.jcc {
+  justify-content: center;
+}
+
+.jc-sb {
+  justify-content: space-between;
+}
+
+.jc-fe {
+  justify-content: flex-end;
+}
+
+.jc-fs {
+  justify-content: flex-start;
+}
+
+.f-1 {
+  flex: 1;
+}
+
+.ellipse {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tac {
+  text-align: center;
+}

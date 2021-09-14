@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import Context from './Context'
 import Clickable from '../molecules/Clickable'
 import IconClickable from '../molecules/IconClickable'
+import FancyFileInput from '../molecules/FancyFileInput'
 
 import { useCreateSongs, useDeleteSong } from '../hooks'
 
@@ -37,7 +38,9 @@ function Song({ song }) {
           )
         }
       />
-      <span className='name ellipse song-item'>{song.name}</span>
+      <span className='name ellipse song-item'>
+        {song.name}
+      </span>
       <span className='time song-item'>
         {moment.duration(song.duration, 'seconds').format('m:ss')}
       </span>
@@ -74,16 +77,12 @@ export default function Songs({ project, branchName }) {
       <div id='empty-songs'>
         {isLoading && <ScaleLoader color='whitesmoke' />}
         {!isLoading && 
-          <div id='file-input'>
-            <input type='file' id='file' accept='.mp3, .wav' />
-            <label for='file'>
-              <IconClickable 
-                icon={<GiMusicalNotes size={50} />}
-                padding={15}
-              />
-              Add Music
-            </label>
-          </div>
+          <FancyFileInput
+            icon={<GiMusicalNotes size={50} />}
+            accept='.mp3, .wav'
+            label='Add Music'
+            multiple
+          />
         }
       </div>
     )

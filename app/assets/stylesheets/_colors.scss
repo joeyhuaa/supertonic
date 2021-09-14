@@ -1,0 +1,133 @@
+// Primary Colors
+$marineBlue: #2763d6;
+$amberGold: #f0ba00;
+$stoneBlack: #1e2d48;
+$white: #ffffff;
+
+// Color Scales
+$marineBlue1: #376cd3;
+$marineBlue2: #6191ec;
+$marineBlue3: #bdd2fa;
+$marineBlue4: #dfeaff;
+$marineBlue5: #f3f7ff;
+$marineBlueM1: #235ac6;
+$marineBlueM2: #1045ab;
+$marineBlueM3: #072d78;
+$marineBlueM4: #001948;
+$amberGold1: #f5cb37;
+$amberGold2: #f9d867;
+$amberGold3: #fce596;
+$amberGold4: #fff3ca;
+$amberGoldM1: #ec981a;
+$amberGoldM2: #d4731a;
+$amberGoldM3: #bf5316;
+$amberGoldM4: #a94106;
+
+// Gray Scale
+$stoneBlack1: #4d5667;
+$stoneBlack2: #697282;
+$stoneBlack3: #959dac;
+$stoneBlack4: #c6cbd6;
+$stoneBlack5: #dde1e9;
+$stoneBlack6: #e8eaf1;
+$stoneBlack7: #f2f3f8;
+$stoneBlack8: #fafafc;
+
+// Indicators
+$positive: #05aa5d;
+$negative: #dc2d37;
+$purple: #a93eea;
+
+// Indicators Scale
+$negative1: #f56c75;
+$negative2: #ff8e95;
+$negative3: #ffb8bc;
+$negative4: #ffdadc;
+$negative5: #ffeff0;
+$negativeM1: #d22630;
+$negativeM2: #c52437;
+$negativeM3: #ac1a34;
+$negativeM4: #7d0530;
+$positive1: #0e9766;
+$positive2: #2fb082;
+$positive3: #7ad6b5;
+$positive4: #cdf1e4;
+$positive5: #ebf8f3;
+$positiveM1: #018757;
+$positiveM2: #006340;
+$positiveM3: #00482f;
+$positiveM4: #003522;
+
+// Specials
+$iconDefaultOpacity: 0.6;
+$iconHoverOpacity: 1;
+
+// Shadows
+$buttonShadow: 0px 4px 8px rgba(4, 45, 107, 0.25);
+$buttonGlow: 0 0 20px transparentize(white, 0.7);
+$boxShadow0: 0 4px 4px transparentize($stoneBlack, 0.8);
+$boxShadow1: 0 4px 8px transparentize($stoneBlack, 0.8);
+$boxShadow2: 0 8px 22px transparentize($stoneBlack, 0.88);
+$boxShadow3: 0 16px 32px transparentize($stoneBlack, 0.88);
+$boxShadow4: 0 20px 42px transparentize($stoneBlack, 0.84);
+$boxShadow5: 0 28px 52px transparentize($stoneBlack, 0.76);
+
+// Legacy
+$black: #000;
+$gray1: #333;
+$grayBlue1: #697385;
+$grayBlue2: #8892a0;
+$grayBlue3: #acb1b9;
+$grayBlue4: #ced1d4;
+$grayBlue5: #dbdde1;
+$grayBlue6: #edecf3;
+$grayBlue7: #f4f5f5;
+$cyan2: #297ab7;
+$cyan3: #4b97d3;
+$cyan5: #e5ebf0;
+$red2: #b55615;
+$red3: #c73f65;
+$red4: #e66176;
+$errorRed: #d4030f;
+$green: #22805c;
+$green2: #4b7c61;
+$green3: #7ada21;
+
+$notificationCardGray: #98a1a3;
+$notificationCardRed: #d4030f;
+$notificationCardBlue: #419cfb;
+
+$something1: #fcfbfc;
+$something6: #f9f9fb;
+$something7: #7a7b83;
+
+$statusBar1: #d4030f;
+$statusBar2: #419cfb;
+$statusBarGray: #dfe6ec;
+$statusBarDarkGray: #67738e;
+$statusBarDarkerGray: #293b5b;
+
+$tableRow0: #f9f9fb;
+$tableRow1: #ffffff;
+
+// Timeline colors
+$timelineTitle: #293b5b;
+$timelineSubtitle: #67738e;
+$timelineCompleted: #1bc995;
+$timelineStatusChanged: #bde6fd;
+$timelineReady: #297ab7;
+$timelineRemoved: #67738e;
+
+// Eron's new colors
+$gray070: #b2b2b2;
+$overcast077: #bfc9c8;
+
+//Scott's new colors
+$muted: #6c757d;
+$filterButtonGray: #67738e;
+$timesGray: #c5cdda;
+
+$disabled: #c6cbd6;
+$highlightBlue: #3f8ed3;
+
+$placeholder: #67738e;

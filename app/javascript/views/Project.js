@@ -1,20 +1,19 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import { useParams } from 'react-router-dom'
-import Context from '../components/Context'
 
+import Context from '../components/Context'
 import Songs from '../components/Songs'
 import FloatDropdown from '../components/FloatDropdown'
 
 import IconClickable from '../molecules/IconClickable'
 import DropdownMenu from '../molecules/DropdownMenu'
+import FancyFileInput from '../molecules/FancyFileInput'
 
 import { AiOutlineFileAdd } from 'react-icons/ai'
 import { BsX } from 'react-icons/bs'
 import { BiGitBranch } from 'react-icons/bi'
 
 import { ScaleLoader, ClipLoader } from 'react-spinners'
-
-import { FancyFileInput, FlyoutMenu } from '@types/joeys-components'
 
 import  { 
   useProject, 
@@ -243,20 +242,13 @@ const ProjectHeader = React.forwardRef((props, ref) => {
         ref={ref} 
       />
 
-      <div id='file-input' className='header-item'>
-        <input 
-          type='file' 
-          id='file' 
-          multiple 
-          accept='.mp3, .wav'
-          onChange={e => setFiles( Array.from(e.target.files) )}
-        />
-        <label for='file'>
-          <IconClickable 
-            icon={<AiOutlineFileAdd size={20} />}
-          />
-        </label>
-      </div>
+      <FancyFileInput 
+        className='header-item'
+        icon={<AiOutlineFileAdd size={20} />} 
+        onChange={files => setFiles( Array.from(files) )}
+        accept='.mp3, .wav'
+        multiple
+      />
 
       <AddBranchForm 
         project={project} 

@@ -10,9 +10,12 @@ export default function DropdownMenu({
   return (
     <Dropdown className={className}>
       <Dropdown.Toggle 
-        variant="success" 
         id="dropdown-basic"
         className='df aic'
+        style={{ 
+          backgroundColor: 'transparent', 
+          border: 'solid whitesmoke 1px'
+        }}
       >
         {icon}
         {label}

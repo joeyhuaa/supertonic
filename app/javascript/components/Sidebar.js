@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 
-import {
-  MdSettings
-} from 'react-icons/md'
-
+import { MdSettings } from 'react-icons/md'
 import { BsX } from 'react-icons/bs'
 
 import { THEME } from '../aesthetics'
@@ -12,7 +9,12 @@ import Context from './Context'
 import IconClickable from '../molecules/IconClickable'
 import Clickable from '../molecules/Clickable'
 
-import { useProjects, useCreateProject, useTheme, useDeleteProject } from '../hooks'
+import { 
+  useProjects, 
+  useCreateProject, 
+  useTheme, 
+  useDeleteProject 
+} from '../hooks'
 
 function Menu() {
   return (

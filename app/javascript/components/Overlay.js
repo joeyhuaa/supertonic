@@ -10,7 +10,7 @@ export default function Overlay() {
         height: '100%',
         zIndex: 2,
         backgroundColor: 'black',
-        opacity: 0.6
+        opacity: 0.3
       }}
     />
   )
