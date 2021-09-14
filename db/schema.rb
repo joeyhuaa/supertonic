@@ -12,18 +12,21 @@
 
 ActiveRecord::Schema.define(version: 2021_08_22_202401) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "branches", force: :cascade do |t|
     t.string "name"
     t.string "songs"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "project_id"
+    t.bigint "project_id"
     t.index ["project_id"], name: "index_branches_on_project_id"
   end
 
   create_table "branches_songs", id: false, force: :cascade do |t|
-    t.integer "branch_id"
-    t.integer "song_id"
+    t.bigint "branch_id"
+    t.bigint "song_id"
     t.index ["branch_id"], name: "index_branches_songs_on_branch_id"
     t.index ["song_id"], name: "index_branches_songs_on_song_id"
   end
@@ -35,7 +38,7 @@ ActiveRecord::Schema.define(version: 2021_08_22_202401) do
     t.string "songs"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
+    t.bigint "user_id"
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
@@ -45,7 +48,7 @@ ActiveRecord::Schema.define(version: 2021_08_22_202401) do
     t.string "duration"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "project_id"
+    t.bigint "project_id"
     t.index ["project_id"], name: "index_songs_on_project_id"
   end
 
