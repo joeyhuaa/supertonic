@@ -9,10 +9,12 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
+# ! How to make this db usable across multiple machines? 
+# ! How to upload to heroku?
 development:
   adapter: postgresql
   encoding: unicode
-  database: supertonic_dev
+  database: supertonic_dev 
   host: localhost
   pool: 5
   username: joey
