@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # set root of the app to be pages controller, home action
-  # this is the landing view basically
+  # this is the landing view
   root to: 'pages#home'
 
   # devise_for :users,
