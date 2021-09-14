@@ -32,13 +32,13 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-spinners": "^0.11.0",
+    "react-hot-loader": "^4.13.0",
     "react_ujs": "^2.6.1",
     "turbolinks": "^5.2.0",
     "zustand": "^3.5.2"
   },
   "version": "0.1.0",
   "devDependencies": {
-    "webpack-dev-server": "^3.11.2",
-    "react-hot-loader": "^4.13.0"
+    "webpack-dev-server": "^3.11.2"
   }
 }
