@@ -1,6 +1,11 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  
+  # TODO - store thesee in heroku
+  ENV['GOOGLE_OAUTH_CLIENT_ID'] = '684849422656-k9bfpnm61fvs5ljh1sbf5ipvljohlnbs.apps.googleusercontent.com'
+  ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = 'OMCVA2HU_5HDSIUNhN4exQKd'
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
