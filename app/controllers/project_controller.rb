@@ -1,5 +1,3 @@
-require 'byebug'
-
 # MIGRATION DB SHENANIGANS
 # https://guides.rubyonrails.org/association_basics.html
 
@@ -92,7 +90,6 @@ class ProjectController < ApplicationController
     end
 
     @project.save
-    # byebug
     render :json => @project
   end
 

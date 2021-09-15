@@ -1,7 +1,4 @@
-require 'byebug'
-
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-    # byebug
     def google_oauth2
         begin
             User.find(from_google_params[:uid]) != nil
