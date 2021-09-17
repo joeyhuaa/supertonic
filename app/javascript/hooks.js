@@ -71,16 +71,11 @@ export function useProjects() {
 }
 
 export function useProject(projectId) {
-  const queryClient = useQueryClient()
-
   return useQuery(
     ['projects', projectId],
     async () => {
       let res = await fetch(`/api/projects/${projectId}`)
       return res.json()
-    },
-    {
-      refetchOnWindowFocus: false,
     }
   )
 }
@@ -132,6 +127,8 @@ export function useCreateProject() {
       },
       onSettled: ({ data }) => {
         queryClient.invalidateQueries('projects')
+
+        // * SETTING PROJECT IN CACHE AFTER CREATING IT
         queryClient.setQueryData(['projects', data.projId], data)
       }
     }
@@ -166,6 +163,7 @@ export function useCreateSongs() {
     },
     {
       onSuccess: ({ data }) => {
+        console.log('createSongs', data);
         queryClient.invalidateQueries('projects')
         queryClient.setQueryData(['projects', { id: data.projId }], data)
       }

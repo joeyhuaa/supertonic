@@ -16,6 +16,8 @@ const queryClient = new QueryClient({
   }
 })
 
+console.log(queryClient.getDefaultOptions())
+
 document.addEventListener('DOMContentLoaded', () => {
   // get data from backend
   let div = document.getElementById('user')

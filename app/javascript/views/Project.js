@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import { useParams } from 'react-router-dom'
+import { css } from '@emotion/react'
 
 import Context from '../components/Context'
 import Songs from '../components/Songs'
@@ -186,6 +187,7 @@ const ProjectHeader = React.forwardRef((props, ref) => {
     project,
     branchName,
     setCurrBranch,
+    isFetching,
   } = props
 
   let [files, setFiles] = useState([])
@@ -207,6 +209,10 @@ const ProjectHeader = React.forwardRef((props, ref) => {
       id: project.id
     })
   }
+
+  const spinnerStyles = css`
+    size: 10px;
+  `
 
   return (
     <div id='header'>
@@ -262,6 +268,8 @@ const ProjectHeader = React.forwardRef((props, ref) => {
           closeSelf={() => setFiles([])}
         />
       }
+
+      {isFetching && <ClipLoader color='whitesmoke' css={spinnerStyles} />}
     </div>
   )
 })
@@ -291,6 +299,7 @@ export default function Project() {
             branchName={currBranch}
             setCurrBranch={setCurrBranch}
             ref={branchDropdown}
+            isFetching={isFetching}
           />
           <Songs project={data} branchName={currBranch} />
         </>

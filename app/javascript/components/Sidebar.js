@@ -96,7 +96,7 @@ export default function Sidebar() {
                 isSelected={currProjId === proj.id}
                 onClick={() => selectProject(proj.id)}
               >
-                <div className='project df aic jc-sb'>
+                <div className='project ellipse df aic jc-sb'>
                   {proj.name}
                   <Link
                     className='delete-proj-btn'
