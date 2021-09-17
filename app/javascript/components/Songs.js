@@ -8,7 +8,7 @@ import { useCreateSongs, useDeleteSong } from '../hooks'
 
 import { FaPlay, FaPause } from 'react-icons/fa'
 import { GiMusicalNotes } from 'react-icons/gi'
-import { BsTrash } from 'react-icons/bs'
+import { BsX } from 'react-icons/bs'
 import { VscNewFile } from 'react-icons/vsc'
 
 import { ScaleLoader, FadeLoader } from 'react-spinners'
@@ -21,8 +21,9 @@ function Song({ song }) {
   const { playPause, isPlaying, currSong } = useContext(Context)
 
   let destroy = () => deleteSong.mutate({ 
-    songId: song.id, 
-    projectId: song.project_id 
+    id: song.id, 
+    projectId: song.project_id,
+    branchName: 'main' // TODO - make this dynamic
   })
 
   return (
@@ -56,9 +57,9 @@ function Song({ song }) {
         onClick={destroy}
         icon={
           deleteSong.isLoading ? (
-            <FadeLoader />
+            <FadeLoader size={15} color={'white'} />
           ) : (
-            <BsTrash className='grow' />
+            <BsX className='grow' size={15} />
           )
         }
       />
@@ -81,8 +82,8 @@ export default function Songs({ project, branchName }) {
             icon={<GiMusicalNotes size={50} />}
             accept='.mp3, .wav'
             label='Add Music'
-            multiple
             onChange={() => console.log('changing songs')}
+            multiple
           />
         }
       </div>

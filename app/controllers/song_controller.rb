@@ -7,6 +7,7 @@ class SongController < ApplicationController
     render :json => {
       :song => @song
     }
+    # todo - render :json => @song
   end
 
   def post
@@ -17,8 +18,13 @@ class SongController < ApplicationController
 
   # DELETE 'api/songs/:id/destroy'
   def destroy
-    @song = Song.find(params['id'])
+    puts 'DESTROY SONG'
+    puts params
+    @song = Song.find(params[:id])
     @song.destroy
-    render :json => {status: 200}
+    render :json => {
+      projectId: params[:projectId],
+      destroyed: @song.name,
+    }
   end
 end

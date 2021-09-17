@@ -18,7 +18,7 @@ import {
 
 function Menu() {
   return (
-    <div style={{ display: 'flex' }}>
+    <div style={{ display: 'flex' }} aria-label='Settings'>
       <Link to='/settings'>
         <IconClickable 
           icon={<MdSettings color='white' size={20} />} 
@@ -35,14 +35,13 @@ export default function Sidebar() {
   const { user } = useContext(Context)
 
   const theme = useTheme().data
-  const { data, isError, isLoading, isFetching } = useProjects()
+  const { data, isError, isLoading } = useProjects()
   const _createProject = useCreateProject()
   const _deleteProject = useDeleteProject()
 
   // * get projId from url and set state
   useEffect(() => {
-    // typeof projId = string
-    let projId = window.location.pathname.split('/').pop() 
+    let projId = window.location.pathname.split('/').pop() // typeof projId = string
     setCurrProjId(projId)
   }, [])
 

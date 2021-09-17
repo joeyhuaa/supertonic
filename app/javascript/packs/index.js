@@ -12,11 +12,10 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
+      refetchOnMount: false,
     }
   }
 })
-
-console.log(queryClient.getDefaultOptions())
 
 document.addEventListener('DOMContentLoaded', () => {
   // get data from backend

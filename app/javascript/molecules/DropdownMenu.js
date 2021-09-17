@@ -14,7 +14,8 @@ export default function DropdownMenu({
         className='df aic'
         style={{ 
           backgroundColor: 'transparent', 
-          border: 'solid whitesmoke 1px'
+          border: 'solid whitesmoke 1px',
+          outline: 'none',
         }}
       >
         {icon}

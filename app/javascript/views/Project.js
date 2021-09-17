@@ -1,6 +1,12 @@
-import React, { useState, useEffect, useRef, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { css } from '@emotion/react'
+
+import { AiOutlineFileAdd } from 'react-icons/ai'
+import { BsX } from 'react-icons/bs'
+import { BiGitBranch } from 'react-icons/bi'
+
+import { ScaleLoader, ClipLoader } from 'react-spinners'
 
 import Context from '../components/Context'
 import Songs from '../components/Songs'
@@ -10,12 +16,6 @@ import IconClickable from '../molecules/IconClickable'
 import DropdownMenu from '../molecules/DropdownMenu'
 import FancyFileInput from '../molecules/FancyFileInput'
 
-import { AiOutlineFileAdd } from 'react-icons/ai'
-import { BsX } from 'react-icons/bs'
-import { BiGitBranch } from 'react-icons/bi'
-
-import { ScaleLoader, ClipLoader } from 'react-spinners'
-
 import  { 
   useProject, 
   useCreateBranch, 
@@ -24,32 +24,35 @@ import  {
   useCreateSongs
 } from '../hooks'
 
+// * HEADER COMPONENTS
 const AddBranchForm = ({ project, sourceBranchName }) => {
   let [newBranchName, setNewBranchName] = useState('')
-  let createBranch = useCreateBranch()
+  let { mutate } = useCreateBranch()
   let branchNames = project.branches.map(branch => branch.name)
 
   let onSubmit = (e) => {
     e.preventDefault()
 
+    // logic
     if (newBranchName !== '' && !branchNames.includes(newBranchName)) {
-      createBranch.mutate({ 
+      mutate({ 
         newBranchName: newBranchName,
         sourceBranchName: sourceBranchName,
-        projId: project.id
+        projId: project.id,
       })
-      // set state to new branch
-      
     } else if (newBranchName === '') {
       alert('Branch name cannot be blank.')
     } else if (branchNames.includes(newBranchName)) {
       alert ('That branch already exists in this project.')
     }
+
+    // clear input
+    setNewBranchName('')
   }
 
   return (
-    <form 
-      id='branch-form' 
+    <form
+      id='branch-form'
       className='header-item'
       onSubmit={onSubmit}
     >
@@ -165,7 +168,7 @@ const AddSongsForm = ({
   )
 }
 
-const BranchSelect = React.forwardRef((props, ref) => {
+const BranchSelect = (props) => {
   const { branches, currBranch, setCurrBranch, className } = props
   const items = branches.map(branch => ({
     label: branch.name,
@@ -180,9 +183,10 @@ const BranchSelect = React.forwardRef((props, ref) => {
       icon={<BiGitBranch />}
     />
   )
-})
+}
 
-const ProjectHeader = React.forwardRef((props, ref) => {
+// * HEADER
+const ProjectHeader = (props) => {
   const { 
     project,
     branchName,
@@ -210,8 +214,9 @@ const ProjectHeader = React.forwardRef((props, ref) => {
     })
   }
 
-  const spinnerStyles = css`
-    size: 10px;
+  const spinnerCSS = css`
+    position: absolute;
+    right: 30px;
   `
 
   return (
@@ -239,14 +244,6 @@ const ProjectHeader = React.forwardRef((props, ref) => {
         />
       </div>
 
-      <BranchSelect 
-        className='header-item'
-        branches={project.branches} 
-        currBranch={branchName}
-        setCurrBranch={setCurrBranch}
-        ref={ref} 
-      />
-
       <FancyFileInput 
         className='header-item'
         icon={<AiOutlineFileAdd size={20} />} 
@@ -260,6 +257,13 @@ const ProjectHeader = React.forwardRef((props, ref) => {
         sourceBranchName={branchName} 
       />
 
+      <BranchSelect 
+        className='header-item'
+        branches={project.branches} 
+        currBranch={branchName}
+        setCurrBranch={setCurrBranch}
+      />
+
       {files.length > 0 && 
         <AddSongsForm
           files={files}
@@ -269,17 +273,28 @@ const ProjectHeader = React.forwardRef((props, ref) => {
         />
       }
 
-      {isFetching && <ClipLoader color='whitesmoke' css={spinnerStyles} />}
+      {isFetching && (
+        <ClipLoader 
+          color='whitesmoke' 
+          size={20}
+          css={spinnerCSS}
+        />
+      )}
     </div>
   )
-})
+}
 
+// * PROJECT
 export default function Project() {
-  const branchDropdown = useRef()
   const { projectId } = useParams()
   const { data, isError, isLoading, isFetching } = useProject(projectId)
 
   const [currBranch, setCurrBranch] = useState('main')
+
+  // * reset branch to main when new proj is selected
+  useEffect(() => {
+    setCurrBranch('main')
+  }, [projectId])
   
   if (isLoading) {
     return (
@@ -298,11 +313,13 @@ export default function Project() {
             project={data}
             branchName={currBranch}
             setCurrBranch={setCurrBranch}
-            ref={branchDropdown}
             isFetching={isFetching}
           />
-          <Songs project={data} branchName={currBranch} />
-        </>
+          <Songs 
+            project={data} 
+            branchName={currBranch} 
+          />
+        </> 
       }
     </section>
   )

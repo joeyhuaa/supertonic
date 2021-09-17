@@ -74,8 +74,13 @@ export function useProject(projectId) {
   return useQuery(
     ['projects', projectId],
     async () => {
-      let res = await fetch(`/api/projects/${projectId}`)
+      const res = await fetch(`/api/projects/${projectId}`)
       return res.json()
+    },
+    {
+      onSettled: data => {
+        console.log(data);
+      }
     }
   )
 }
@@ -163,7 +168,6 @@ export function useCreateSongs() {
     },
     {
       onSuccess: ({ data }) => {
-        console.log('createSongs', data);
         queryClient.invalidateQueries('projects')
         queryClient.setQueryData(['projects', { id: data.projId }], data)
       }
@@ -175,24 +179,43 @@ export function useDeleteSong() {
   const queryClient = useQueryClient()
 
   return useMutation(
-    data => axios.delete(`/api/songs/${data.songId}/destroy`, data),
+    async data => await axios.delete(`/api/songs/${data.id}/destroy`, data),
     {
-      onMutate: data => {
-        let songIdToRemove = data.songId
+      onMutate: ({ id, projectId, branchName }) => {
+        let songIdToRemove = id
 
         // optimistic update, remove song from project
-        queryClient.setQueryData(['projects', data.projectId], old => {
-          let songs = lodash.cloneDeep(old.songs)
-          let index = songs.findIndex(song => song.id == songIdToRemove)
-          songs.splice(index, 1)
+        queryClient.setQueryData(['projects', projectId], old => {
+          // TODO - delete song is working, but NOT the optimistic update
+
+          // ! need to delete song from that BRANCH not from the project
+          // clone the branches
+          let branches = lodash.cloneDeep(old.branches)
+          console.log('branches');
+          console.log(branches);
+
+          // find the branch
+          let branch = branches.find(branch => branch.name === branchName)
+          console.log('branch');
+          console.log(branch);
+
+          // find index of song to delete
+          let songIndex = branch.songs.findIndex(song => song.id == songIdToRemove)
+          console.log('songIndex');
+          console.log(songIndex);
+
+          // delete the song from the branch
+          branch.songs.splice(songIndex, 1)
+
+          // return
           return {
             ...old,
-            songs: songs
+            branches: branches
           }
         })
       },
-      onSettled: (data, vars) => {
-        queryClient.setQueryData(['projects', { id: vars.id }], data)
+      onSettled: (data) => {
+        queryClient.invalidateQueries(['projects', data.projectId])
       }
     }
   )
