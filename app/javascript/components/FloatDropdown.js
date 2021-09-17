@@ -46,7 +46,7 @@ const FloatDropdown = React.forwardRef((props, ref) => {
         >
           {options.map(({ name, danger, onClick, returnHome }) => (
             <Link 
-              to={returnHome ? '/' : null} 
+              to={returnHome ? '/' : ''} 
               style={{ textDecoration: 'none' }}
             >
               <p 

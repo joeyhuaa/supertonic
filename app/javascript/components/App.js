@@ -49,9 +49,10 @@
  * 3. but then the route would have to be diff than the rails routes
  */
 
-import { hot } from 'react-hot-loader/root';
 import React, { useState, useEffect } from 'react'
+import { hot } from 'react-hot-loader/root';
 import { BrowserRouter, Route } from 'react-router-dom'
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 import { Provider } from './Context'
 import { useStateCallback } from '../hooks';
@@ -100,6 +101,7 @@ function App({ user }) {
 
   return (
     <Provider value={appContext}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <BrowserRouter>
         <Container>
           {state.showOverlay && <Overlay />}

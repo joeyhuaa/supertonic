@@ -1,20 +1,20 @@
 class AddBranchesAndSongs < ActiveRecord::Migration[6.1]
   def change
-    create_table :branches do |t|
+    create_table :branches, project_id: :string do |t|
       t.string :name
       t.string :songs
+      t.string :project_id
 
       t.timestamps
-      t.belongs_to :project
     end
 
-    create_table :songs do |t|
+    create_table :songs, project_id: :string do |t|
       t.string :name
-      t.string :b64
+      t.text :b64
       t.string :duration
+      t.string :project_id
 
       t.timestamps
-      t.belongs_to :project
     end
 
     # join table for has_many_and_belongs_to for Branch and Song

@@ -48,16 +48,16 @@ export function useChangeTheme() {
 }
 
 export function useCreateBranch() {
+  const queryClient = useQueryClient()
+
   return useMutation(
-    (data) => (
-      axios.put(`/api/projects/${data.projId}/newbranch`, data)
-    ),
-  ),
-  {
-    onSettled: (data) => {
-      queryClient.invalidateQueries(['projects', data.project.id])
+    (data) => axios.put(`/api/projects/${data.projId}/newbranch`, data),
+    {
+      onSettled: ({ data }) => {
+        queryClient.invalidateQueries(['projects', data.id])
+      }
     }
-  }
+  )
 }
 
 export function useProjects() {
@@ -81,9 +81,6 @@ export function useProject(projectId) {
     },
     {
       refetchOnWindowFocus: false,
-      onSettled: (data) => {
-        queryClient.setQueryData(['projects', data.id], data)
-      }
     }
   )
 }

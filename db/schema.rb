@@ -18,10 +18,9 @@ ActiveRecord::Schema.define(version: 2021_08_22_202401) do
   create_table "branches", force: :cascade do |t|
     t.string "name"
     t.string "songs"
+    t.string "project_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "project_id"
-    t.index ["project_id"], name: "index_branches_on_project_id"
   end
 
   create_table "branches_songs", id: false, force: :cascade do |t|
@@ -31,9 +30,9 @@ ActiveRecord::Schema.define(version: 2021_08_22_202401) do
     t.index ["song_id"], name: "index_branches_songs_on_song_id"
   end
 
-  create_table "projects", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
+  create_table "projects", id: :string, force: :cascade do |t|
+    t.text "name"
+    t.text "description"
     t.string "branches"
     t.string "songs"
     t.datetime "created_at", precision: 6, null: false
@@ -44,20 +43,19 @@ ActiveRecord::Schema.define(version: 2021_08_22_202401) do
 
   create_table "songs", force: :cascade do |t|
     t.string "name"
-    t.string "b64"
+    t.text "b64"
     t.string "duration"
+    t.string "project_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "project_id"
-    t.index ["project_id"], name: "index_songs_on_project_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email", null: false
-    t.string "full_name"
-    t.string "uid"
-    t.string "avatar_url"
-    t.string "theme"
+    t.text "email", null: false
+    t.text "full_name"
+    t.text "uid"
+    t.text "avatar_url"
+    t.text "theme"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true

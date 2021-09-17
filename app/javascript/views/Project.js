@@ -38,7 +38,6 @@ const AddBranchForm = ({ project, sourceBranchName }) => {
         projId: project.id
       })
       // set state to new branch
-      // url change? how to put Link into select...
       
     } else if (newBranchName === '') {
       alert('Branch name cannot be blank.')

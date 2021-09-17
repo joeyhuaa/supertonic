@@ -41,7 +41,8 @@ export default function Sidebar() {
 
   // * get projId from url and set state
   useEffect(() => {
-    let projId = parseInt( window.location.pathname.split('/').pop() )
+    // typeof projId = string
+    let projId = window.location.pathname.split('/').pop() 
     setCurrProjId(projId)
   }, [])
 
@@ -62,7 +63,7 @@ export default function Sidebar() {
 
   let createProject = () => {
     _createProject.mutate({
-      id: Date.now(),
+      id: `${Date.now()}-proj`,
       name: 'Untitled Project',
     })
   }
@@ -70,7 +71,7 @@ export default function Sidebar() {
   let deleteProject = (projectId) => {
     _deleteProject.mutate({ id: projectId })
   }
-  
+
   return (
     <section 
       id='sidebar' 
@@ -86,7 +87,7 @@ export default function Sidebar() {
         {isLoading && <span>Loading...</span>}
         {data?.map((proj) => {
           return (
-            <Link 
+            <Link
               to={`/projects/${proj.id}`} 
               className='no-decor'
               key={proj.id}

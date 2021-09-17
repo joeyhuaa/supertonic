@@ -82,6 +82,7 @@ export default function Songs({ project, branchName }) {
             accept='.mp3, .wav'
             label='Add Music'
             multiple
+            onChange={() => console.log('changing songs')}
           />
         }
       </div>
