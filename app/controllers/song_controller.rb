@@ -13,7 +13,9 @@ class SongController < ApplicationController
   def post
   end
 
+  # POST 'api/songs/:id/update'
   def update
+
   end
 
   # DELETE 'api/songs/:id/destroy'

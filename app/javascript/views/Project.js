@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import { css } from '@emotion/react'
 
 import { AiOutlineFileAdd } from 'react-icons/ai'
-import { BsX } from 'react-icons/bs'
 import { BiGitBranch } from 'react-icons/bi'
 
 import { ScaleLoader, ClipLoader } from 'react-spinners'
@@ -15,6 +14,7 @@ import FloatDropdown from '../components/FloatDropdown'
 import IconClickable from '../molecules/IconClickable'
 import DropdownMenu from '../molecules/DropdownMenu'
 import FancyFileInput from '../molecules/FancyFileInput'
+import Modal from '../molecules/Modal'
 
 import  { 
   useProject, 
@@ -70,7 +70,7 @@ const AddSongsForm = ({
   files,
   projectId,
   branchName,
-  closeSelf
+  onClose,
 }) => {
   const { mutate, isLoading, isSuccess, error } = useCreateSongs()
   const { setShowOverlay } = useContext(Context)
@@ -81,7 +81,7 @@ const AddSongsForm = ({
   }, [])
 
   useEffect(() => {
-    if (isSuccess) closeSelf()
+    if (isSuccess) onClose()
   }, [isSuccess])
 
   let audioToBase64 = (audioFile) => {
@@ -134,37 +134,34 @@ const AddSongsForm = ({
   }
 
   return (
-    <section id='add-songs-form'>
-      <div id='top'>
-        {!isLoading && 
-          <IconClickable
-            onClick={closeSelf}
-            icon={<BsX size={30} />}
-            className='top-right-n-8'
-          />
-        }
-        <h2 style={{ margin: 'auto' }}>Add Songs</h2>
-      </div>
-
-      <div id='file-list'>
-        {files.map(file => (
-          <div>
-            {file.name}
+    <Modal 
+      modalId='add-songs-modal'
+      title={`Add Songs (${files.length})`}
+      showClose={!isLoading}
+      onClose={onClose}
+      body={
+        <>
+          <div id='file-list'>
+            {files.map(file => (
+              <div>
+                {file.name}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-        {isLoading ? (
-          <ClipLoader color='white' />
-        ) : (
-          <button
-            className='round-btn submit-btn grow'
-            onClick={handleAddSongs}
-          >ADD SONGS</button>
-        )}
-      </div>
-    </section>
+          <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+            {isLoading ? (
+              <ClipLoader color='white' />
+            ) : (
+              <button
+                className='round-btn submit-btn grow'
+                onClick={handleAddSongs}
+              >ADD SONGS</button>
+            )}
+          </div>
+        </>
+      }
+    />
   )
 }
 
@@ -269,7 +266,7 @@ const ProjectHeader = (props) => {
           files={files}
           projectId={project.id}
           branchName={branchName}
-          closeSelf={() => setFiles([])}
+          onClose={() => setFiles([])}
         />
       }
 

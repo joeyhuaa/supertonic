@@ -40,28 +40,7 @@
     }
   }
 
-  #add-songs-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border-radius: 3px;
-    background-color: #4e4f52;
-    width: 400px;
-    max-height: 450px;
-    padding: 20px;
-    z-index: 3;
-
-    position: fixed;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    #top {
-      position: relative;
-      text-align: center;
-      width: 100%;
-    }
-
+  #add-songs-modal {
     #file-list {
       overflow: auto;
       margin: 15px 0;

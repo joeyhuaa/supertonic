@@ -4,7 +4,7 @@ import Clickable from '../molecules/Clickable'
 import IconClickable from '../molecules/IconClickable'
 import FancyFileInput from '../molecules/FancyFileInput'
 
-import { useCreateSongs, useDeleteSong } from '../hooks'
+import { useCreateSongs, useDeleteSong, useUpdateSong } from '../hooks'
 
 import { FaPlay, FaPause } from 'react-icons/fa'
 import { GiMusicalNotes } from 'react-icons/gi'
@@ -16,9 +16,50 @@ import { ScaleLoader, FadeLoader } from 'react-spinners'
 import * as moment from 'moment'
 import 'moment-duration-format'
 
+function UpdateSongForm() {
+  return (
+    <Modal 
+      modalId='update-song-modal'
+      title={`Update Song`}
+      // showClose={!isLoading}
+      // onClose={onClose}
+      body={
+        <>
+          <div id=''>
+            {files.map(file => (
+              <div>
+                {file.name}
+              </div>
+            ))}
+          </div>
+
+          <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+            {isLoading ? (
+              <ClipLoader color='white' />
+            ) : (
+              <button
+                className='round-btn submit-btn grow'
+                onClick={handleAddSongs}
+              >UPDATE SONG</button>
+            )}
+          </div>
+        </>
+      }
+    />
+  )
+}
+
 function Song({ song }) {
+  const updateSong = useUpdateSong()
   const deleteSong = useDeleteSong()
   const { playPause, isPlaying, currSong } = useContext(Context)
+
+  let update = () => {
+    updateSong.mutate({
+      id: song.id,
+      // newFile: // TODO - new song file
+    })
+  }
 
   let destroy = () => deleteSong.mutate({ 
     id: song.id, 
@@ -28,7 +69,7 @@ function Song({ song }) {
 
   return (
     <Clickable className='song'>
-      <IconClickable 
+      <IconClickable
         className='clickable play song-item'
         onClick={() => playPause(song.id)}
         icon={
@@ -46,10 +87,11 @@ function Song({ song }) {
         {moment.duration(song.duration, 'seconds').format('m:ss')}
       </span>
       <span className='date song-item'>
-        {moment(new Date(song.created_at)).format('MMMM Do, YYYY')}
+        {moment(new Date(song.created_at)).format('MM/DD/YYYY')}
       </span>
       <IconClickable 
         className='filechange clickable song-item'
+        onClick={update}
         icon={<VscNewFile className='grow' />}
       />
       <IconClickable 

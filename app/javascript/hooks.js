@@ -220,3 +220,10 @@ export function useDeleteSong() {
     }
   )
 }
+
+export function useUpdateSong() {
+  return useMutation(
+    data => axios.post(`'api/songs${data.id}/update'`, data),
+
+  )
+}
