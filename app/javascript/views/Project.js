@@ -11,7 +11,6 @@ import { ScaleLoader, ClipLoader } from 'react-spinners'
 import Context from '../components/Context'
 import Songs from '../components/Songs'
 
-import IconClickable from '../molecules/IconClickable'
 import DropdownMenu from '../molecules/DropdownMenu'
 import FancyFileInput from '../molecules/FancyFileInput'
 import Modal from '../molecules/Modal'

@@ -1,17 +1,18 @@
 import React, { useContext } from 'react'
 import Context from './Context'
+
 import Clickable from '../molecules/Clickable'
 import IconClickable from '../molecules/IconClickable'
 import FancyFileInput from '../molecules/FancyFileInput'
+import DropdownMenu from '../molecules/DropdownMenu'
 
 import { useCreateSongs, useDeleteSong, useUpdateSong } from '../hooks'
 
 import { FaPlay, FaPause } from 'react-icons/fa'
 import { GiMusicalNotes } from 'react-icons/gi'
-import { BsX } from 'react-icons/bs'
-import { VscNewFile } from 'react-icons/vsc'
+import { GoTriangleDown } from 'react-icons/go' // todo - replace w 3 dots
 
-import { ScaleLoader, FadeLoader } from 'react-spinners'
+import { ScaleLoader } from 'react-spinners'
 
 import * as moment from 'moment'
 import 'moment-duration-format'
@@ -90,27 +91,19 @@ function Song({ song }) {
       <span className='date song-item'>
         {moment(new Date(song.created_at)).format('MM/DD/YYYY')}
       </span>
-      {/* <IconClickable 
-        className='filechange clickable song-item'
-        onClick={update}
-        icon={<VscNewFile className='grow' />}
-      /> */}
-      <FancyFileInput 
-        className='header-item'
-        icon={<VscNewFile className='grow' />} 
-        onChange={files => setFiles( Array.from(files) )}
-        accept='.mp3, .wav'
-        multiple
-      />
-      <IconClickable 
-        className='filechange clickable song-item' 
-        onClick={destroy}
-        icon={
-          deleteSong.isLoading ? (
-            <FadeLoader size={15} color={'white'} />
-          ) : (
-            <BsX className='grow' size={15} />
-          )
+      <DropdownMenu 
+        icon={<GoTriangleDown />}
+        items={
+          [
+            {
+              label: 'Change File',
+              callback: update
+            },
+            {
+              label: 'Delete',
+              callback: destroy 
+            }
+          ]
         }
       />
     </Clickable>

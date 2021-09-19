@@ -2,4 +2,8 @@
   #dropdown-basic::after {
     display: none;
   }
+
+  #dropdown-basic:focus {
+    box-shadow: none;
+  }
 }
