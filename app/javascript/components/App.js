@@ -49,13 +49,14 @@
  * 3. but then the route would have to be diff than the rails routes
  */
 
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { hot } from 'react-hot-loader/root';
 import { BrowserRouter, Route } from 'react-router-dom'
 import { ReactQueryDevtools } from 'react-query/devtools'
 
 import { Provider } from './Context'
-import { useStateCallback } from '../hooks';
+import { useStateCallback } from '../hooks/app';
+import ModalController from './ModalController';
 
 import Settings from '../views/Settings';
 import Project from '../views/Project'
@@ -102,6 +103,7 @@ function App({ user }) {
   return (
     <Provider value={appContext}>
       <ReactQueryDevtools initialIsOpen={false} />
+      <ModalController />
       <BrowserRouter>
         <Container>
           {state.showOverlay && <Overlay />}

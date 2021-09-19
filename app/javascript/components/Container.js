@@ -1,9 +1,10 @@
 import React from 'react'
+import shallow from 'zustand/shallow'
+import { useStore } from '../store'
 import { THEME } from '../aesthetics'
-import { useTheme } from '../hooks'
 
 export default function Container({children}) {
-  const theme = useTheme().data
+  const theme = useStore(state => state.theme, shallow)
   const styles = {
     backgroundImage: `linear-gradient(to bottom, ${THEME[theme]?.color2}, ${THEME[theme]?.color3} 25%)`,
   }

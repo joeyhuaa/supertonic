@@ -1,6 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { css } from '@emotion/react'
+
+import { useStore } from '../store'
 
 import { AiOutlineFileAdd } from 'react-icons/ai'
 import { BiGitBranch } from 'react-icons/bi'
@@ -8,20 +10,17 @@ import { GoTriangleDown } from 'react-icons/go'
 
 import { ScaleLoader, ClipLoader } from 'react-spinners'
 
-import Context from '../components/Context'
 import Songs from '../components/Songs'
 
 import DropdownMenu from '../molecules/DropdownMenu'
 import FancyFileInput from '../molecules/FancyFileInput'
-import Modal from '../molecules/Modal'
 
 import  { 
   useProject, 
   useCreateBranch, 
   useUpdateProject, 
   useDeleteProject,
-  useCreateSongs
-} from '../hooks'
+} from '../hooks/project'
 
 // * HEADER COMPONENTS
 const AddBranchForm = ({ project, sourceBranchName }) => {
@@ -62,105 +61,6 @@ const AddBranchForm = ({ project, sourceBranchName }) => {
         value={newBranchName}
       />
     </form>
-  )
-}
-
-const AddSongsForm = ({
-  files,
-  projectId,
-  branchName,
-  onClose,
-}) => {
-  const { mutate, isLoading, isSuccess, error } = useCreateSongs()
-  const { setShowOverlay } = useContext(Context)
-
-  useEffect(() => {
-    setShowOverlay(true)
-    return () => setShowOverlay(false)
-  }, [])
-
-  useEffect(() => {
-    if (isSuccess) onClose()
-  }, [isSuccess])
-
-  let audioToBase64 = (audioFile) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const b64 = e.target.result;
-        let audio = document.createElement('audio')
-        audio.src = b64;
-        audio.addEventListener('loadedmetadata', () => {
-          resolve({
-            b64: b64,
-            duration: audio.duration
-          });
-        })
-      }
-      reader.onerror = reject;
-      reader.readAsDataURL(audioFile);
-    });
-  }
-
-  let handleAddSongs = () => {
-    // set up formdata
-    let formdata = new FormData()
-
-    // create array of proms for converting audio files -> b64
-    let songPromises = []
-    files.forEach( file => songPromises.push( audioToBase64(file) ) )
-
-    // resolve the array of proms
-    Promise.all(songPromises) // !this was the missing piece of the puzzle!
-      .then(result => {
-        let songs = result.map((obj, i) => {
-          return {
-            name: files[i].name,
-            b64: obj.b64,
-            duration: obj.duration,
-          }
-        })
-        formdata.append('files', JSON.stringify(songs))
-
-        // mutate
-        mutate({
-          files: JSON.stringify(songs),
-          branchName: branchName,
-          id: projectId
-        })
-      })
-      .catch(err => console.log(err))
-  }
-
-  return (
-    <Modal 
-      modalId='add-songs-modal'
-      title={`Add Songs (${files.length})`}
-      showClose={!isLoading}
-      onClose={onClose}
-      body={
-        <>
-          <div id='file-list'>
-            {files.map(file => (
-              <div>
-                {file.name}
-              </div>
-            ))}
-          </div>
-
-          <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-            {isLoading ? (
-              <ClipLoader color='white' />
-            ) : (
-              <button
-                className='round-btn submit-btn grow'
-                onClick={handleAddSongs}
-              >ADD SONGS</button>
-            )}
-          </div>
-        </>
-      }
-    />
   )
 }
 
@@ -276,7 +176,6 @@ const ProjectHeader = (props) => {
           files={files}
           projectId={project.id}
           branchName={branchName}
-          onClose={() => setFiles([])}
         />
       }
 
@@ -295,8 +194,11 @@ const ProjectHeader = (props) => {
 export default function Project() {
   const { projectId } = useParams()
   const { data, isError, isLoading, isFetching } = useProject(projectId)
-
-  const [currBranch, setCurrBranch] = useState('main')
+  const { currBranch, setCurrBranch } = useStore(state => ({
+    setProject: state.setProject,
+    currBranch: state.currBranch,
+    setCurrBranch: state.setCurrBranch,
+  }))
 
   // * reset branch to main when new proj is selected
   useEffect(() => {

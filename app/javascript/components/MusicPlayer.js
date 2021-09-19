@@ -1,14 +1,18 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
-import Context from './Context'
-import { THEME } from '../aesthetics'
+import shallow from 'zustand/shallow'
+
 import moment from 'moment'
 import { FaPlay, FaPause } from 'react-icons/fa'
-import { useTheme } from '../hooks'
+
+import Context from './Context'
+
+import { useStore } from '../store'
+import { THEME } from '../aesthetics'
 
 export default function MusicPlayer() {
   const [currentTime, setCurrentTime] = useState(null)
   const { currSong, isPlaying, playPause } = useContext(Context)
-  const theme = useTheme().data
+  const theme = useStore(state => state.theme, shallow)
 
   useEffect(() => {
     if (isPlaying) {

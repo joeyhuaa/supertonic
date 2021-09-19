@@ -6,7 +6,11 @@ import IconClickable from '../molecules/IconClickable'
 import FancyFileInput from '../molecules/FancyFileInput'
 import DropdownMenu from '../molecules/DropdownMenu'
 
-import { useCreateSongs, useDeleteSong, useUpdateSong } from '../hooks'
+import { 
+  useCreateSongs, 
+  useDeleteSong, 
+  useUpdateSong 
+} from '../hooks/song'
 
 import { FaPlay, FaPause } from 'react-icons/fa'
 import { GiMusicalNotes } from 'react-icons/gi'
@@ -17,39 +21,7 @@ import { ScaleLoader } from 'react-spinners'
 import * as moment from 'moment'
 import 'moment-duration-format'
 
-function UpdateSongForm() {
-  return (
-    <Modal 
-      modalId='update-song-modal'
-      title={`Update Song`}
-      // todo
-      // showClose={!isLoading}
-      // onClose={onClose}
-      body={
-        <>
-          <div id=''>
-            {files.map(file => (
-              <div>
-                {file.name}
-              </div>
-            ))}
-          </div>
 
-          <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-            {isLoading ? (
-              <ClipLoader color='white' />
-            ) : (
-              <button
-                className='round-btn submit-btn grow'
-                onClick={handleAddSongs}
-              >UPDATE SONG</button>
-            )}
-          </div>
-        </>
-      }
-    />
-  )
-}
 
 function Song({ song }) {
   const updateSong = useUpdateSong()

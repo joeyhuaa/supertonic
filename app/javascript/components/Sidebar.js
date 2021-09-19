@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
+import shallow from 'zustand/shallow'
 
 import { MdSettings } from 'react-icons/md'
 import { BsX } from 'react-icons/bs'
@@ -9,12 +10,13 @@ import Context from './Context'
 import IconClickable from '../molecules/IconClickable'
 import Clickable from '../molecules/Clickable'
 
+import { useStore } from '../store'
+
 import { 
   useProjects, 
   useCreateProject, 
-  useTheme, 
   useDeleteProject 
-} from '../hooks'
+} from '../hooks/project'
 
 function Menu() {
   return (
@@ -34,7 +36,7 @@ export default function Sidebar() {
 
   const { user } = useContext(Context)
 
-  const theme = useTheme().data
+  const theme = useStore(state => state.theme, shallow)
   const { data, isError, isLoading } = useProjects()
   const _createProject = useCreateProject()
   const _deleteProject = useDeleteProject()

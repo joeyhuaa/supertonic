@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useEffect, useContext } from 'react'
+import { useStore } from '../store'
+
 import { BsX } from 'react-icons/bs'
 
+import Context from '../components/Context'
 import IconClickable from './IconClickable'
 
 export default function Modal({
@@ -8,8 +11,15 @@ export default function Modal({
   title,
   body,
   showClose = true,
-  onClose,
 }) {
+  const { setShowOverlay } = useContext(Context)
+  const { closeModal } = useStore(state => state.closeModal)
+
+  useEffect(() => {
+    setShowOverlay(true)
+    return () => setShowOverlay(false)
+  }, [])
+
   return (
     <section id={modalId} className='Modal'>
       <div 
@@ -22,7 +32,7 @@ export default function Modal({
       >
         {showClose && 
           <IconClickable
-            onClick={onClose}
+            onClick={closeModal}
             icon={<BsX size={30} />}
             className='top-right-n-8'
           />
