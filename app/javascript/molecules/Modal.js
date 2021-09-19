@@ -13,7 +13,7 @@ export default function Modal({
   showClose = true,
 }) {
   const { setShowOverlay } = useContext(Context)
-  const { closeModal } = useStore(state => state.closeModal)
+  const { closeModal } = useStore.getState()
 
   useEffect(() => {
     setShowOverlay(true)
@@ -33,11 +33,11 @@ export default function Modal({
         {showClose && 
           <IconClickable
             onClick={closeModal}
-            icon={<BsX size={30} />}
+            icon={<BsX size={20} />}
             className='top-right-n-8'
           />
         }
-        <h2 style={{ margin: 'auto' }}>{title}</h2>
+        <h3 style={{ margin: 'auto' }}>{title}</h3>
       </div>
 
       {body}

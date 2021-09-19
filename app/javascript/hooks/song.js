@@ -27,9 +27,6 @@ export function useDeleteSong() {
 
         // optimistic update, remove song from project
         queryClient.setQueryData(['projects', projectId], old => {
-          // TODO - delete song is working, but NOT the optimistic update
-
-          // ! need to delete song from that BRANCH not from the project
           // clone the branches
           let branches = lodash.cloneDeep(old.branches)
           console.log('branches');

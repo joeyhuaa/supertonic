@@ -23,6 +23,17 @@ export function useStateCallback(initialState) {
   return [state, setStateCallback];
 }
 
+export function useTheme() {
+  return useQuery(
+    ['theme'],
+    async () => {
+      let res = await fetch('/api/user/theme')
+      let { theme } = res.json()
+      return theme
+    }
+  )
+}
+
 export function useChangeTheme() {
   const { setTheme } = useStore.getState()
 

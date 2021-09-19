@@ -23,6 +23,24 @@ import  {
 } from '../hooks/project'
 
 // * HEADER COMPONENTS
+const BranchSelect = (props) => {
+  const { branches, currBranch, setCurrBranch, className } = props
+  const items = branches.map(branch => ({
+    label: branch.name,
+    callback: () => setCurrBranch(branch.name)
+  }))
+
+  return (
+    <DropdownMenu 
+      className={className}
+      items={items}
+      label={currBranch}
+      icon={<BiGitBranch style={{ marginRight: '5px' }} />}
+      showBorder
+    />
+  )
+}
+
 const AddBranchForm = ({ project, sourceBranchName }) => {
   let [newBranchName, setNewBranchName] = useState('')
   let { mutate } = useCreateBranch()
@@ -61,24 +79,6 @@ const AddBranchForm = ({ project, sourceBranchName }) => {
         value={newBranchName}
       />
     </form>
-  )
-}
-
-const BranchSelect = (props) => {
-  const { branches, currBranch, setCurrBranch, className } = props
-  const items = branches.map(branch => ({
-    label: branch.name,
-    callback: () => setCurrBranch(branch.name)
-  }))
-
-  return (
-    <DropdownMenu 
-      className={className}
-      items={items}
-      label={currBranch}
-      icon={<BiGitBranch />}
-      showBorder
-    />
   )
 }
 
@@ -138,13 +138,21 @@ const ProjectHeader = (props) => {
     isFetching,
   } = props
 
-  let [files, setFiles] = useState([])
+  const [files, setFiles] = useState([])
+  const { openModal, setSongsToUpload } = useStore.getState()
+
+  // * open modal and update state
+  useEffect(() => {
+    if (files.length > 0) {
+      openModal('add-songs')
+      setSongsToUpload(files)
+    }
+  }, [files])
 
   const spinnerCSS = css`
     position: absolute;
     right: 30px;
   `
-
   return (
     <div id='header'>
       <TitleHeading
@@ -170,14 +178,6 @@ const ProjectHeader = (props) => {
         currBranch={branchName}
         setCurrBranch={setCurrBranch}
       />
-
-      {files.length > 0 && 
-        <AddSongsForm
-          files={files}
-          projectId={project.id}
-          branchName={branchName}
-        />
-      }
 
       {isFetching && (
         <ClipLoader 

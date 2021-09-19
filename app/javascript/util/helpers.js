@@ -24,3 +24,22 @@ export const audioDuration = async audioFile => {
 
   const duration = await readFile(audioFile)
 }
+
+export const audioToBase64 = (audioFile) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const b64 = e.target.result;
+      let audio = document.createElement('audio')
+      audio.src = b64;
+      audio.addEventListener('loadedmetadata', () => {
+        resolve({
+          b64: b64,
+          duration: audio.duration
+        });
+      })
+    }
+    reader.onerror = reject;
+    reader.readAsDataURL(audioFile);
+  });
+}

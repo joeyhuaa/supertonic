@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+
+import { ClipLoader } from 'react-spinners'
 
 import { useStore } from '../store'
 import { useCreateSongs } from '../hooks/song'
+import { audioToBase64 } from '../util/helpers'
+
+import Modal from '../molecules/Modal'
 
 const AddSongsModal = () => {
   const { mutate, isLoading, isSuccess, error } = useCreateSongs()
@@ -9,34 +14,12 @@ const AddSongsModal = () => {
     songsToUpload,
     project,
     currBranch,
-  } = useStore(state => ({
-    songsToUpload: state.songsToUpload,
-    project: state.project,
-    currBranch: state.currBranch,
-  }))
+    closeModal, 
+  } = useStore.getState()
 
   useEffect(() => {
     if (isSuccess) closeModal()
   }, [isSuccess])
-
-  let audioToBase64 = (audioFile) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const b64 = e.target.result;
-        let audio = document.createElement('audio')
-        audio.src = b64;
-        audio.addEventListener('loadedmetadata', () => {
-          resolve({
-            b64: b64,
-            duration: audio.duration
-          });
-        })
-      }
-      reader.onerror = reject;
-      reader.readAsDataURL(audioFile);
-    });
-  }
 
   let handleAddSongs = () => {
     // set up formdata
@@ -47,11 +30,11 @@ const AddSongsModal = () => {
     songsToUpload.forEach( file => songPromises.push( audioToBase64(file) ) )
 
     // resolve the array of proms
-    Promise.all(songPromises) // !this was the missing piece of the puzzle!
+    Promise.all(songPromises)
       .then(result => {
         let songs = result.map((obj, i) => {
           return {
-            name: files[i].name,
+            name: songsToUpload[i].name,
             b64: obj.b64,
             duration: obj.duration,
           }
@@ -71,12 +54,12 @@ const AddSongsModal = () => {
   return (
     <Modal 
       modalId='add-songs-modal'
-      title={`Add Songs (${files.length})`}
+      title={`Add Songs (${songsToUpload.length})`}
       showClose={!isLoading}
       body={
         <>
           <div id='file-list'>
-            {files.map(file => (
+            {songsToUpload.map(file => (
               <div>
                 {file.name}
               </div>

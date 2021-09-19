@@ -1,4 +1,6 @@
 import React, { useContext } from 'react'
+
+import { useStore } from '../store'
 import Context from './Context'
 
 import Clickable from '../molecules/Clickable'
@@ -21,25 +23,23 @@ import { ScaleLoader } from 'react-spinners'
 import * as moment from 'moment'
 import 'moment-duration-format'
 
-
-
 function Song({ song }) {
-  const updateSong = useUpdateSong()
   const deleteSong = useDeleteSong()
   const { playPause, isPlaying, currSong } = useContext(Context)
+  const { setSongToUpdate, openModal, currBranch } = useStore.getState()
 
-  let update = () => {
-    updateSong.mutate({
-      id: song.id,
-      // newFile: // TODO - new song file
-    })
+  function handleOpenUpdateSongModal() {
+    setSongToUpdate(song)
+    openModal('update-song')
   }
 
-  let destroy = () => deleteSong.mutate({ 
-    id: song.id, 
-    projectId: song.project_id,
-    branchName: 'main' // TODO - make this dynamic
-  })
+  function destroy() { 
+    deleteSong.mutate({ 
+      id: song.id, 
+      projectId: song.project_id,
+      branchName: currBranch,
+    })
+  }
 
   return (
     <Clickable className='song'>
@@ -69,7 +69,7 @@ function Song({ song }) {
           [
             {
               label: 'Change File',
-              callback: update
+              callback: handleOpenUpdateSongModal
             },
             {
               label: 'Delete',
