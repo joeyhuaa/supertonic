@@ -4,12 +4,12 @@ import { css } from '@emotion/react'
 
 import { AiOutlineFileAdd } from 'react-icons/ai'
 import { BiGitBranch } from 'react-icons/bi'
+import { GoTriangleDown } from 'react-icons/go'
 
 import { ScaleLoader, ClipLoader } from 'react-spinners'
 
 import Context from '../components/Context'
 import Songs from '../components/Songs'
-import FloatDropdown from '../components/FloatDropdown'
 
 import IconClickable from '../molecules/IconClickable'
 import DropdownMenu from '../molecules/DropdownMenu'
@@ -178,7 +178,55 @@ const BranchSelect = (props) => {
       items={items}
       label={currBranch}
       icon={<BiGitBranch />}
+      showBorder
     />
+  )
+}
+
+const TitleHeading = props => {
+  const {
+    project,
+  } = props
+
+  let updateProject = useUpdateProject()
+  let deleteProject = useDeleteProject()
+
+  function changeProjName() {
+    let newName = prompt('Enter a new project name', project.name)
+    if (newName) {
+      updateProject.mutate({
+        id: project.id,
+        name: newName
+      })
+    }
+  }
+
+  function deleteProj() {
+    deleteProject.mutate({ id: project.id })
+  }
+
+  return (
+    <div id='heading' className='header-item'>
+      <h2 
+        className='ellipse'
+        onClick={changeProjName}
+      >{project.name}</h2>
+      <DropdownMenu 
+        icon={<GoTriangleDown />}
+        items={
+          [
+            {
+              label: 'Delete Project',
+              callback: deleteProj
+            },
+            {
+              label: 'Delete Current Branch',
+              callback: () => {} // todo - finish this func
+            }
+          ]
+        }
+      />
+    </div>
   )
 }
 
@@ -192,24 +240,6 @@ const ProjectHeader = (props) => {
   } = props
 
   let [files, setFiles] = useState([])
-  let updateProject = useUpdateProject()
-  let deleteProject = useDeleteProject()
-
-  let changeProjName = () => {
-    let newName = prompt('Enter a new project name')
-    if (newName) {
-      updateProject.mutate({
-        id: project.id,
-        name: newName
-      })
-    }
-  }
-
-  let deleteProj = () => {
-    deleteProject.mutate({
-      id: project.id
-    })
-  }
 
   const spinnerCSS = css`
     position: absolute;
@@ -218,28 +248,9 @@ const ProjectHeader = (props) => {
 
   return (
     <div id='header'>
-      <div id='heading' className='header-item'>
-        <h2 
-          className='ellipse'
-          onClick={changeProjName}
-        >{project.name}</h2>
-        <FloatDropdown 
-          className='header-item'
-          options={[
-            {
-              name: 'Delete Project', 
-              danger: true, 
-              onClick: deleteProj, 
-              returnHome: true
-            },
-            {
-              name: 'Delete Current Branch', 
-              danger: true, 
-              onClick: () => {}
-            }
-          ]}
-        />
-      </div>
+      <TitleHeading
+        project={project}
+      />
 
       <FancyFileInput 
         className='header-item'

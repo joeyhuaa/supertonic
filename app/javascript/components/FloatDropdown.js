@@ -1,14 +1,11 @@
 import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { usePopper } from 'react-popper'
-import {
-  GoTriangleDown
-} from 'react-icons/go'
 
 import IconClickable from '../molecules/IconClickable'
 
 const FloatDropdown = React.forwardRef((props, ref) => {
-  const { options } = props
+  const { icon, options } = props
 
   const [showDropdown, setShowDropdown] = useState(false)
   const [referenceElement, setReferenceElement] = useState(null);
@@ -31,7 +28,7 @@ const FloatDropdown = React.forwardRef((props, ref) => {
   return (
     <div className='floatdropdown'>
       <IconClickable 
-        icon={<GoTriangleDown size={20} />}
+        icon={icon}
         onClick={() => setShowDropdown(!showDropdown)}
         ref={setReferenceElement}
         className='icon'

@@ -3,18 +3,19 @@ import Dropdown from 'react-bootstrap/Dropdown'
 
 export default function DropdownMenu({
   items,
-  label,
+  label = null,
   icon,
   className,
+  showBorder = false,
 }) {
   return (
-    <Dropdown className={className}>
+    <Dropdown className={`dropdown ${className}`}>
       <Dropdown.Toggle 
         id="dropdown-basic"
         className='df aic'
         style={{ 
           backgroundColor: 'transparent', 
-          border: 'solid whitesmoke 1px',
+          border: showBorder ? 'solid whitesmoke 1px' : 'none',
           outline: 'none',
         }}
       >

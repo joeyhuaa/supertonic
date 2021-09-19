@@ -84,9 +84,9 @@ export default function MusicPlayer() {
 
       <div id='pButton' ref={pButton} onClick={() => playPause(currSong.id)}>
         {isPlaying ? (
-          <FaPause color='white' />
+          <FaPause color='white' className='grow' />
         ) : (
-          <FaPlay color='white' />
+          <FaPlay color='white' className='grow' />
         )}
       </div>
 

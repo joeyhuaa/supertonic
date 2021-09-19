@@ -21,6 +21,7 @@ function UpdateSongForm() {
     <Modal 
       modalId='update-song-modal'
       title={`Update Song`}
+      // todo
       // showClose={!isLoading}
       // onClose={onClose}
       body={
@@ -89,10 +90,17 @@ function Song({ song }) {
       <span className='date song-item'>
         {moment(new Date(song.created_at)).format('MM/DD/YYYY')}
       </span>
-      <IconClickable 
+      {/* <IconClickable 
         className='filechange clickable song-item'
         onClick={update}
         icon={<VscNewFile className='grow' />}
+      /> */}
+      <FancyFileInput 
+        className='header-item'
+        icon={<VscNewFile className='grow' />} 
+        onChange={files => setFiles( Array.from(files) )}
+        accept='.mp3, .wav'
+        multiple
       />
       <IconClickable 
         className='filechange clickable song-item' 
