@@ -15,13 +15,11 @@ class SongController < ApplicationController
 
   # POST 'api/songs/:id/update'
   def update
-
   end
 
   # DELETE 'api/songs/:id/destroy'
   def destroy
-    puts 'DESTROY SONG'
-    puts params
+    # todo - don't remove the song from the project completely, just remove from branch, UNLESS no other branches also have the song
     @song = Song.find(params[:id])
     @song.destroy
     render :json => {
