@@ -1,10 +1,11 @@
 import React from 'react'
+import { useStore } from '../store'
 import { THEME } from '../aesthetics'
-import { useTheme, useChangeTheme } from '../hooks'
+import { useChangeTheme } from '../hooks/app'
 
 export default function Settings() {
   let setTheme = useChangeTheme()
-  const theme = useTheme().data
+  const { theme } = useStore.getState()
 
   let changeTheme = (newTheme) => {
     setTheme.mutate({ theme: newTheme })

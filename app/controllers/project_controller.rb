@@ -5,6 +5,8 @@
 # 2. Add belongs_to lines to them
 # 3. Migrate
 
+require 'byebug'
+
 class ProjectController < ApplicationController
   skip_before_action :verify_authenticity_token
 
@@ -30,7 +32,6 @@ class ProjectController < ApplicationController
   def new
     @user = current_user
     @project = @user.projects.create(id: params[:id])
-    # @project = @user.projects.create(created_at: Time.now)
 
     # * name
     @project.name = "Untitled Project"
@@ -56,6 +57,7 @@ class ProjectController < ApplicationController
   # GET api/projects/:id
   def get
     @project = Project.find(params[:id])
+    # byebug
     render :json => @project
   end
 

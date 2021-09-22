@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
+import shallow from 'zustand/shallow'
 
 import { MdSettings } from 'react-icons/md'
 import { BsX } from 'react-icons/bs'
@@ -9,16 +10,17 @@ import Context from './Context'
 import IconClickable from '../molecules/IconClickable'
 import Clickable from '../molecules/Clickable'
 
+import { useStore } from '../store'
+
 import { 
   useProjects, 
   useCreateProject, 
-  useTheme, 
   useDeleteProject 
-} from '../hooks'
+} from '../hooks/project'
 
 function Menu() {
   return (
-    <div style={{ display: 'flex' }}>
+    <div style={{ display: 'flex' }} aria-label='Settings'>
       <Link to='/settings'>
         <IconClickable 
           icon={<MdSettings color='white' size={20} />} 
@@ -34,14 +36,14 @@ export default function Sidebar() {
 
   const { user } = useContext(Context)
 
-  const theme = useTheme().data
-  const { data, isError, isLoading, isFetching } = useProjects()
+  const theme = useStore(state => state.theme, shallow)
+  const { data, isError, isLoading } = useProjects()
   const _createProject = useCreateProject()
   const _deleteProject = useDeleteProject()
 
   // * get projId from url and set state
   useEffect(() => {
-    let projId = parseInt( window.location.pathname.split('/').pop() )
+    let projId = window.location.pathname.split('/').pop() // typeof projId = string
     setCurrProjId(projId)
   }, [])
 
@@ -62,7 +64,7 @@ export default function Sidebar() {
 
   let createProject = () => {
     _createProject.mutate({
-      id: Date.now(),
+      id: `${Date.now()}-proj`,
       name: 'Untitled Project',
     })
   }
@@ -70,7 +72,7 @@ export default function Sidebar() {
   let deleteProject = (projectId) => {
     _deleteProject.mutate({ id: projectId })
   }
-  
+
   return (
     <section 
       id='sidebar' 
@@ -86,7 +88,7 @@ export default function Sidebar() {
         {isLoading && <span>Loading...</span>}
         {data?.map((proj) => {
           return (
-            <Link 
+            <Link
               to={`/projects/${proj.id}`} 
               className='no-decor'
               key={proj.id}
@@ -95,7 +97,7 @@ export default function Sidebar() {
                 isSelected={currProjId === proj.id}
                 onClick={() => selectProject(proj.id)}
               >
-                <div className='project df aic jc-sb'>
+                <div className='project ellipse df aic jc-sb'>
                   {proj.name}
                   <Link
                     className='delete-proj-btn'

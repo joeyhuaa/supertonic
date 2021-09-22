@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
 import { THEME } from '../aesthetics'
-import {useTheme} from '../hooks'
+import { useStore } from '../store'
 
 const Clickable = React.forwardRef((props, ref) => {
-  const [isHovering, setHovering] = useState(false)
-  const theme = useTheme().data
   const {
     elemKey,
     className,
@@ -15,6 +13,8 @@ const Clickable = React.forwardRef((props, ref) => {
     styles = { padding: '5px' },
     isSelected = false,
   } = props
+  const { theme } = useStore.getState()
+  const [isHovering, setHovering] = useState(false)
 
   const getStyles = () => {
     if (isSelected) return {...styles, backgroundColor: THEME[theme].color2 }

@@ -7,18 +7,24 @@ class SongController < ApplicationController
     render :json => {
       :song => @song
     }
+    # todo - render :json => @song
   end
 
   def post
   end
 
+  # POST 'api/songs/:id/update'
   def update
   end
 
   # DELETE 'api/songs/:id/destroy'
   def destroy
-    @song = Song.find(params['id'])
+    # todo - don't remove the song from the project completely, just remove from branch, UNLESS no other branches also have the song
+    @song = Song.find(params[:id])
     @song.destroy
-    render :json => {status: 200}
+    render :json => {
+      projectId: params[:projectId],
+      destroyed: @song.name,
+    }
   end
 end

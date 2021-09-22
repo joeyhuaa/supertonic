@@ -3,7 +3,7 @@ import IconClickable from './IconClickable';
 import PropTypes from 'prop-types';
 
 const FancyFileInput = ({ 
-  onChange = (files, event) => {},
+  onChange = () => {}, // ! not working... onChange defaulting to null
   icon,
   multiple = false,
   accept = '*',
@@ -26,7 +26,7 @@ const FancyFileInput = ({
         onChange={handleChange} 
         accept={accept} 
       />
-      <label for='file'>
+      <label htmlFor='file'>
         <IconClickable icon={icon} />
         {label}
       </label>

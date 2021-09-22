@@ -1,0 +1,13 @@
+.dropdown {
+  #dropdown-basic::after {
+    display: none;
+  }
+
+  #dropdown-basic:focus {
+    box-shadow: none;
+  }
+
+  .dropdown-menu {
+    // padding: 0;
+  }
+}

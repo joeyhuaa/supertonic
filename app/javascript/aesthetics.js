@@ -47,11 +47,5 @@ export const THEME = {
     color4: COLORS.lightBurgundy,
     button: null,
     text: null,
-  },
-  'ad Parnassum': {
-
-  },
-  'mezzo forte': {
-    
   }
 }
